@@ -1,0 +1,40 @@
+.flexRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.flexCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.columnGap8 {
+    column-gap: 8px;
+}
+
+.columnGap16 {
+    column-gap: 8px;
+}
+
+.columnGap24 {
+    column-gap: 24px;
+}
+
+.rowGap8 {
+    row-gap: 8px;
+}
+
+.rowGap16 {
+    row-gap: 16px;
+}
+
+.rowGap24 {
+    row-gap: 24px;
+}
