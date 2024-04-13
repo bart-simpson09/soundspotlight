@@ -13,12 +13,17 @@ body {
     border-radius: 40px;
 }
 
-.pageContainer {
+.globalPageContainer {
     margin-top: 32px;
     border-radius: 16px;
     background-color: var(--background-container);
     padding: 24px 24px 40px 24px;
     gap: 40px;
+}
+
+.narrowPageContainer {
+    max-width: 720px;
+    margin: 32px auto;
 }
 
 .searchBar {
@@ -121,11 +126,6 @@ body {
 }
 
 /* ALBUM DETAILS */
-
-.albumDetailsContainer {
-    max-width: 720px;
-    margin: 32px auto;
-}
 
 .albumDetailsTop {
     flex-wrap: wrap;
