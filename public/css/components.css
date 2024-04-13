@@ -12,6 +12,13 @@ a:hover {
     color: var(--text-primary-teal);
 }
 
+/* Component ICON*/
+
+i {
+    font-size: 24px;
+    color: var(--text-secondary);
+}
+
 /* Component NAV*/
 
 nav {

@@ -21,6 +21,13 @@ h1 {
     color: var(--text-primary-dark);
 }
 
+h2 {
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 400;
+    color: var(--text-primary-dark);
+}
+
 h3 {
     font-size: 16px;
     font-weight: 600;
