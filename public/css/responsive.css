@@ -1,32 +1,28 @@
-@media only screen and (min-width: 375px) {
+@media (max-width: 520px) {
     .albumsList {
         grid-template-columns: repeat(1, 1fr);
     }
-
-    .searchBar {
-        flex-wrap: wrap;
-    }
 }
 
-@media only screen and (min-width: 600px) {
+@media (min-width: 520px) and (max-width: 740px) {
     .albumsList {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media only screen and (min-width: 800px) {
+@media (min-width: 741px) and (max-width: 960px) {
     .albumsList {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
-@media only screen and (min-width: 1000px) {
+@media (min-width: 961px) and (max-width: 1220px) {
     .albumsList {
         grid-template-columns: repeat(4, 1fr);
     }
 }
 
-@media only screen and (min-width: 1220px) {
+@media (min-width: 1221px) {
     .albumsList {
         grid-template-columns: repeat(5, 1fr);
     }
@@ -36,7 +32,7 @@
     }
 }
 
-@media only screen and (max-width: 1220px) {
+@media (max-width: 1220px) {
     body {
         padding: 16px;
     }
@@ -111,5 +107,9 @@
 
     .hamburgerMenu.active .hamburgerBar:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .searchBar {
+        flex-wrap: wrap;
     }
 }
