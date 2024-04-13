@@ -20,7 +20,7 @@
 
     <script src="public/js/scripts.js"></script>
 
-    <title>Album details</title>
+    <title>My profile</title>
 </head>
 
 <body>
@@ -70,17 +70,22 @@
         </div>
         <div class="flexColumn rowGap24">
             <div class="flexRow columnGap16">
-                <div id="yourReviews" tabindex="0" class="tabItem flexRow columnGap8">
+                <button class="tabItem flexRow columnGap8" onclick="openTab(event, 'yourReviews')" id="defaultTab">
                     <i class="iconoir-message"></i>
-                    <p>Your reviews</p>
-                </div>
-                <div id="addedAlbums" tabindex="1" class="tabItem flexRow columnGap8">
+                    Your reviews
+                </button>
+                <button class="tabItem flexRow columnGap8" onclick="openTab(event, 'addedAlbums')">
                     <i class="iconoir-music-double-note"></i>
-                    <p>Added albums</p>
-                </div>
+                    Added albums
+                </button>
             </div>
             <div>
-                <div class="yourReviewItem"></div>
+                <div id="yourReviews" class="tabContent">
+                    Your reviews
+                </div>
+                <div id="addedAlbums" class="tabContent">
+                    Added albums
+                </div>
             </div>
         </div>
     </div>

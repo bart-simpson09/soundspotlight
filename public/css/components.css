@@ -274,25 +274,27 @@ select {
     width: 100%;
     align-items: center;
     justify-content: center;
-}
-
-.tabItem:hover {
-    background-color: var(--color-teal-10);
-    cursor: pointer;
-}
-
-.tabItem:focus {
-    background-color: var(--color-teal-20);
-}
-
-.tabItem:focus i {
-    color: var(--color-teal-100);
-}
-
-.tabItem p {
     color: var(--text-primary-dark);
+    font-size: 14px;
+    cursor: pointer;
 }
 
 .tabItem i {
     color: var(--color-grey-60);
+}
+
+.tabItem:hover {
+    background-color: var(--color-teal-10);
+}
+
+.tabItem.active {
+    background-color: var(--color-teal-20);
+}
+
+.tabItem.active i {
+    color: var(--color-teal-100);
+}
+
+.tabContent {
+    display: none;
 }
