@@ -1,20 +1,18 @@
 body {
-
     background-color: var(--background-page);
-
     padding: 32px;
 }
 
 a,
 a:active,
 a:visited {
-    color: var(--primary-txt);
+    color: var(--text-primary-dark);
     text-decoration: none;
     white-space: nowrap;
 }
 
 a:hover {
-    color: var(--primary-green);
+    color: var(--text-primary-teal);
 }
 
 nav {
@@ -58,7 +56,7 @@ nav {
     width: 32px;
     height: 32px;
     border-radius: 8px;
-    background-color: #F5F6F8;
+    background-color: var(--color-grey-20);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -66,13 +64,13 @@ nav {
 
 .iconBox i {
     font-size: 20px;
-    color: #4CA6A8;
+    color: var(--color-teal-100);
 }
 
 .divider {
     height: 16px;
     width: 1px;
-    background-color: #C4C4C4;
+    background-color: var(--color-grey-40);
 }
 
 .avatar {
@@ -86,13 +84,13 @@ nav {
 .pageContainer {
     margin-top: 32px;
     border-radius: 16px;
-    background-color: white;
+    background-color: var(--background-container);
     padding: 24px 24px 40px 24px;
     gap: 40px;
 }
 
 .searchBar {
-    background-color: #F5F6F8;
+    background-color: var(--color-grey-20);
     padding: 16px;
     border-radius: 16px;
     gap: 16px;
@@ -110,7 +108,7 @@ nav {
 }
 
 .buttonPrimary {
-    background-color: var(--primary-green);
+    background-color: var(--color-teal-100);
     color: white;
     padding: 11.5px 16px;
     border-radius: 8px;
@@ -139,8 +137,8 @@ nav {
 
 
 .albumItem {
-    background-color: #FCFCFC;
-    border: 1px solid #E8E8E8;
+    background-color: var(--color-grey-10);
+    border: 1px solid var(--color-grey-30);
     border-radius: 16px;
     display: flex;
     width: 100%;
@@ -172,7 +170,7 @@ nav {
     border-radius: 8px;
     background: rgba(248, 249, 255, 0.50);
     backdrop-filter: blur(2px);
-    color: #ffffff;
+    color: var(--color-pure-white);
     position: absolute;
     top: 12px;
     right: 12px;
@@ -180,24 +178,24 @@ nav {
 
 .favouriteButtonDefault:hover {
     cursor: pointer;
-    background-color: #4CA6A8;
+    background-color: var(--color-teal-100);
 }
 
 label {
     font-size: 14px;
-    color: #000000;
+    color: var(--text-primary-dark);
 }
 
 input {
     padding: 12px;
     border-radius: 8px;
-    border: 1px solid #F4F5F7;
+    border: 1px solid var(--color-grey-30);
     font-size: 14px !important;
-    background-color: white;
+    background-color: var(--color-pure-white);
 }
 
 input:focus {
-    border: 1px solid var(--primary-green);
+    border: 1px solid var(--color-teal-100);
 }
 
 .inputWithIcon {
@@ -218,7 +216,7 @@ input:focus {
     top: 50%;
     transform: translateY(-50%);
     font-size: 16px;
-    color: #6B717D;
+    color: var(--text-secondary);
 }
 
 .customSelect {
@@ -234,14 +232,13 @@ select {
     cursor: pointer;
     padding: 12px;
     border-radius: 8px;
-    border: 1px solid #F4F5F7;
+    border: 1px solid var(--color-grey-30);
     font-size: 14px !important;
-    background-color: white;
+    background-color: var(--color-pure-white);
 }
 
 .customSelect::before,
 .customSelect::after {
-    --size: 4px;
     content: "";
     position: absolute;
     right: 12px;
@@ -249,16 +246,16 @@ select {
 }
 
 .customSelect::before {
-    border-left: var(--size) solid transparent;
-    border-right: var(--size) solid transparent;
-    border-bottom: var(--size) solid black;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid var(--color-pure-black);
     top: 40%;
 }
 
 .customSelect::after {
-    border-left: var(--size) solid transparent;
-    border-right: var(--size) solid transparent;
-    border-top: var(--size) solid black;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid var(--color-pure-black);
     top: 55%;
 }
 
@@ -273,7 +270,7 @@ select {
     margin: 6px auto;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
-    background-color: #9195AA;
+    background-color: var(--color-grey-60);
     border-radius: 8px;
 }
 
@@ -337,7 +334,7 @@ select {
 
     .menuArea.active {
         visibility: visible;
-        background-color: #fff;
+        background-color: var(--background-container);
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -358,11 +355,11 @@ select {
     .menuArea.active .menuOptions a {
         border-radius: 8px;
         padding: 16px 24px;
-        background-color: #fff;
+        background-color: var(--color-pure-white);
     }
 
     .menuArea.active .menuOptions a:hover {
-        background-color: #F4F5F7;
+        background-color: var(--color-grey-20);
     }
 
     .menuArea.active .userSide {
