@@ -1,0 +1,26 @@
+* {
+    font-family: "Inter", sans-serif !important;
+    font-optical-sizing: auto;
+    font-weight: 400;
+}
+
+.fontMedium {
+    font-weight: 500;
+}
+
+p {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--text-primary-dark);
+}
+
+h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary-dark);
+}
