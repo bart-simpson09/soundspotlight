@@ -1,4 +1,4 @@
-/* Component A*/
+/* Component A */
 a,
 a:active,
 a:visited {
@@ -12,14 +12,31 @@ a:hover {
     color: var(--text-primary-teal);
 }
 
-/* Component ICON*/
+/* Component ICON */
 
 i {
     font-size: 24px;
     color: var(--text-secondary);
 }
 
-/* Component NAV*/
+/* Component HAMBURGER MENU */
+
+.hamburgerMenu {
+    display: none;
+}
+
+.hamburgerBar {
+    display: block;
+    width: 24px;
+    height: 2px;
+    margin: 6px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: var(--color-grey-60);
+    border-radius: 8px;
+}
+
+/* Component NAV */
 
 nav {
     background-color: var(--background-container);
@@ -38,7 +55,7 @@ nav {
     box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.04);
 }
 
-/* Component BUTTON*/
+/* Component BUTTON */
 
 .buttonPrimary {
     background-color: var(--color-teal-100);
@@ -53,14 +70,14 @@ nav {
     background-color: var(--color-teal-80);
 }
 
-/* Component LABEL*/
+/* Component LABEL */
 
 label {
     font-size: 14px;
     color: var(--text-primary-dark);
 }
 
-/* Component INPUT*/
+/* Component INPUT */
 
 input {
     padding: 12px;
@@ -95,7 +112,16 @@ input:focus {
     color: var(--text-secondary);
 }
 
-/* Component SELECT*/
+.inputArea {
+    width: 100%;
+    min-width: 200px;
+}
+
+.inputArea input {
+    width: -webkit-fill-available;
+}
+
+/* Component SELECT */
 
 .customSelect {
     position: relative;
@@ -135,7 +161,7 @@ select {
     top: 55%;
 }
 
-/* Component ALBUM ITEM*/
+/* Component ALBUM ITEM */
 
 .albumItem {
     background-color: var(--color-grey-10);
@@ -172,4 +198,56 @@ select {
 
 .albumItemDetailText {
     color: var(--text-primary-dark);
+}
+
+/* Component ALBUM DETAILS OPINION ITEM */
+
+.albumDetailsOpinionItem {
+    background-color: var(--color-grey-10);
+    padding: 16px;
+    border-radius: 16px;
+    align-items: flex-start;
+}
+
+.opinionContent {
+    width: 100%;
+}
+
+.opinionDescription {
+    line-height: 24px;
+    font-weight: 300;
+    color: var(--text-primary-dark);
+}
+
+.opinionAuthorAvatar {
+    width: 168px;
+    height: 168px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+}
+
+.opinionHeader {
+    justify-content: space-between;
+}
+
+.opinionAurhor {
+    color: var(--text-primary-dark);
+    font-weight: 500;
+}
+
+.opinionItemDivider {
+    width: 8px;
+    height: 2px;
+    background-color: var(--color-teal-100);
+    border-radius: 2px;
+}
+
+.opinionRate p {
+    color: var(--text-primary-teal);
+}
+
+.opinionRate i {
+    font-size: 20px;
+    color: var(--color-teal-100);
 }
