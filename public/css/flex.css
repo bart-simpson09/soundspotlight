@@ -15,6 +15,10 @@
     justify-content: center;
 }
 
+.columnGap4 {
+    column-gap: 4px;
+}
+
 .columnGap8 {
     column-gap: 8px;
 }
@@ -41,4 +45,8 @@
 
 .rowGap24 {
     row-gap: 24px;
+}
+
+.rowGap32 {
+    row-gap: 32px;
 }

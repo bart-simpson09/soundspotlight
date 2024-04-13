@@ -5,6 +5,7 @@ a:visited {
     color: var(--text-secondary);
     text-decoration: none;
     white-space: nowrap;
+    font-size: 14px;
 }
 
 a:hover {
