@@ -18,13 +18,48 @@
     <link rel="stylesheet" type="text/css" href="public/css/components.css">
     <link rel="stylesheet" type="text/css" href="public/css/responsive.css">
 
-    <script src="public/js/scripts.js"></script>
-
     <title>Register</title>
 </head>
 
-<body>
-
+<body class="singleFormBody">
+    <div class="singleFormContainer flexColumn rowGap32">
+        <div class="flexColumn rowGap16">
+            <div class="flexColumn rowGap8">
+                <h1>Create an account</h1>
+                <p>It takes only a few steps to enter the music world!</p>
+            </div>
+            <span class="singleFormDivider"></span>
+        </div>
+        <form action="" class="flexColumn rowGap32">
+            <div class="flexColumn rowGap16">
+                <div class="inputArea flexColumn rowGap8">
+                    <label for="firstName">First name</label>
+                    <input type="text" name="" id="firstName" placeholder="Enter your first name">
+                </div>
+                <div class="inputArea flexColumn rowGap8">
+                    <label for="lastName">Last name</label>
+                    <input type="text" name="" id="lastName" placeholder="Enter your last name">
+                </div>
+                <div class="inputArea flexColumn rowGap8">
+                    <label for="email">Email</label>
+                    <input type="email" name="" id="email" placeholder="Enter your email">
+                </div>
+                <div class="inputArea flexColumn rowGap8">
+                    <label for="password">Password</label>
+                    <input type="password" name="" id="password" placeholder="Enter your password">
+                </div>
+                <div class="inputArea flexColumn rowGap8">
+                    <label for="passwordRepeat">Repeat password</label>
+                    <input type="password" name="" id="passwordRepeat" placeholder="Enter your password again">
+                </div>
+            </div>
+            <button class="buttonPrimary">Sign up</button>
+        </form>
+        <div class="flexRow columnGap4 flexCenter formFooter">
+            <p>Already have an account?</p>
+            <a href="">Sign in</a>
+        </div>
+    </div>
 </body>
 
 </html>
