@@ -183,3 +183,13 @@ body {
 .albumDetailsOpinions .header {
     justify-content: space-between;
 }
+
+/* MY PROFILE */
+
+.myProfileAvatar {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+}

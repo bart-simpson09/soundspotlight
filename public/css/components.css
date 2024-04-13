@@ -70,6 +70,19 @@ nav {
     background-color: var(--color-teal-80);
 }
 
+.buttonSecondary {
+    background-color: var(--color-teal-10);
+    color: var(--text-primary-teal);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.buttonSecondary:hover {
+    background-color: var(--color-teal-20);
+}
+
 /* Component LABEL */
 
 label {
@@ -250,4 +263,36 @@ select {
 .opinionRate i {
     font-size: 20px;
     color: var(--color-teal-100);
+}
+
+/* Component TAB ITEM */
+
+.tabItem {
+    background-color: var(--color-grey-10);
+    border-radius: 8px;
+    padding: 8px 16px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.tabItem:hover {
+    background-color: var(--color-teal-10);
+    cursor: pointer;
+}
+
+.tabItem:focus {
+    background-color: var(--color-teal-20);
+}
+
+.tabItem:focus i {
+    color: var(--color-teal-100);
+}
+
+.tabItem p {
+    color: var(--text-primary-dark);
+}
+
+.tabItem i {
+    color: var(--color-grey-60);
 }
