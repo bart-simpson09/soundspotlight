@@ -10,12 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css" />
 
-
     <link rel="stylesheet" type="text/css" href="public/css/reset.css">
     <link rel="stylesheet" type="text/css" href="public/css/fonts.css">
     <link rel="stylesheet" type="text/css" href="public/css/colors.css">
     <link rel="stylesheet" type="text/css" href="public/css/flex.css">
-    <link rel="stylesheet" type="text/css" href="public/css/global-style.css">
+    <link rel="stylesheet" type="text/css" href="public/css/global.css">
+    <link rel="stylesheet" type="text/css" href="public/css/components.css">
+    <link rel="stylesheet" type="text/css" href="public/css/responsive.css">
+
+    <script src="public/js/scripts.js"></script>
 
     <title>Dashboard</title>
 </head>
@@ -23,8 +26,8 @@
 <body>
     <nav>
         <a href="/"><img src="/public/assets/logo.svg" alt="SoundSpotlight Logo"></a>
-        <div class="menuArea">
-            <div class="menuOptions">
+        <div class="menuArea flexRow">
+            <div class="menuOptions flexRow columnGap32">
                 <a href="">Home</a>
                 <a href="">Top albums</a>
                 <a href="">Your favourites</a>
@@ -33,13 +36,13 @@
             </div>
             <div class="userSide flexRow columnGap24">
                 <button class="flexRow columnGap8">
-                    <span class="iconBox"><i class="iconoir-music-double-note"></i></span>
+                    <span class="iconBox flexCenter"><i class="iconoir-music-double-note"></i></span>
                     <a href="">Add album</a>
                 </button>
-                <span class="divider"></span>
+                <span class="menuDivider"></span>
                 <div class="userInfo flexRow columnGap16">
                     <div class="profile flexRow columnGap8">
-                        <img class="avatar" src="/public/assets/imgs/avatar.png" alt="">
+                        <img class="menuAvatar" src="/public/assets/imgs/avatar.png" alt="">
                         <p class="fontMedium">Mateusz Sajdak</p>
                     </div>
                     <button class="flexRow">
@@ -128,15 +131,15 @@
             </form>
         </div>
         <div class="albumsList">
-            <div class="albumItem">
-                <div class="albumCoverArea">
+            <div class="albumItem flexColumn rowGap24">
+                <div class="albumItemCoverArea">
                     <div class="favouriteButtonDefault flexCenter">
                         <i class="iconoir-heart"></i>
                     </div>
-                    <img class="albumCover" src="/public/assets/imgs/covers/1-800-oswiecenie.png"
+                    <img class="albumItemCover" src="/public/assets/imgs/covers/1-800-oswiecenie.png"
                         alt="1-800-Oświecenie-Album-Cover">
                 </div>
-                <div class="albumContent flexColumn rowGap24">
+                <div class="albumItemContent flexColumn rowGap24">
                     <div class="flexColumn rowGap8">
                         <h3>1-800-Oświecenie</h3>
                         <p>Taco Hemingway</p>
@@ -157,168 +160,12 @@
                     </div>
                 </div>
             </div>
-            <div class="albumItem">
-                <div class="albumCoverArea">
-                    <div class="favouriteButtonDefault flexCenter">
-                        <i class="iconoir-heart"></i>
-                    </div>
-                    <img class="albumCover" src="/public/assets/imgs/covers/1-800-oswiecenie.png"
-                        alt="1-800-Oświecenie-Album-Cover">
-                </div>
-                <div class="albumContent flexColumn rowGap24">
-                    <div class="flexColumn rowGap8">
-                        <h3>1-800-Oświecenie</h3>
-                        <p>Taco Hemingway</p>
-                    </div>
-                    <div class="flexColumn rowGap8">
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Release date</p>
-                            <p class="albumItemDetailText">01.01.2023</p>
-                        </div>
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Rate</p>
-                            <p class="albumItemDetailText">4.2/5</p>
-                        </div>
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Reviews</p>
-                            <p class="albumItemDetailText">4</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="albumItem">
-                <div class="albumCoverArea">
-                    <div class="favouriteButtonDefault flexCenter">
-                        <i class="iconoir-heart"></i>
-                    </div>
-                    <img class="albumCover" src="/public/assets/imgs/covers/1-800-oswiecenie.png"
-                        alt="1-800-Oświecenie-Album-Cover">
-                </div>
-                <div class="albumContent flexColumn rowGap24">
-                    <div class="flexColumn rowGap8">
-                        <h3>1-800-Oświecenie</h3>
-                        <p>Taco Hemingway</p>
-                    </div>
-                    <div class="flexColumn rowGap8">
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Release date</p>
-                            <p class="albumItemDetailText">01.01.2023</p>
-                        </div>
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Rate</p>
-                            <p class="albumItemDetailText">4.2/5</p>
-                        </div>
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Reviews</p>
-                            <p class="albumItemDetailText">4</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="albumItem">
-                <div class="albumCoverArea">
-                    <div class="favouriteButtonDefault flexCenter">
-                        <i class="iconoir-heart"></i>
-                    </div>
-                    <img class="albumCover" src="/public/assets/imgs/covers/1-800-oswiecenie.png"
-                        alt="1-800-Oświecenie-Album-Cover">
-                </div>
-                <div class="albumContent flexColumn rowGap24">
-                    <div class="flexColumn rowGap8">
-                        <h3>1-800-Oświecenie</h3>
-                        <p>Taco Hemingway</p>
-                    </div>
-                    <div class="flexColumn rowGap8">
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Release date</p>
-                            <p class="albumItemDetailText">01.01.2023</p>
-                        </div>
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Rate</p>
-                            <p class="albumItemDetailText">4.2/5</p>
-                        </div>
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Reviews</p>
-                            <p class="albumItemDetailText">4</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="albumItem">
-                <div class="albumCoverArea">
-                    <div class="favouriteButtonDefault flexCenter">
-                        <i class="iconoir-heart"></i>
-                    </div>
-                    <img class="albumCover" src="/public/assets/imgs/covers/1-800-oswiecenie.png"
-                        alt="1-800-Oświecenie-Album-Cover">
-                </div>
-                <div class="albumContent flexColumn rowGap24">
-                    <div class="flexColumn rowGap8">
-                        <h3>1-800-Oświecenie</h3>
-                        <p>Taco Hemingway</p>
-                    </div>
-                    <div class="flexColumn rowGap8">
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Release date</p>
-                            <p class="albumItemDetailText">01.01.2023</p>
-                        </div>
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Rate</p>
-                            <p class="albumItemDetailText">4.2/5</p>
-                        </div>
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Reviews</p>
-                            <p class="albumItemDetailText">4</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="albumItem">
-                <div class="albumCoverArea">
-                    <div class="favouriteButtonDefault flexCenter">
-                        <i class="iconoir-heart"></i>
-                    </div>
-                    <img class="albumCover" src="/public/assets/imgs/covers/1-800-oswiecenie.png"
-                        alt="1-800-Oświecenie-Album-Cover">
-                </div>
-                <div class="albumContent flexColumn rowGap24">
-                    <div class="flexColumn rowGap8">
-                        <h3>1-800-Oświecenie</h3>
-                        <p>Taco Hemingway</p>
-                    </div>
-                    <div class="flexColumn rowGap8">
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Release date</p>
-                            <p class="albumItemDetailText">01.01.2023</p>
-                        </div>
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Rate</p>
-                            <p class="albumItemDetailText">4.2/5</p>
-                        </div>
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Reviews</p>
-                            <p class="albumItemDetailText">4</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
         </div>
     </div>
 </body>
 
-<script>
-    const hamburgerMenu = document.querySelector(".hamburgerMenu");
-    const menuArea = document.querySelector(".menuArea");
-    const nav = document.querySelector("nav");
 
-    hamburgerMenu.addEventListener("click", mobileMenu);
-
-    function mobileMenu() {
-        hamburgerMenu.classList.toggle("active");
-        menuArea.classList.toggle("active");
-        nav.classList.toggle("active");
-    }
-</script>
 
 </html>

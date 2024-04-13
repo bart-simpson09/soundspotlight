@@ -1,0 +1,109 @@
+body {
+    background-color: var(--background-page);
+    padding: 32px;
+}
+
+.profile p {
+    white-space: nowrap;
+}
+
+.menuArea {
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.menuOptions {
+    justify-content: center;
+    width: 100%;
+}
+
+.iconBox {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background-color: var(--color-grey-20);
+}
+
+.iconBox i {
+    font-size: 20px;
+    color: var(--color-teal-100);
+}
+
+.menuDivider {
+    height: 16px;
+    width: 1px;
+    background-color: var(--color-grey-40);
+}
+
+.menuAvatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 40px;
+}
+
+.pageContainer {
+    margin-top: 32px;
+    border-radius: 16px;
+    background-color: var(--background-container);
+    padding: 24px 24px 40px 24px;
+    gap: 40px;
+}
+
+.searchBar {
+    background-color: var(--color-grey-20);
+    padding: 16px;
+    border-radius: 16px;
+    gap: 16px;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+}
+
+.searchInputArea {
+    width: 100%;
+    min-width: 200px;
+}
+
+.searchInputArea input {
+    width: -webkit-fill-available;
+}
+
+.albumsList {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+}
+
+.favouriteButtonDefault {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba(248, 249, 255, 0.50);
+    backdrop-filter: blur(2px);
+    color: var(--color-pure-white);
+    position: absolute;
+    top: 12px;
+    right: 12px;
+}
+
+.favouriteButtonDefault:hover {
+    cursor: pointer;
+    background-color: var(--color-teal-100);
+}
+
+.hamburgerMenu {
+    display: none;
+}
+
+.hamburgerBar {
+    display: block;
+    width: 24px;
+    height: 2px;
+    margin: 6px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: var(--color-grey-60);
+    border-radius: 8px;
+}

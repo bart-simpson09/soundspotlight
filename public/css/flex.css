@@ -27,6 +27,10 @@
     column-gap: 24px;
 }
 
+.columnGap32 {
+    column-gap: 32px;
+}
+
 .rowGap8 {
     row-gap: 8px;
 }
