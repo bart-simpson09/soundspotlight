@@ -42,6 +42,10 @@ nav {
     white-space: nowrap;
 }
 
+.buttonPrimary:hover {
+    background-color: var(--color-teal-80);
+}
+
 /* Component LABEL*/
 
 label {
