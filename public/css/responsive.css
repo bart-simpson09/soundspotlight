@@ -2,6 +2,16 @@
     .albumsList {
         grid-template-columns: repeat(1, 1fr);
     }
+
+    .opinionBasicInfo {
+        flex-direction: column;
+        row-gap: 4px;
+        align-items: baseline;
+    }
+
+    .opinionBasicInfo span {
+        display: none;
+    }
 }
 
 @media (min-width: 520px) and (max-width: 740px) {

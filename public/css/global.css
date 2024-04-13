@@ -36,7 +36,7 @@ body {
     background-color: var(--color-grey-40);
 }
 
-.menuAvatar {
+.standardAvatar {
     width: 40px;
     height: 40px;
     object-fit: cover;
@@ -134,4 +134,116 @@ body {
 .formFooter a {
     color: var(--text-primary-dark) !important;
     font-weight: 500;
+}
+
+.albumDetailsContainer {
+    max-width: 720px;
+    margin: 32px auto;
+}
+
+.albumDetailsTop {
+    flex-wrap: wrap;
+    row-gap: 32px;
+}
+
+.albumDetailsDescription {
+    color: var(--text-primary-dark);
+    line-height: 24px;
+}
+
+.albumDetailsCover {
+    width: 168px;
+    height: 168px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+}
+
+.albumDetailsDivider {
+    width: 40px;
+    height: 2px;
+    background-color: var(--color-teal-100);
+}
+
+.albumDetailsFavourite {
+    color: var(--color-teal-100);
+}
+
+.albumDetailsFavourite:hover {
+    cursor: pointer;
+}
+
+.albumDetailsAttributeList {
+    flex-wrap: wrap;
+}
+
+.albumDetailsAttribute p {
+    color: var(--text-primary-dark);
+    font-weight: 500;
+}
+
+.albumDetailsAttributeIcon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background-color: var(--color-teal-20);
+}
+
+.albumDetailsAttributeIcon i {
+    font-size: 20px;
+    color: var(--color-teal-100);
+}
+
+.albumDetailsOpinions .header {
+    justify-content: space-between;
+}
+
+.albumDetailsOpinionItem {
+    background-color: var(--color-grey-10);
+    padding: 16px;
+    border-radius: 16px;
+    align-items: flex-start;
+}
+
+.opinionContent {
+    width: 100%;
+}
+
+.opinionDescription {
+    line-height: 24px;
+    font-weight: 300;
+    color: var(--text-primary-dark);
+}
+
+.opinionAuthorAvatar {
+    width: 168px;
+    height: 168px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+}
+
+.opinionHeader {
+    justify-content: space-between;
+}
+
+.opinionAurhor {
+    color: var(--text-primary-dark);
+    font-weight: 500;
+}
+
+.opinionItemDivider {
+    width: 8px;
+    height: 2px;
+    background-color: var(--color-teal-100);
+    border-radius: 2px;
+}
+
+.opinionRate p {
+    color: var(--text-primary-teal);
+}
+
+.opinionRate i {
+    font-size: 20px;
+    color: var(--color-teal-100);
 }
