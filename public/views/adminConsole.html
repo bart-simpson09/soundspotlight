@@ -60,27 +60,24 @@
     </nav>
 
     <div class="globalPageContainer flexColumn rowGap32 narrowPageContainer">
-        <h1>My profile</h1>
-        <div class="flexRow columnGap24">
-            <img class="myProfileAvatar" src="/public/assets/imgs/avatar.png" alt="">
-            <div class="flexRow columnGap16 rowGap8 flexWrap">
-                <h1>Welcome, Mateusz</h1>
-                <button class="buttonSecondary">Change your photo</button>
-            </div>
-        </div>
+        <h1>Admin console</h1>
         <div class="flexColumn rowGap24">
             <div class="flexRow columnGap16">
-                <button class="tabItem flexRow columnGap8" onclick="openTab(event, 'yourReviews')" id="defaultTab">
-                    <i class="iconoir-message"></i>
-                    Your reviews
+                <button class="tabItem flexRow columnGap8" onclick="openTab(event, 'pendingReviews')">
+                    <i class="iconoir-notes"></i>
+                    Pending reviews
                 </button>
-                <button class="tabItem flexRow columnGap8" onclick="openTab(event, 'addedAlbums')">
-                    <i class="iconoir-music-double-note"></i>
-                    Added albums
+                <button class="tabItem flexRow columnGap8" onclick="openTab(event, 'pendingAlbums')" id="defaultTab">
+                    <i class="iconoir-album"></i>
+                    Pending albums
+                </button>
+                <button class="tabItem flexRow columnGap8" onclick="openTab(event, 'manageUsers')">
+                    <i class="iconoir-user"></i>
+                    Manage users
                 </button>
             </div>
             <div>
-                <div id="yourReviews" class="tabContent flexColumn rowGap16">
+                <div id="pendingReviews" class="tabContent flexColumn rowGap16">
                     <div class="yourProfileItem flexColumn rowGap16">
                         <div class="flexRow yourProfileItemHeader">
                             <div class="flexColumn rowGap4">
@@ -92,7 +89,10 @@
                                     <i class="iconoir-star-solid"></i>
                                     4.5/5
                                 </div>
-                                <div class="yourAddedElementStatus statusApproved flexCenter">Approved</div>
+                                <div class="flexRow columnGap8">
+                                    <button class="buttonOutlined">Approve</button>
+                                    <button class="buttonOutlined importantAction">Decline</button>
+                                </div>
                             </div>
                         </div>
                         <p>Boldly experimental yet beautifully cohesive, this album pushes the boundaries of genre with
@@ -101,6 +101,11 @@
                             melodies to the intricate layers of instrumentation, every moment is crafted with meticulous
                             attention to detail, leaving a lasting impression that resonates long after the final note
                             fades.</p>
+                        <span class="pendingDivider"></span>
+                        <div class="flexRow columnGap8">
+                            <h5>Added by:</h5>
+                            <p>Marry Smith</p>
+                        </div>
                     </div>
                     <div class="yourProfileItem flexColumn rowGap16">
                         <div class="flexRow yourProfileItemHeader">
@@ -113,7 +118,10 @@
                                     <i class="iconoir-star-solid"></i>
                                     4.5/5
                                 </div>
-                                <div class="yourAddedElementStatus statusDeclined flexCenter">Declined</div>
+                                <div class="flexRow columnGap8">
+                                    <button class="buttonOutlined">Approve</button>
+                                    <button class="buttonOutlined importantAction">Decline</button>
+                                </div>
                             </div>
                         </div>
                         <p>Boldly experimental yet beautifully cohesive, this album pushes the boundaries of genre with
@@ -122,9 +130,14 @@
                             melodies to the intricate layers of instrumentation, every moment is crafted with meticulous
                             attention to detail, leaving a lasting impression that resonates long after the final note
                             fades.</p>
+                        <span class="pendingDivider"></span>
+                        <div class="flexRow columnGap8">
+                            <h5>Added by:</h5>
+                            <p>Marry Smith</p>
+                        </div>
                     </div>
                 </div>
-                <div id="addedAlbums" class="tabContent flexColumn rowGap16">
+                <div id="pendingAlbums" class="tabContent flexColumn rowGap16">
                     <div class="yourProfileItem flexRow columnGap16">
                         <img src="/public/assets/imgs/covers/1-800-oswiecenie.png" class="albumSmallCover" alt="">
                         <div class="flexColumn rowGap16">
@@ -211,6 +224,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div id="manageUsers" class="tabContent flexColumn rowGap16">
+                    Manage users
                 </div>
             </div>
         </div>

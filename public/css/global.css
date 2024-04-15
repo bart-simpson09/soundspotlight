@@ -213,3 +213,12 @@ body {
 #addedAlbums .yourProfileItem {
     cursor: pointer;
 }
+
+/* Component YOUR ADMIN CONSOLE */
+
+.pendingDivider {
+    width: 100%;
+    height: 1px;
+    border-radius: 4px;
+    background-color: var(--color-grey-30);
+}
