@@ -301,16 +301,18 @@ select {
     display: none;
 }
 
-/* Component YOUR REVIEW ITEM */
+/* Component YOUR PROFILE ITEM */
 
 .yourProfileItem {
     background-color: var(--color-grey-10);
     border-radius: 16px;
     padding: 16px;
+    align-items: flex-start;
 }
 
 .yourProfileItemHeader {
     justify-content: space-between;
+    width: 100%;
 }
 
 .yourProfileItem p {

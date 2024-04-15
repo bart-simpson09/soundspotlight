@@ -35,6 +35,12 @@ body {
     flex-wrap: nowrap;
 }
 
+.dividerHorizon40 {
+    width: 40px;
+    height: 2px;
+    background-color: var(--color-teal-100);
+}
+
 /* MENU */
 
 .profile p {
@@ -145,12 +151,6 @@ body {
     border-radius: 12px;
 }
 
-.albumDetailsDivider {
-    width: 40px;
-    height: 2px;
-    background-color: var(--color-teal-100);
-}
-
 .albumDetailsFavourite {
     color: var(--color-teal-100);
 }
@@ -192,4 +192,24 @@ body {
     object-fit: cover;
     object-position: center;
     border-radius: 12px;
+}
+
+.albumSmallCover {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.shortAlbumDescription {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    align-self: stretch;
+    text-overflow: ellipsis;
+}
+
+#addedAlbums .yourProfileItem {
+    cursor: pointer;
 }
