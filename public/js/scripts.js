@@ -27,6 +27,6 @@ function openTab(event, tabName) {
         tabItem[i].className = tabItem[i].className.replace(" active", "");
     }
 
-    document.getElementById(tabName).style.display = "block";
+    document.getElementById(tabName).style.display = "flex";
     event.currentTarget.className += " active";
 }

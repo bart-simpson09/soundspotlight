@@ -256,8 +256,10 @@ select {
     border-radius: 2px;
 }
 
-.opinionRate p {
+.opinionRate {
     color: var(--text-primary-teal);
+    font-size: 14px;
+    line-height: 18px;
 }
 
 .opinionRate i {
@@ -297,4 +299,39 @@ select {
 
 .tabContent {
     display: none;
+}
+
+/* Component YOUR REVIEW ITEM */
+
+.yourProfileItem {
+    background-color: var(--color-grey-10);
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.yourProfileItemHeader {
+    justify-content: space-between;
+}
+
+.yourProfileItem p {
+    color: var(--text-primary-dark);
+    font-weight: 300;
+    line-height: 24px;
+}
+
+.yourAddedElementStatus {
+    font-size: 14px;
+    line-height: auto;
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.statusApproved {
+    color: var(--color-green-100);
+    background-color: var(--color-green-50);
+}
+
+.statusDeclined {
+    color: var(--color-red-100);
+    background-color: var(--color-red-50);
 }

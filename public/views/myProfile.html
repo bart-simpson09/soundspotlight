@@ -63,28 +63,83 @@
         <h1>My profile</h1>
         <div class="flexRow columnGap24">
             <img class="myProfileAvatar" src="/public/assets/imgs/avatar.png" alt="">
-            <div class="flexRow columnGap16">
+            <div class="flexRow columnGap16 rowGap8 flexWrap">
                 <h1>Welcome, Mateusz</h1>
                 <button class="buttonSecondary">Change your photo</button>
             </div>
         </div>
         <div class="flexColumn rowGap24">
             <div class="flexRow columnGap16">
-                <button class="tabItem flexRow columnGap8" onclick="openTab(event, 'yourReviews')" id="defaultTab">
+                <button class="tabItem flexRow columnGap8" onclick="openTab(event, 'yourReviews')">
                     <i class="iconoir-message"></i>
                     Your reviews
                 </button>
-                <button class="tabItem flexRow columnGap8" onclick="openTab(event, 'addedAlbums')">
+                <button class="tabItem flexRow columnGap8" onclick="openTab(event, 'addedAlbums')" id="defaultTab">
                     <i class="iconoir-music-double-note"></i>
                     Added albums
                 </button>
             </div>
             <div>
-                <div id="yourReviews" class="tabContent">
-                    Your reviews
+                <div id="yourReviews" class="tabContent flexColumn rowGap16">
+                    <div class="yourProfileItem flexColumn rowGap16">
+                        <div class="flexRow yourProfileItemHeader">
+                            <div class="flexColumn rowGap4">
+                                <h4>1-800-Oświecenie</h4>
+                                <h5>Taco Hemingway</h5>
+                            </div>
+                            <div class="flexRow columnGap16">
+                                <div class="flexRow columnGap8 opinionRate">
+                                    <i class="iconoir-star-solid"></i>
+                                    4.5/5
+                                </div>
+                                <div class="yourAddedElementStatus statusApproved flexCenter">Approved</div>
+                            </div>
+                        </div>
+                        <p>Boldly experimental yet beautifully cohesive, this album pushes the boundaries of genre with
+                            its innovative soundscapes and emotive lyricism. Each track unfolds like a chapter in a
+                            captivating narrative, drawing listeners into its immersive sonic world. From the haunting
+                            melodies to the intricate layers of instrumentation, every moment is crafted with meticulous
+                            attention to detail, leaving a lasting impression that resonates long after the final note
+                            fades.</p>
+                    </div>
+                    <div class="yourProfileItem flexColumn rowGap16">
+                        <div class="flexRow yourProfileItemHeader">
+                            <div class="flexColumn rowGap4">
+                                <h4>1-800-Oświecenie</h4>
+                                <h5>Taco Hemingway</h5>
+                            </div>
+                            <div class="flexRow columnGap16">
+                                <div class="flexRow columnGap8 opinionRate">
+                                    <i class="iconoir-star-solid"></i>
+                                    4.5/5
+                                </div>
+                                <div class="yourAddedElementStatus statusDeclined flexCenter">Declined</div>
+                            </div>
+                        </div>
+                        <p>Boldly experimental yet beautifully cohesive, this album pushes the boundaries of genre with
+                            its innovative soundscapes and emotive lyricism. Each track unfolds like a chapter in a
+                            captivating narrative, drawing listeners into its immersive sonic world. From the haunting
+                            melodies to the intricate layers of instrumentation, every moment is crafted with meticulous
+                            attention to detail, leaving a lasting impression that resonates long after the final note
+                            fades.</p>
+                    </div>
                 </div>
                 <div id="addedAlbums" class="tabContent">
-                    Added albums
+                    <div class="yourProfileItem flexColumn rowGap16">
+                        <div class="flexRow yourProfileItemHeader">
+                            <div class="flexColumn rowGap4">
+                                <h4>1-800-Oświecenie</h4>
+                                <h5>Taco Hemingway</h5>
+                            </div>
+                            <div class="yourAddedElementStatus statusApproved flexCenter">Approved</div>
+                        </div>
+                        <p>Boldly experimental yet beautifully cohesive, this album pushes the boundaries of genre with
+                            its innovative soundscapes and emotive lyricism. Each track unfolds like a chapter in a
+                            captivating narrative, drawing listeners into its immersive sonic world. From the haunting
+                            melodies to the intricate layers of instrumentation, every moment is crafted with meticulous
+                            attention to detail, leaving a lasting impression that resonates long after the final note
+                            fades.</p>
+                    </div>
                 </div>
             </div>
         </div>

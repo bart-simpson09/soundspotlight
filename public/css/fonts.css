@@ -33,3 +33,15 @@ h3 {
     font-weight: 600;
     color: var(--text-primary-dark);
 }
+
+h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary-dark);
+}
+
+h5 {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-secondary);
+}
