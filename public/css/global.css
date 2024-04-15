@@ -1,7 +1,47 @@
+/* OTHERS */
+
 body {
     background-color: var(--background-page);
     padding: 32px;
 }
+
+.standardAvatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 40px;
+}
+
+.globalPageContainer {
+    margin-top: 32px;
+    border-radius: 16px;
+    background-color: var(--background-container);
+    padding: 24px 24px 40px 24px;
+    gap: 40px;
+}
+
+.narrowPageContainer {
+    max-width: 720px;
+    margin: 32px auto;
+}
+
+.searchBar {
+    background-color: var(--color-grey-20);
+    padding: 16px;
+    border-radius: 16px;
+    gap: 16px;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+}
+
+.dividerHorizon40 {
+    width: 40px;
+    height: 2px;
+    background-color: var(--color-teal-100);
+}
+
+/* MENU */
 
 .profile p {
     white-space: nowrap;
@@ -36,39 +76,7 @@ body {
     background-color: var(--color-grey-40);
 }
 
-.standardAvatar {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 40px;
-}
-
-.pageContainer {
-    margin-top: 32px;
-    border-radius: 16px;
-    background-color: var(--background-container);
-    padding: 24px 24px 40px 24px;
-    gap: 40px;
-}
-
-.searchBar {
-    background-color: var(--color-grey-20);
-    padding: 16px;
-    border-radius: 16px;
-    gap: 16px;
-    align-items: flex-end;
-    flex-wrap: nowrap;
-}
-
-.inputArea {
-    width: 100%;
-    min-width: 200px;
-}
-
-.inputArea input {
-    width: -webkit-fill-available;
-}
+/* ALBUMS LIST */
 
 .albumsList {
     display: grid;
@@ -93,20 +101,7 @@ body {
     background-color: var(--color-teal-100);
 }
 
-.hamburgerMenu {
-    display: none;
-}
-
-.hamburgerBar {
-    display: block;
-    width: 24px;
-    height: 2px;
-    margin: 6px auto;
-    -webkit-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-    background-color: var(--color-grey-60);
-    border-radius: 8px;
-}
+/* SINGLE FORM */
 
 .singleFormBody {
     display: flex;
@@ -136,10 +131,7 @@ body {
     font-weight: 500;
 }
 
-.albumDetailsContainer {
-    max-width: 720px;
-    margin: 32px auto;
-}
+/* ALBUM DETAILS */
 
 .albumDetailsTop {
     flex-wrap: wrap;
@@ -157,12 +149,6 @@ body {
     object-fit: cover;
     object-position: center;
     border-radius: 12px;
-}
-
-.albumDetailsDivider {
-    width: 40px;
-    height: 2px;
-    background-color: var(--color-teal-100);
 }
 
 .albumDetailsFavourite {
@@ -198,52 +184,32 @@ body {
     justify-content: space-between;
 }
 
-.albumDetailsOpinionItem {
-    background-color: var(--color-grey-10);
-    padding: 16px;
-    border-radius: 16px;
-    align-items: flex-start;
-}
+/* MY PROFILE */
 
-.opinionContent {
-    width: 100%;
-}
-
-.opinionDescription {
-    line-height: 24px;
-    font-weight: 300;
-    color: var(--text-primary-dark);
-}
-
-.opinionAuthorAvatar {
-    width: 168px;
-    height: 168px;
+.myProfileAvatar {
+    width: 80px;
+    height: 80px;
     object-fit: cover;
     object-position: center;
     border-radius: 12px;
 }
 
-.opinionHeader {
-    justify-content: space-between;
+.albumSmallCover {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    object-fit: cover;
 }
 
-.opinionAurhor {
-    color: var(--text-primary-dark);
-    font-weight: 500;
+.shortAlbumDescription {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    align-self: stretch;
+    text-overflow: ellipsis;
 }
 
-.opinionItemDivider {
-    width: 8px;
-    height: 2px;
-    background-color: var(--color-teal-100);
-    border-radius: 2px;
-}
-
-.opinionRate p {
-    color: var(--text-primary-teal);
-}
-
-.opinionRate i {
-    font-size: 20px;
-    color: var(--color-teal-100);
+#addedAlbums .yourProfileItem {
+    cursor: pointer;
 }

@@ -15,6 +15,10 @@
     justify-content: center;
 }
 
+.flexWrap {
+    flex-wrap: wrap;
+}
+
 .columnGap4 {
     column-gap: 4px;
 }
@@ -24,7 +28,7 @@
 }
 
 .columnGap16 {
-    column-gap: 8px;
+    column-gap: 16px;
 }
 
 .columnGap24 {
@@ -33,6 +37,10 @@
 
 .columnGap32 {
     column-gap: 32px;
+}
+
+.rowGap4 {
+    row-gap: 4px;
 }
 
 .rowGap8 {
