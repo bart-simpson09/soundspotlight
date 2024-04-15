@@ -18,8 +18,6 @@
     <link rel="stylesheet" type="text/css" href="public/css/components.css">
     <link rel="stylesheet" type="text/css" href="public/css/responsive.css">
 
-    <script src="public/js/scripts.js"></script>
-
     <title>Add album</title>
 </head>
 
@@ -60,160 +58,57 @@
     </nav>
 
     <div class="globalPageContainer flexColumn rowGap32 narrowPageContainer">
-        <h1>My profile</h1>
-        <div class="flexRow columnGap24">
-            <img class="myProfileAvatar" src="/public/assets/imgs/avatar.png" alt="">
-            <div class="flexRow columnGap16 rowGap8 flexWrap">
-                <h1>Welcome, Mateusz</h1>
-                <button class="buttonSecondary">Change your photo</button>
+        <h1>Add new album</h1>
+        <form action="" class="flexColumn rowGap32">
+            <div class="flexRow columnGap24">
+                <img class="myProfileAvatar" src="/public/assets/imgs/covers/default-cover.png" alt="">
+                <button class="buttonSecondary">Choose cover photo</button>
             </div>
-        </div>
-        <div class="flexColumn rowGap24">
-            <div class="flexRow columnGap16">
-                <button class="tabItem flexRow columnGap8" onclick="openTab(event, 'yourReviews')" id="defaultTab">
-                    <i class="iconoir-message"></i>
-                    Your reviews
-                </button>
-                <button class="tabItem flexRow columnGap8" onclick="openTab(event, 'addedAlbums')">
-                    <i class="iconoir-music-double-note"></i>
-                    Added albums
-                </button>
-            </div>
-            <div>
-                <div id="yourReviews" class="tabContent flexColumn rowGap16">
-                    <div class="yourProfileItem flexColumn rowGap16">
-                        <div class="flexRow yourProfileItemHeader">
-                            <div class="flexColumn rowGap4">
-                                <h4>1-800-Oświecenie</h4>
-                                <h5>Taco Hemingway</h5>
-                            </div>
-                            <div class="flexRow columnGap16">
-                                <div class="flexRow columnGap8 opinionRate">
-                                    <i class="iconoir-star-solid"></i>
-                                    4.5/5
-                                </div>
-                                <div class="yourAddedElementStatus statusApproved flexCenter">Approved</div>
-                            </div>
-                        </div>
-                        <p>Boldly experimental yet beautifully cohesive, this album pushes the boundaries of genre with
-                            its innovative soundscapes and emotive lyricism. Each track unfolds like a chapter in a
-                            captivating narrative, drawing listeners into its immersive sonic world. From the haunting
-                            melodies to the intricate layers of instrumentation, every moment is crafted with meticulous
-                            attention to detail, leaving a lasting impression that resonates long after the final note
-                            fades.</p>
+            <div class="flexColumn rowGap16">
+                <div class="flexRow columnGap16 rowGap16 mobileWrapped">
+                    <div class="inputArea flexColumn rowGap8">
+                        <label for="albumTitle">Album title</label>
+                        <input type="text" name="" id="albumTitle" placeholder="Type album title">
                     </div>
-                    <div class="yourProfileItem flexColumn rowGap16">
-                        <div class="flexRow yourProfileItemHeader">
-                            <div class="flexColumn rowGap4">
-                                <h4>1-800-Oświecenie</h4>
-                                <h5>Taco Hemingway</h5>
-                            </div>
-                            <div class="flexRow columnGap16">
-                                <div class="flexRow columnGap8 opinionRate">
-                                    <i class="iconoir-star-solid"></i>
-                                    4.5/5
-                                </div>
-                                <div class="yourAddedElementStatus statusDeclined flexCenter">Declined</div>
-                            </div>
-                        </div>
-                        <p>Boldly experimental yet beautifully cohesive, this album pushes the boundaries of genre with
-                            its innovative soundscapes and emotive lyricism. Each track unfolds like a chapter in a
-                            captivating narrative, drawing listeners into its immersive sonic world. From the haunting
-                            melodies to the intricate layers of instrumentation, every moment is crafted with meticulous
-                            attention to detail, leaving a lasting impression that resonates long after the final note
-                            fades.</p>
+                    <div class="inputArea flexColumn rowGap8">
+                        <label for="authorName">Author name</label>
+                        <input type="text" name="" id="authorName" placeholder="Type author name">
                     </div>
                 </div>
-                <div id="addedAlbums" class="tabContent flexColumn rowGap16">
-                    <div class="yourProfileItem flexRow columnGap16">
-                        <img src="/public/assets/imgs/covers/1-800-oswiecenie.png" class="albumSmallCover" alt="">
-                        <div class="flexColumn rowGap16">
-                            <div class="flexRow yourProfileItemHeader">
-                                <div class="flexColumn rowGap4">
-                                    <h4>1-800-Oświecenie</h4>
-                                    <h5>Taco Hemingway</h5>
-                                </div>
-                                <div class="yourAddedElementStatus statusDeclined flexCenter">Declined</div>
-                            </div>
-                            <span class="dividerHorizon40"></span>
-                            <div class="flexColumn rowGap8">
-                                <div class="flexRow columnGap32 flexWrap">
-                                    <div class="flexRow columnGap8">
-                                        <h5>Number of songs:</h5>
-                                        <p>11</p>
-                                    </div>
-                                    <div class="flexRow columnGap8">
-                                        <h5>Language:</h5>
-                                        <p>Polish</p>
-                                    </div>
-                                    <div class="flexRow columnGap8">
-                                        <h5>Release date:</h5>
-                                        <p>01.01.2023</p>
-                                    </div>
-                                </div>
-                                <p class="shortAlbumDescription">Boldly experimental yet beautifully cohesive, this
-                                    album pushes the boundaries of
-                                    genre
-                                    with
-                                    its innovative soundscapes and emotive lyricism. Each track unfolds like a chapter
-                                    in a
-                                    captivating narrative, drawing listeners into its immersive sonic world. From the
-                                    haunting
-                                    melodies to the intricate layers of instrumentation, every moment is crafted with
-                                    meticulous
-                                    attention to detail, leaving a lasting impression that resonates long after the
-                                    final
-                                    note
-                                    fades.</p>
-                            </div>
+                <div class="flexRow columnGap16 rowGap16 mobileWrapped">
+                    <div class="inputArea flexColumn rowGap8">
+                        <label for="language">Language</label>
+                        <div class="customSelect">
+                            <select id="language">
+                                <option value="" disabled="disabled" selected="true">Select language</option>
+                                <option value="">English</option>
+                                <option value="">Spanish</option>
+                                <option value="">French</option>
+                                <option value="">Standard Arabic</option>
+                                <option value="">Polish</option>
+                                <option value="">Portuguese</option>
+                                <option value="">Russian</option>
+                                <option value="">German</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="yourProfileItem flexRow columnGap16">
-                        <img src="/public/assets/imgs/covers/1-800-oswiecenie.png" class="albumSmallCover" alt="">
-                        <div class="flexColumn rowGap16">
-                            <div class="flexRow yourProfileItemHeader">
-                                <div class="flexColumn rowGap4">
-                                    <h4>1-800-Oświecenie</h4>
-                                    <h5>Taco Hemingway</h5>
-                                </div>
-                                <div class="yourAddedElementStatus statusApproved flexCenter">Approved</div>
-                            </div>
-                            <span class="dividerHorizon40"></span>
-                            <div class="flexColumn rowGap8">
-                                <div class="flexRow columnGap32 flexWrap">
-                                    <div class="flexRow columnGap8">
-                                        <h5>Number of songs:</h5>
-                                        <p>11</p>
-                                    </div>
-                                    <div class="flexRow columnGap8">
-                                        <h5>Language:</h5>
-                                        <p>Polish</p>
-                                    </div>
-                                    <div class="flexRow columnGap8">
-                                        <h5>Release date:</h5>
-                                        <p>01.01.2023</p>
-                                    </div>
-                                </div>
-                                <p class="shortAlbumDescription">Boldly experimental yet beautifully cohesive, this
-                                    album pushes the boundaries of
-                                    genre
-                                    with
-                                    its innovative soundscapes and emotive lyricism. Each track unfolds like a chapter
-                                    in a
-                                    captivating narrative, drawing listeners into its immersive sonic world. From the
-                                    haunting
-                                    melodies to the intricate layers of instrumentation, every moment is crafted with
-                                    meticulous
-                                    attention to detail, leaving a lasting impression that resonates long after the
-                                    final
-                                    note
-                                    fades.</p>
-                            </div>
-                        </div>
+                    <div class="inputArea flexColumn rowGap8">
+                        <label for="releaseDate">Release date</label>
+                        <input type="date" name="" id="releaseDate">
                     </div>
                 </div>
+                <div class="inputArea flexColumn rowGap8">
+                    <label for="songsNumber">Number of songs</label>
+                    <input type="number" name="" id="songsNumber" placeholder="Type number of songs">
+                </div>
+                <div class="inputArea flexColumn rowGap8">
+                    <label for="description">Description</label>
+                    <textarea name="" id="description" cols="30" rows="10"
+                        placeholder="Type album description"></textarea>
+                </div>
             </div>
-        </div>
+            <button class="buttonPrimary">Add new album</button>
+        </form>
     </div>
 </body>
 
