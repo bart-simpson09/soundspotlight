@@ -222,3 +222,7 @@ body {
     border-radius: 4px;
     background-color: var(--color-grey-30);
 }
+
+#manageUsers i {
+    color: var(--color-teal-100);
+}

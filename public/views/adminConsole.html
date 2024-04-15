@@ -63,11 +63,11 @@
         <h1>Admin console</h1>
         <div class="flexColumn rowGap24">
             <div class="flexRow columnGap16">
-                <button class="tabItem flexRow columnGap8" onclick="openTab(event, 'pendingReviews')">
+                <button class="tabItem flexRow columnGap8" onclick="openTab(event, 'pendingReviews')" id="defaultTab">
                     <i class="iconoir-notes"></i>
                     Pending reviews
                 </button>
-                <button class="tabItem flexRow columnGap8" onclick="openTab(event, 'pendingAlbums')" id="defaultTab">
+                <button class="tabItem flexRow columnGap8" onclick="openTab(event, 'pendingAlbums')">
                     <i class="iconoir-album"></i>
                     Pending albums
                 </button>
@@ -90,7 +90,7 @@
                                     4.5/5
                                 </div>
                                 <div class="flexRow columnGap8">
-                                    <button class="buttonOutlined">Approve</button>
+                                    <button class="buttonOutlined positiveAction">Approve</button>
                                     <button class="buttonOutlined importantAction">Decline</button>
                                 </div>
                             </div>
@@ -119,7 +119,7 @@
                                     4.5/5
                                 </div>
                                 <div class="flexRow columnGap8">
-                                    <button class="buttonOutlined">Approve</button>
+                                    <button class="buttonOutlined positiveAction">Approve</button>
                                     <button class="buttonOutlined importantAction">Decline</button>
                                 </div>
                             </div>
@@ -147,7 +147,7 @@
                                     <h5>Taco Hemingway</h5>
                                 </div>
                                 <div class="flexRow columnGap8">
-                                    <button class="buttonOutlined">Approve</button>
+                                    <button class="buttonOutlined positiveAction">Approve</button>
                                     <button class="buttonOutlined importantAction">Decline</button>
                                 </div>
                             </div>
@@ -198,7 +198,7 @@
                                     <h5>Taco Hemingway</h5>
                                 </div>
                                 <div class="flexRow columnGap8">
-                                    <button class="buttonOutlined">Approve</button>
+                                    <button class="buttonOutlined positiveAction">Approve</button>
                                     <button class="buttonOutlined importantAction">Decline</button>
                                 </div>
                             </div>
@@ -242,7 +242,37 @@
                     </div>
                 </div>
                 <div id="manageUsers" class="tabContent flexColumn rowGap16">
-                    Manage users
+                    <div class="yourProfileItem flexRow yourProfileItemHeader">
+                        <div class="flexRow columnGap16">
+                            <img class="standardAvatar" src="/public/assets/imgs/avatar.png" alt="">
+                            <div class="flexColumn">
+                                <div class="flexRow columnGap4">
+                                    <h4>Marry Smith</h4>
+                                    <i class="iconoir-user-crown"></i>
+                                </div>
+                                <h5>marry.smith@example.com</h5>
+                            </div>
+                        </div>
+                        <div class="flexRow columnGap8">
+                            <button class="buttonOutlined">Revoke admin role</button>
+                            <button class="buttonOutlined importantAction">Remove user</button>
+                        </div>
+                    </div>
+                    <div class="yourProfileItem flexRow yourProfileItemHeader">
+                        <div class="flexRow columnGap16">
+                            <img class="standardAvatar" src="/public/assets/imgs/avatar.png" alt="">
+                            <div class="flexColumn rowGap4">
+                                <div class="flexRow columnGap4">
+                                    <h4>Michael Jackson</h4>
+                                </div>
+                                <h5>michael.jackson@example.com</h5>
+                            </div>
+                        </div>
+                        <div class="flexRow columnGap8">
+                            <button class="buttonOutlined">Grant admin role</button>
+                            <button class="buttonOutlined importantAction">Remove user</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
