@@ -83,6 +83,41 @@ nav {
     background-color: var(--color-teal-20);
 }
 
+.buttonOutlined {
+    background-color: var(--color-pure-white);
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--color-grey-60);
+    font-size: 14px;
+    white-space: nowrap;
+    color: var(--text-secondary);
+}
+
+.buttonOutlined:hover {
+    background-color: var(--color-grey-30);
+    color: var(--text-primary-dark);
+}
+
+.buttonOutlined.importantAction {
+    border: 1px solid var(--color-red-100);
+    color: var(--color-red-100);
+}
+
+.buttonOutlined.importantAction:hover {
+    background-color: var(--color-red-100);
+    color: var(--text-primary-white);
+}
+
+.buttonOutlined.positiveAction {
+    border: 1px solid var(--color-teal-100);
+    color: var(--color-teal-100);
+}
+
+.buttonOutlined.positiveAction:hover {
+    background-color: var(--color-teal-100);
+    color: var(--text-primary-white);
+}
+
 /* Component LABEL */
 
 label {
