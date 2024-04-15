@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css" />
+
+    <link rel="stylesheet" type="text/css" href="public/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="public/css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="public/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="public/css/flex.css">
+    <link rel="stylesheet" type="text/css" href="public/css/global.css">
+    <link rel="stylesheet" type="text/css" href="public/css/components.css">
+    <link rel="stylesheet" type="text/css" href="public/css/responsive.css">
+
+    <title>Add album</title>
+</head>
+
+<body>
+    <nav>
+        <a href="/"><img src="/public/assets/logo.svg" alt="SoundSpotlight Logo"></a>
+        <div class="menuArea flexRow">
+            <div class="menuOptions flexRow columnGap32">
+                <a href="">Home</a>
+                <a href="">Top albums</a>
+                <a href="">Your favourites</a>
+                <a href="">My profile</a>
+                <a href="">Admin console</a>
+            </div>
+            <div class="userSide flexRow columnGap24">
+                <button class="flexRow columnGap8">
+                    <span class="iconBox flexCenter"><i class="iconoir-music-double-note"></i></span>
+                    <a href="">Add album</a>
+                </button>
+                <span class="menuDivider"></span>
+                <div class="userInfo flexRow columnGap16">
+                    <div class="profile flexRow columnGap8">
+                        <img class="standardAvatar" src="/public/assets/imgs/avatar.png" alt="">
+                        <p class="fontMedium">Mateusz Sajdak</p>
+                    </div>
+                    <button class="flexRow">
+                        <i class="iconoir-log-out" style="font-size: 24px; color: #70758F;"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="hamburgerMenu">
+            <span class="hamburgerBar"></span>
+            <span class="hamburgerBar"></span>
+            <span class="hamburgerBar"></span>
+        </div>
+    </nav>
+
+    <div class="globalPageContainer flexColumn rowGap32 narrowPageContainer">
+        <h1>Add new album</h1>
+        <form action="" class="flexColumn rowGap32">
+            <div class="flexRow columnGap24">
+                <img class="myProfileAvatar" src="/public/assets/imgs/covers/default-cover.png" alt="">
+                <button class="buttonSecondary">Choose cover photo</button>
+            </div>
+            <div class="flexColumn rowGap16">
+                <div class="flexRow columnGap16 rowGap16 mobileWrapped">
+                    <div class="inputArea flexColumn rowGap8">
+                        <label for="albumTitle">Album title</label>
+                        <input type="text" name="" id="albumTitle" placeholder="Type album title">
+                    </div>
+                    <div class="inputArea flexColumn rowGap8">
+                        <label for="authorName">Author name</label>
+                        <input type="text" name="" id="authorName" placeholder="Type author name">
+                    </div>
+                </div>
+                <div class="flexRow columnGap16 rowGap16 mobileWrapped">
+                    <div class="inputArea flexColumn rowGap8">
+                        <label for="language">Language</label>
+                        <div class="customSelect">
+                            <select id="language">
+                                <option value="" disabled="disabled" selected="true">Select language</option>
+                                <option value="">English</option>
+                                <option value="">Spanish</option>
+                                <option value="">French</option>
+                                <option value="">Standard Arabic</option>
+                                <option value="">Polish</option>
+                                <option value="">Portuguese</option>
+                                <option value="">Russian</option>
+                                <option value="">German</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="inputArea flexColumn rowGap8">
+                        <label for="releaseDate">Release date</label>
+                        <input type="date" name="" id="releaseDate">
+                    </div>
+                </div>
+                <div class="inputArea flexColumn rowGap8">
+                    <label for="songsNumber">Number of songs</label>
+                    <input type="number" name="" id="songsNumber" placeholder="Type number of songs">
+                </div>
+                <div class="inputArea flexColumn rowGap8">
+                    <label for="description">Description</label>
+                    <textarea name="" id="description" cols="30" rows="10"
+                        placeholder="Type album description"></textarea>
+                </div>
+            </div>
+            <button class="buttonPrimary">Add new album</button>
+        </form>
+    </div>
+</body>
+
+</html>

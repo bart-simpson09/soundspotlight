@@ -90,17 +90,21 @@ label {
     color: var(--text-primary-dark);
 }
 
-/* Component INPUT */
+/* Component INPUT and TEXTAREA */
 
-input {
-    padding: 12px;
+input,
+textarea {
+    padding: 0px 12px;
     border-radius: 8px;
     border: 1px solid var(--color-grey-30);
     font-size: 14px !important;
     background-color: var(--color-pure-white);
+    resize: none;
+    min-height: 40px;
 }
 
-input:focus {
+input:focus,
+textarea:focus {
     border: 1px solid var(--color-teal-100);
 }
 
@@ -134,6 +138,10 @@ input:focus {
     width: -webkit-fill-available;
 }
 
+.inputArea textarea {
+    width: -webkit-fill-available;
+}
+
 /* Component SELECT */
 
 .customSelect {
@@ -145,11 +153,12 @@ select {
     -webkit-appearance: none;
     width: 100%;
     cursor: pointer;
-    padding: 12px;
+    padding: 0px 12px;
     border-radius: 8px;
     border: 1px solid var(--color-grey-30);
     font-size: 14px !important;
     background-color: var(--color-pure-white);
+    min-height: 40px;
 }
 
 .customSelect::before,
