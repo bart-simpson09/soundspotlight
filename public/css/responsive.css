@@ -16,6 +16,12 @@
     .mobileWrapped {
         flex-wrap: wrap;
     }
+
+    .yourProfileItemHeader {
+        flex-direction: column;
+        align-items: baseline;
+        row-gap: 16px;
+    }
 }
 
 @media (min-width: 520px) and (max-width: 740px) {
@@ -25,6 +31,12 @@
 
     .mobileWrapped {
         flex-wrap: wrap;
+    }
+
+    .yourProfileItemHeader {
+        flex-direction: column;
+        align-items: baseline;
+        row-gap: 16px;
     }
 }
 

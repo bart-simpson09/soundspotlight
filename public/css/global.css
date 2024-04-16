@@ -90,7 +90,7 @@ body {
     border-radius: 8px;
     background: rgba(248, 249, 255, 0.50);
     backdrop-filter: blur(2px);
-    color: var(--color-pure-white);
+    color: var(--color-pure-white) !important;
     position: absolute;
     top: 12px;
     right: 12px;
