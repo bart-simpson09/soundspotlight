@@ -138,6 +138,10 @@ textarea {
     min-height: 40px;
 }
 
+textarea {
+    padding: 12px;
+}
+
 input:focus,
 textarea:focus {
     border: 1px solid var(--color-teal-100);
