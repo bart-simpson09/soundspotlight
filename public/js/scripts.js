@@ -11,7 +11,10 @@ document.addEventListener('DOMContentLoaded', function () {
         nav.classList.toggle("active");
     }
 
-    document.getElementById("defaultTab").click();
+    var defaultTab = document.getElementById("defaultTab");
+    if (defaultTab != null) {
+        defaultTab.click();
+    }
 });
 
 function openTab(event, tabName) {
@@ -29,4 +32,19 @@ function openTab(event, tabName) {
 
     document.getElementById(tabName).style.display = "flex";
     event.currentTarget.className += " active";
+}
+
+function openModal(modalID) {
+    var modal = document.getElementById(modalID);
+    var closeButton = document.getElementById("addReviewClose");
+
+    modal.style.display = "flex";
+
+    closeButton.onclick = function () { modal.style.display = "none" }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 }

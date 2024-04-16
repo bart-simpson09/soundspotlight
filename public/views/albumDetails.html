@@ -117,7 +117,7 @@
         <div class="albumDetailsOpinions flexColumn rowGap24">
             <div class="flexRow header">
                 <h2>People opinions</h2>
-                <button class="buttonPrimary" id="addReviewButton">Add your review</button>
+                <button class="buttonPrimary" onclick="openModal('addReviewModal')">Add your review</button>
             </div>
             <div class="flexColumn rowGap16">
                 <div class="albumDetailsOpinionItem flexRow columnGap16">
@@ -190,30 +190,31 @@
         </div>
     </div>
 
-    <div id="addReviewModal" class="modal flexColumn rowGap24">
-        <div class="flexColumn rowGap8">
-            <h2>Add your review</h2>
-            <p>Express your feelings about this album in the field below.</p>
-        </div>
-        <form action="" class="flexColumn rowGap24">
-            <div class="flexColumn rowGap16">
-                <textarea name="" id="" cols="30" rows="10" placeholder="Type your review here"></textarea>
-                <div class="flexRow columnGap8">
-                    <i class="iconoir-star"></i>
-                    <i class="iconoir-star"></i>
-                    <i class="iconoir-star"></i>
-                    <i class="iconoir-star"></i>
-                    <i class="iconoir-star"></i>
+    <div class="modalArea" id="addReviewModal">
+        <div class="modal flexColumn rowGap24">
+            <div class="flexColumn rowGap8">
+                <h2>Add your review</h2>
+                <p>Express your feelings about this album in the field below.</p>
+            </div>
+            <form action="" class="flexColumn rowGap24">
+                <div class="flexColumn rowGap16">
+                    <textarea name="" id="" cols="30" rows="10" placeholder="Type your review here"></textarea>
+                    <div class="flexRow columnGap8">
+                        <i class="iconoir-star"></i>
+                        <i class="iconoir-star"></i>
+                        <i class="iconoir-star"></i>
+                        <i class="iconoir-star"></i>
+                        <i class="iconoir-star"></i>
+                    </div>
                 </div>
-            </div>
-            <div class="flexRow columnGap16">
-                <button class="buttonOutlined" style="padding: 10.5px 16px;">Cancel</button>
-                <button class="buttonPrimary">Add review</button>
-            </div>
-        </form>
-
-
+                <div class="flexRow columnGap16">
+                    <button class="buttonOutlined" style="padding: 10.5px 16px;" id="addReviewClose">Cancel</button>
+                    <button class="buttonPrimary">Add review</button>
+                </div>
+            </form>
+        </div>
     </div>
+
 </body>
 
 </html>
