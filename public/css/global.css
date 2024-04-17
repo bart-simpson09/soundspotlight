@@ -214,7 +214,7 @@ body {
     cursor: pointer;
 }
 
-/* Component YOUR ADMIN CONSOLE */
+/* ADMIN CONSOLE */
 
 .pendingDivider {
     width: 100%;
@@ -225,4 +225,56 @@ body {
 
 #manageUsers i {
     color: var(--color-teal-100);
+}
+
+/* MODAL */
+
+.modalArea {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 24px;
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    margin: 0;
+}
+
+.modal {
+    background-color: var(--background-container);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0px 4px 40px 0px rgba(0, 0, 0, 0.16);
+    max-width: 400px;
+}
+
+.modal i {
+    font-size: 20px;
+}
+
+.modal button {
+    width: 100%;
+}
+
+.ratingStar:hover {
+    cursor: pointer;
+}
+
+#addReviewModal .iconoir-star-solid {
+    color: gold;
+}
+
+.stars:hover>i:before {
+    color: gold;
+}
+
+.stars>i:hover~i:before {
+    color: var(--text-secondary);
 }
