@@ -262,3 +262,19 @@ body {
 .modal button {
     width: 100%;
 }
+
+.ratingStar:hover {
+    cursor: pointer;
+}
+
+#addReviewModal .iconoir-star-solid {
+    color: gold;
+}
+
+.stars:hover>i:before {
+    color: gold;
+}
+
+.stars>i:hover~i:before {
+    color: var(--text-secondary);
+}

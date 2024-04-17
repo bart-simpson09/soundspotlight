@@ -37,6 +37,7 @@ function openTab(event, tabName) {
 function openModal(modalID) {
     var modal = document.getElementById(modalID);
     var closeButton = document.getElementById("addReviewClose");
+    var stars = [...modal.querySelectorAll(".stars i")];
 
     modal.style.display = "flex";
 
@@ -47,4 +48,26 @@ function openModal(modalID) {
             modal.style.display = "none";
         }
     }
+
+    stars.map((star, index) => {
+        star.onclick = () => {
+
+            for (let i = 0; i < stars.length; ++i) {
+                if (i <= index) {
+                    stars[i].className = "ratingStar iconoir-star-solid";
+                }
+                else {
+                    stars[i].className = "ratingStar iconoir-star";
+                }
+            }
+
+            const rate = index + 1;
+
+            handleRate(rate, "test");
+        };
+    });
+}
+
+function handleRate(rate, album) {
+    console.log(rate)
 }
