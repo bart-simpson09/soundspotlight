@@ -1,12 +1,18 @@
 <?php
 
-require_once 'src/controllers/AppController.php';
+require 'Routing.php';
 
-$controller = new AppController();
-
-//process URL from client --> process request from client
 $path = trim($_SERVER['REQUEST_URI'], '/');
 $path = parse_url( $path, PHP_URL_PATH);
-$action = explode("/", $path)[0];
 
-$controller->render($action);
+Router::get('', 'DefaultController');
+Router::get('register', 'DefaultController');
+Router::get('dashboard', 'DefaultController');
+Router::get('addAlbum', 'DefaultController');
+Router::get('adminConsole', 'DefaultController');
+Router::get('albumDetails', 'DefaultController');
+Router::get('myProfile', 'DefaultController');
+Router::get('topAlbums', 'DefaultController');
+Router::get('yourFavorite', 'DefaultController');
+
+Router::run($path);
