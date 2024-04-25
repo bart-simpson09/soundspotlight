@@ -40,7 +40,7 @@
                     <label for="password">Password</label>
                     <input type="password" name="password" id="password" placeholder="Enter your password">
                 </div>
-                <div class="message">
+                <div class="errorMessageContainer">
                     <?php
                         if(isset($messages)) {
                             foreach($messages as $message) {
