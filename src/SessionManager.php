@@ -11,12 +11,10 @@ class SessionManager {
 
     private function __construct() {}
 
-    private function startSession(): bool {
+    private function startSession() {
         if ($this->sessionState == self::SESSION_INACTIVE) {
             $this->sessionState = session_start();
         }
-
-        return $this->sessionState;
     }
 
     public static function getInstance(): SessionManager {
@@ -28,19 +26,19 @@ class SessionManager {
         return self::$instance;
     }
 
-    public function _set($name, $value) {
+    public function __set($name, $value) {
         $_SESSION[$name] = $value;
     }
 
-    public function _get(string $name) {
+    public function __get(string $name) {
         return isset($_SESSION[$name]) ? $_SESSION[$name] : null;
     }
 
-    public function _isset($name): bool {
+    public function __isset($name): bool {
         return isset($_SESSION[$name]);
     }
 
-    public function _unset(string $name) {
+    public function __unset(string $name) {
         unset($_SESSION[$name]);
     }
 
