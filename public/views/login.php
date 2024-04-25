@@ -30,18 +30,28 @@
             </div>
             <span class="singleFormDivider"></span>
         </div>
-        <form action="" class="flexColumn rowGap32">
+        <form class="flexColumn rowGap32" action="login" method="POST">
             <div class="flexColumn rowGap16">
                 <div class="inputArea flexColumn rowGap8">
                     <label for="email">Email</label>
-                    <input type="email" name="" id="email" placeholder="Enter your email">
+                    <input type="email" name="email" id="email" placeholder="Enter your email">
                 </div>
                 <div class="inputArea flexColumn rowGap8">
                     <label for="password">Password</label>
-                    <input type="password" name="" id="password" placeholder="Enter your password">
+                    <input type="password" name="password" id="password" placeholder="Enter your password">
+                </div>
+                <div class="message">
+                    <?php
+                        if(isset($messages)) {
+                            foreach($messages as $message) {
+                                echo $message;
+                            }
+                            
+                        }
+                    ?>
                 </div>
             </div>
-            <button class="buttonPrimary">Sign in</button>
+            <button class="buttonPrimary" type="submit">Sign in</button>
         </form>
         <div class="flexRow columnGap4 flexCenter formFooter">
             <p>Don’t have an account? </p>
