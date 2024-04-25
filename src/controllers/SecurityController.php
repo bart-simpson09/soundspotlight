@@ -10,21 +10,24 @@ class SecurityController extends AppController {
         $user = new User('Mateusz', 'Sajdak', 'sajdak@example.com', '123', 'avatar-src');
 
         if (!$this->isPost()) {
-            return $this->render('/login');
+            print $this->render('/login');
+            return;
         }
 
         $email = $_POST['email'];
         $password = $_POST['password'];
 
         if ($user->getEmail() !== $email) {
-            return $this->render('/login', ['messages' => ['Wrong email address!']]);
+            print $this->render('/login', ['messages' => ['Wrong email address!']]);
+            return;
         }
 
         if ($user->getPassword() !== $password) {
-            return $this->render('/login', ['messages' => ['Wrong password!']]);
+            print $this->render('/login', ['messages' => ['Wrong password!']]);
+            return;
         }
 
         $url = "http://$_SERVER[HTTP_HOST]";
-        header("Location: {$url}/dashboard");
+        header("Location: $url/dashboard");
     }
 }

@@ -5,10 +5,10 @@ require_once 'AppController.php';
 class DefaultController extends AppController {
 
     public function index() {
-        $this->render('login');
+        print $this->render('login');
     }
     
     public function dashboard() {
-        $this->render('dashboard');
+        print $this->render('dashboard');
     }
 }
