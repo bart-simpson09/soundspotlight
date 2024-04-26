@@ -3,9 +3,18 @@
 require_once 'AppController.php';
 require_once __DIR__ . '/../models/User.php';
 require_once __DIR__ . '/../SessionManager.php';
+require_once __DIR__ . '/../repository/UserRepository.php';
 
 class SecurityController extends AppController
 {
+
+    private $userRepository;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->userRepository = new UserRepository();
+    }
 
     public function redirectBasedOnSession()
     {
@@ -24,8 +33,6 @@ class SecurityController extends AppController
     public function login()
     {
 
-        $user = new User('1', 'sajdak@example.com', '123', 'Mateusz', 'Sajdak', 'avatar-src', 'default');
-
         if (!$this->isPost()) {
             print $this->render('/login');
             return;
@@ -34,7 +41,9 @@ class SecurityController extends AppController
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        if ($user->getEmail() !== $email) {
+        $user = $this->userRepository->getUser($email);
+
+        if (!$user) {
             print $this->render('/login', ['messages' => ['User with this email address does not exist!']]);
             return;
         }
