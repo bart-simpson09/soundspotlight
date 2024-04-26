@@ -1,12 +1,28 @@
 <?php
 
 require_once 'AppController.php';
-require_once __DIR__ .'/../models/User.php';
-require_once __DIR__ .'/../SessionManager.php';
+require_once __DIR__ . '/../models/User.php';
+require_once __DIR__ . '/../SessionManager.php';
 
-class SecurityController extends AppController {
+class SecurityController extends AppController
+{
 
-    public function login() {
+    public function redirectBasedOnSession()
+    {
+        $userSession = SessionManager::getInstance();
+        $userId = $userSession->__get("userId");
+        $url = "http://$_SERVER[HTTP_HOST]";
+
+        if ($userId == null) {
+            header("Location: $url/login");
+        } else {
+            header("Location: $url/dashboard");
+        }
+        exit();
+    }
+
+    public function login()
+    {
 
         $user = new User('1', 'sajdak@example.com', '123', 'Mateusz', 'Sajdak', 'avatar-src', 'default');
 
@@ -36,7 +52,8 @@ class SecurityController extends AppController {
         header("Location: $url/dashboard");
     }
 
-    public function logout() {
+    public function logout()
+    {
         $userSession = SessionManager::getInstance();
         $userSession->destroySession();
 
