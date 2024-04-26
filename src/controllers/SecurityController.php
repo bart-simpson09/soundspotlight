@@ -31,7 +31,6 @@ class SecurityController extends AppController {
         $userSession = SessionManager::getInstance();
         $userSession->__set('userId', $user->getId());
         $userSession->__set('userEmail', $user->getEmail());
-        $userSession->__set('isLogged', true);
 
         $url = "http://$_SERVER[HTTP_HOST]";
         header("Location: $url/dashboard");

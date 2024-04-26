@@ -3,18 +3,22 @@
 require_once 'AppController.php';
 require_once __DIR__ .'/../SessionManager.php';
 
-class DefaultController extends AppController {
+class DashboardController extends AppController {
 
-    public function index() {
+    public function __construct() {
+        parent::__construct();
+    }
+
+    public function dashboard() {
 
         $userSession = SessionManager::getInstance();
         $userId = $userSession->__get("userId");
-        $url = "http://$_SERVER[HTTP_HOST]";
 
         if ($userId == null) {
+            $url = "http://$_SERVER[HTTP_HOST]";
             header("Location: $url/login");
         }
 
-        header("Location: $url/dashboard");
+        print $this->render('dashboard');
     }
 }
