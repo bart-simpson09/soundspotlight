@@ -58,6 +58,10 @@ body {
     width: 100%;
 }
 
+.menuOptions a.active {
+    color: var(--text-primary-teal);
+}
+
 .iconBox {
     width: 32px;
     height: 32px;
@@ -233,7 +237,6 @@ body {
     display: none;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     padding: 24px;
     position: fixed;
     z-index: 20;
@@ -242,7 +245,6 @@ body {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.4);
     margin: 0;
 }
@@ -251,7 +253,7 @@ body {
     background-color: var(--background-container);
     border-radius: 12px;
     padding: 24px;
-    box-shadow: 0px 4px 40px 0px rgba(0, 0, 0, 0.16);
+    box-shadow: 0 4px 40px 0 rgba(0, 0, 0, 0.16);
     max-width: 400px;
 }
 
@@ -271,10 +273,18 @@ body {
     color: gold;
 }
 
-.stars:hover>i:before {
+.stars:hover > i:before {
     color: gold;
 }
 
-.stars>i:hover~i:before {
+.stars > i:hover ~ i:before {
     color: var(--text-secondary);
+}
+
+/* ERROR MESSAGES */
+
+.errorMessageContainer {
+    color: var(--color-red-100);
+    font-size: 14px;
+    line-height: 22px;
 }

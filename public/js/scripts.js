@@ -11,14 +11,14 @@ document.addEventListener('DOMContentLoaded', function () {
         nav.classList.toggle("active");
     }
 
-    var defaultTab = document.getElementById("defaultTab");
+    let defaultTab = document.getElementById("defaultTab");
     if (defaultTab != null) {
         defaultTab.click();
     }
 });
 
 function openTab(event, tabName) {
-    var i, tabContent, tabItem;
+    let i, tabContent, tabItem;
 
     tabContent = document.getElementsByClassName("tabContent");
     for (i = 0; i < tabContent.length; i++) {
@@ -35,16 +35,16 @@ function openTab(event, tabName) {
 }
 
 function openModal(modalID) {
-    var modal = document.getElementById(modalID);
-    var closeButton = document.getElementById("addReviewClose");
-    var stars = [...modal.querySelectorAll(".stars i")];
+    let modal = document.getElementById(modalID);
+    let closeButton = document.getElementById("addReviewClose");
+    let stars = [...modal.querySelectorAll(".stars i")];
 
     modal.style.display = "flex";
 
     closeButton.onclick = function () { modal.style.display = "none" }
 
     window.onclick = function (event) {
-        if (event.target == modal) {
+        if (event.target === modal) {
             modal.style.display = "none";
         }
     }

@@ -68,7 +68,7 @@
     }
 
     nav.active {
-        border-radius: 8px 8px 0px 0px;
+        border-radius: 8px 8px 0 0;
     }
 
     .menuArea {
@@ -85,10 +85,10 @@
         top: 74px;
         left: 0;
         right: 0;
-        border-radius: 0px 0px 8px 8px;
+        border-radius: 0 0 8px 8px;
         padding: 16px 16px 24px 16px;
         position: absolute;
-        box-shadow: 0px 24px 24px 0px rgba(0, 0, 0, 0.04);
+        box-shadow: 0 24px 24px 0 rgba(0, 0, 0, 0.04);
     }
 
     .menuArea.active .menuOptions {
