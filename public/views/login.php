@@ -55,7 +55,7 @@
     </form>
     <div class="flexRow columnGap4 flexCenter formFooter">
         <p>Don’t have an account? </p>
-        <a href="">Sign up</a>
+        <a href="register">Sign up</a>
     </div>
 </div>
 </body>
