@@ -58,6 +58,10 @@ body {
     width: 100%;
 }
 
+.menuOptions a.active {
+    color: var(--text-primary-teal);
+}
+
 .iconBox {
     width: 32px;
     height: 32px;
@@ -269,11 +273,11 @@ body {
     color: gold;
 }
 
-.stars:hover>i:before {
+.stars:hover > i:before {
     color: gold;
 }
 
-.stars>i:hover~i:before {
+.stars > i:hover ~ i:before {
     color: var(--text-secondary);
 }
 

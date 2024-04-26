@@ -23,8 +23,8 @@ class UserRepository extends Repository
             $user['id'],
             $user['email'],
             $user['password'],
-            $user['firstName'],
-            $user['lastName'],
+            $user['firstname'],
+            $user['lastname'],
             $user['avatar'],
             $user['role']);
     }

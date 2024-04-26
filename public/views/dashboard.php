@@ -28,11 +28,13 @@
     <a href="/"><img src="/public/assets/logo.svg" alt="SoundSpotlight Logo"></a>
     <div class="menuArea flexRow">
         <div class="menuOptions flexRow columnGap32">
-            <a href="">Home</a>
+            <a class="active" href="dashboard">Home</a>
             <a href="">Top albums</a>
             <a href="">Your favourites</a>
             <a href="">My profile</a>
-            <a href="">Admin console</a>
+            <?php if ($isAdmin == "admin"): ?>
+                <a href="">Admin console</a>
+            <?php endif; ?>
         </div>
         <div class="userSide flexRow columnGap24">
             <button class="flexRow columnGap8">
@@ -42,8 +44,9 @@
             <span class="menuDivider"></span>
             <form class="userInfo flexRow columnGap16" action="logout" method="POST">
                 <div class="profile flexRow columnGap8">
-                    <img class="standardAvatar" src="/public/assets/imgs/avatar.png" alt="">
-                    <p class="fontMedium">Mateusz Sajdak</p>
+                    <img class="standardAvatar" src="/public/assets/imgs/avatars/<?= $avatar ?>"
+                         alt="<?= $firstName . ' ' . $lastName . ' avatar' ?>">
+                    <p class="fontMedium"><?= $firstName . ' ' . $lastName ?></p>
                 </div>
                 <button class="flexRow" type="submit">
                     <i class="iconoir-log-out" style="font-size: 24px; color: #70758F;"></i>
