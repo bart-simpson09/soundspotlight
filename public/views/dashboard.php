@@ -66,7 +66,7 @@
     <div class="flexColumn rowGap24">
         <h1>Albums in our library</h1>
 
-        <form action="" class="flexRow searchBar columnGap16">
+        <form class="flexRow searchBar columnGap16" action="searchAlbum" method="POST">
 
             <div class="inputArea flexColumn rowGap8">
                 <label for="albumTitle">Album title</label>
