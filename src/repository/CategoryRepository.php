@@ -17,7 +17,7 @@ class CategoryRepository extends Repository
         $categoriesResult = [];
 
         foreach ($categories as $category) {
-            $categoriesResult[] = new Author(
+            $categoriesResult[] = new Category(
                 $category['id'],
                 $category['name']
             );

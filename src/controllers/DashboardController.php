@@ -73,6 +73,8 @@ class DashboardController extends AppController
             'lastName' => $user->getLastName(),
             'avatar' => $user->getAvatar(),
             'isAdmin' => $user->getRole(),
-            'shortenAlbums' => $shortenAlbums]);
+            'shortenAlbums' => $shortenAlbums,
+            'categories' => $this->categoryRepository->getCategories(),
+            'languages' => $this->languageRepository->getLanguages()]);
     }
 }

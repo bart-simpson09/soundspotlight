@@ -85,48 +85,32 @@
             </div>
 
             <div class="inputArea flexColumn rowGap8">
-                <label for="releaseYear">Release year</label>
+                <label for="category">Category</label>
                 <div class="inputWithIcon">
                     <div class="customSelect">
-                        <select id="releaseYear">
-                            <option value="">All years</option>
-                            <option value="">2024</option>
-                            <option value="">2023</option>
-                            <option value="">2022</option>
-                            <option value="">2021</option>
-                            <option value="">2020</option>
-                            <option value="">2019</option>
-                            <option value="">2018</option>
-                            <option value="">2017</option>
-                            <option value="">2016</option>
-                            <option value="">2015</option>
-                            <option value="">2014</option>
-                            <option value="">2013</option>
-                            <option value="">2012</option>
-                            <option value="">2011</option>
-                            <option value="">2010</option>
+                        <select id="category">
+                            <option value="0">All categories</option>
+                            <?php foreach ($categories as $category): ?>
+                                <option value="<?= $category->getCategoryId() ?>"><?= $category->getCategoryName() ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
-                    <i class="iconoir-calendar"></i>
+                    <i class="iconoir-album-list"></i>
                 </div>
             </div>
 
             <div class="inputArea flexColumn rowGap8">
-                <label for="rate">Rate</label>
+                <label for="language">Language</label>
                 <div class="inputWithIcon">
                     <div class="customSelect">
-                        <select id="rate">
-                            <option value="">All rate ranges</option>
-                            <option value="">5.0 - 4.5</option>
-                            <option value="">4.5 - 4.0</option>
-                            <option value="">4.0 - 3.5</option>
-                            <option value="">3.5 - 3.0</option>
-                            <option value="">3.0 - 2.5</option>
-                            <option value="">2.5 - 2.0</option>
-                            <option value="">2.0 or less</option>
+                        <select id="language">
+                            <option value="0">All languages</option>
+                            <?php foreach ($languages as $language): ?>
+                                <option value="<?= $language->getLanguageId() ?>"><?= $language->getLanguageName() ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
-                    <i class="iconoir-star"></i>
+                    <i class="iconoir-language"></i>
                 </div>
             </div>
 

@@ -11,6 +11,11 @@ class Language
         $this->name = $name;
     }
 
+    public function getLanguageId(): int
+    {
+        return $this->id;
+    }
+
     public function getLanguageName(): string
     {
         return $this->name;

@@ -17,7 +17,7 @@ class LanguageRepository extends Repository
         $languagesResult = [];
 
         foreach ($languages as $language) {
-            $languagesResult[] = new Author(
+            $languagesResult[] = new Language(
                 $language['id'],
                 $language['name']
             );
