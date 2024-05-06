@@ -5,7 +5,7 @@ require_once __DIR__ . '/../models/Album.php';
 
 class AlbumRepository extends Repository
 {
-    public function getAllBooks(): array
+    public function getAllAlbums(): array
     {
         $stmt = $this->database->connect()->prepare('
             SELECT * FROM albums

@@ -17,7 +17,7 @@ class Album
     private $declineDate;
     private $addedBy;
 
-    public function __construct(int $id, string $albumTitle, int $authorId, int $languageId, int $categoryId, int $numberOfSongs, string $description, float $averageRate, string $cover, string $releaseDate, string $uploadDate, string $approveDate, string $declineDate, int $addedBy)
+    public function __construct(int $id, string $albumTitle, int $authorId, int $languageId, int $categoryId, int $numberOfSongs, string $description, ?float $averageRate, string $cover, string $releaseDate, string $uploadDate, ?string $approveDate, ?string $declineDate, int $addedBy)
     {
         $this->id = $id;
         $this->albumTitle = $albumTitle;
@@ -33,6 +33,41 @@ class Album
         $this->approveDate = $approveDate;
         $this->declineDate = $declineDate;
         $this->addedBy = $addedBy;
+    }
+
+    public function getCover(): string
+    {
+        return $this->cover;
+    }
+
+    public function getAlbumTitle(): string
+    {
+        return $this->albumTitle;
+    }
+
+    public function getAuthorId(): string
+    {
+        return $this->authorId;
+    }
+
+    public function getCategoryId(): string
+    {
+        return $this->categoryId;
+    }
+
+    public function getLanguageId(): string
+    {
+        return $this->categoryId;
+    }
+
+    public function getReleaseDate(): string
+    {
+        return $this->releaseDate;
+    }
+
+    public function getAverageRate(): ?float
+    {
+        return $this->averageRate;
     }
 
 }

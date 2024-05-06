@@ -10,4 +10,9 @@ class Language
         $this->id = $id;
         $this->name = $name;
     }
+
+    public function getLanguageName(): string
+    {
+        return $this->name;
+    }
 }

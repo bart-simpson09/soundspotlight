@@ -10,4 +10,9 @@ class Category
         $this->id = $id;
         $this->name = $name;
     }
+
+    public function getCategoryName(): string
+    {
+        return $this->name;
+    }
 }

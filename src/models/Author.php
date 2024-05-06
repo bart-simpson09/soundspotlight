@@ -10,4 +10,9 @@ class Author
         $this->id = $id;
         $this->name = $name;
     }
+
+    public function getAuthorName(): string
+    {
+        return $this->name;
+    }
 }
