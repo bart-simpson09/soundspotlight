@@ -89,7 +89,7 @@ class DashboardController extends AppController
             header('Content-Type: application/json');
             http_response_code(200);
 
-            echo json_encode($this->albumRepository->getFilteredAlbums($decoded['search']));
+            echo json_encode($this->albumRepository->getFilteredAlbums($decoded['title'], $decoded['artist'], (int)$decoded['category'], (int)$decoded['language']));
         }
     }
 }

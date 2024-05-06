@@ -1,4 +1,7 @@
 const albumTitle = document.querySelector("#albumTitle");
+const artistName = document.querySelector("#artistName");
+const category = document.querySelector("#category");
+const language = document.querySelector("#language");
 
 const searchButton = document.querySelector("#searchButton");
 
@@ -6,7 +9,14 @@ const albumsContainer = document.querySelector(".albumsList");
 
 
 searchButton.addEventListener("click", function (event) {
-    const data = {search: albumTitle.value};
+    event.preventDefault();
+
+    const data = {
+        title: albumTitle.value,
+        artist: artistName.value,
+        category: category.value,
+        language: language.value
+    };
 
     fetch("/searchAlbum", {
         method: "POST",
@@ -41,19 +51,23 @@ function createAlbum(album) {
     title.innerHTML = album.albumtitle;
 
     const author = clone.querySelector("#albumAuthor");
-    author.innerHTML = album.authorid;
+    author.innerHTML = album.authorname;
 
     const releaseDate = clone.querySelector("#albumReleaseDate");
     releaseDate.innerHTML = album.releasedate;
 
     const rate = clone.querySelector("#albumRate");
-    rate.innerHTML = album.averagerate;
+    if (album.averagerate) {
+        rate.innerHTML = album.averagerate;
+    } else {
+        rate.innerHTML = "-";
+    }
 
     const category = clone.querySelector("#albumCategory");
-    category.innerHTML = album.categoryid;
+    category.innerHTML = album.categoryname;
 
     const language = clone.querySelector("#albumLanguage");
-    language.innerHTML = album.languageid;
+    language.innerHTML = album.languagename;
 
     albumsContainer.appendChild(clone);
 }
