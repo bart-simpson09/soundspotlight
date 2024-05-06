@@ -3,6 +3,7 @@
 require_once 'AppController.php';
 require_once __DIR__ . '/../SessionManager.php';
 require_once __DIR__ . '/../repository/UserRepository.php';
+require_once __DIR__ . '/../repository/AlbumRepository.php';
 
 class DashboardController extends AppController
 {
