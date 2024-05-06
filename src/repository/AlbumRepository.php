@@ -8,34 +8,20 @@ class AlbumRepository extends Repository
     public function getAllAlbums(): array
     {
         $stmt = $this->database->connect()->prepare('
-            SELECT * FROM albums
-        ');
+        SELECT albums.*, 
+               authors.name AS authorname,
+               categories.name AS categoryname,
+               languages.name AS languagename
+        FROM albums
+        INNER JOIN authors ON albums.authorid = authors.id
+        INNER JOIN categories ON albums.categoryid = categories.id
+        INNER JOIN languages ON albums.languageid = languages.id
+    ');
         $stmt->execute();
 
-        $albums = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $albumsResult = [];
-
-        foreach ($albums as $album) {
-            $albumsResult[] = new Album(
-                $album['id'],
-                $album['albumtitle'],
-                $album['authorid'],
-                $album['languageid'],
-                $album['categoryid'],
-                $album['numberofsongs'],
-                $album['description'],
-                $album['averagerate'],
-                $album['cover'],
-                $album['releasedate'],
-                $album['uploaddate'],
-                $album['approvedate'],
-                $album['declinedate'],
-                $album['addedby']
-            );
-        }
-
-        return $albumsResult;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     public function getFilteredAlbums($albumTitle = null, $artistName = null, $categoryId = null, $languageId = null)
     {

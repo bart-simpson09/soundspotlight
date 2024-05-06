@@ -119,7 +119,7 @@
         </div>
     </div>
     <div class="albumsList">
-        <?php foreach ($shortenAlbums as $album): ?>
+        <?php foreach ($allAlbums as $album): ?>
             <div class="albumItem flexColumn rowGap24">
                 <div class="albumItemCoverArea">
                     <div class="favouriteButtonDefault flexCenter">
@@ -130,25 +130,25 @@
                 </div>
                 <div class="albumItemContent flexColumn rowGap24">
                     <div class="flexColumn rowGap8">
-                        <h3><?= $album['name'] ?></h3>
-                        <p><?= $album['author'] ?></p>
+                        <h3><?= $album['albumtitle'] ?></h3>
+                        <p><?= $album['authorname'] ?></p>
                     </div>
                     <div class="flexColumn rowGap8">
                         <div class="flexRow columnGap8">
                             <p class="albumItemDetailLabel">Release date</p>
-                            <p class="albumItemDetailText"><?= $album['releaseDate'] ?></p>
+                            <p class="albumItemDetailText"><?= $album['releasedate'] ?></p>
                         </div>
                         <div class="flexRow columnGap8">
                             <p class="albumItemDetailLabel">Rate</p>
-                            <p class="albumItemDetailText"><?= $album['rate'] !== null ? $album['rate'] : '-' ?></p>
+                            <p class="albumItemDetailText"><?= $album['averagerate'] !== null ? $album['averagerate'] : '-' ?></p>
                         </div>
                         <div class="flexRow columnGap8">
                             <p class="albumItemDetailLabel">Category</p>
-                            <p class="albumItemDetailText"><?= $album['category'] ?></p>
+                            <p class="albumItemDetailText"><?= $album['categoryname'] ?></p>
                         </div>
                         <div class="flexRow columnGap8">
                             <p class="albumItemDetailLabel">Language</p>
-                            <p class="albumItemDetailText"><?= $album['language'] ?></p>
+                            <p class="albumItemDetailText"><?= $album['languagename'] ?></p>
                         </div>
                     </div>
                 </div>

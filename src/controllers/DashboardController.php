@@ -13,7 +13,6 @@ class DashboardController extends AppController
 
     private $userRepository;
     private $albumRepository;
-    private $authorRepository;
     private $categoryRepository;
     private $languageRepository;
 
@@ -22,14 +21,12 @@ class DashboardController extends AppController
         parent::__construct();
         $this->userRepository = new UserRepository();
         $this->albumRepository = new AlbumRepository();
-        $this->authorRepository = new AuthorRepository();
         $this->categoryRepository = new CategoryRepository();
         $this->languageRepository = new LanguageRepository();
     }
 
     public function dashboard()
     {
-
         $userSession = SessionManager::getInstance();
         $userId = $userSession->__get("userId");
         $userEmail = $userSession->__get("userEmail");
@@ -37,43 +34,17 @@ class DashboardController extends AppController
         $user = $this->userRepository->getUser($userEmail);
         $allAlbums = $this->albumRepository->getAllAlbums();
 
-        $shortenAlbums = [];
-
-        foreach ($allAlbums as $album) {
-
-            $author = $this->authorRepository->getAuthorNameById($album->getAuthorId());
-            $authorName = $author->getAuthorName();
-
-            $category = $this->categoryRepository->getCategoryNameById($album->getCategoryId());
-            $categoryName = $category->getCategoryName();
-
-            $language = $this->languageRepository->getLanguageNameById($album->getLanguageId());
-            $languageName = $language->getLanguageName();
-
-            $shortenAlbums[] = [
-                'cover' => $album->getCover(),
-                'name' => $album->getAlbumTitle(),
-                'author' => $authorName,
-                'releaseDate' => $album->getReleaseDate(),
-                'rate' => $album->getAverageRate(),
-                'category' => $categoryName,
-                'language' => $languageName
-            ];
-        }
-
-
         if ($userId == null) {
             $url = "http://$_SERVER[HTTP_HOST]";
             header("Location: $url/login");
         }
-
 
         print $this->render('/dashboard', [
             'firstName' => $user->getFirstName(),
             'lastName' => $user->getLastName(),
             'avatar' => $user->getAvatar(),
             'isAdmin' => $user->getRole(),
-            'shortenAlbums' => $shortenAlbums,
+            'allAlbums' => $allAlbums,
             'categories' => $this->categoryRepository->getCategories(),
             'languages' => $this->languageRepository->getLanguages()]);
     }
