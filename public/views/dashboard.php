@@ -18,7 +18,8 @@
     <link rel="stylesheet" type="text/css" href="/public/css/components.css">
     <link rel="stylesheet" type="text/css" href="/public/css/responsive.css">
 
-    <script src="/public/js/scripts.js"></script>
+    <script src="/public/js/scripts.js" defer></script>
+    <script src="/public/js/search.js" defer></script>
 
     <title>Dashboard</title>
 </head>
@@ -66,12 +67,12 @@
     <div class="flexColumn rowGap24">
         <h1>Albums in our library</h1>
 
-        <form class="flexRow searchBar columnGap16" action="searchAlbum" method="POST">
+        <div class="flexRow searchBar columnGap16">
 
             <div class="inputArea flexColumn rowGap8">
                 <label for="albumTitle">Album title</label>
                 <div class="inputWithIcon">
-                    <input type="text" name="" id="albumTitle" placeholder="Type album title">
+                    <input type="text" name="albumTitle" id="albumTitle" placeholder="Type album title">
                     <i class="iconoir-compact-disc"></i>
                 </div>
             </div>
@@ -79,7 +80,7 @@
             <div class="inputArea flexColumn rowGap8">
                 <label for="artistName">Artist name</label>
                 <div class="inputWithIcon">
-                    <input type="text" name="" id="artistName" placeholder="Type artist name">
+                    <input type="text" name="artistName" id="artistName" placeholder="Type artist name">
                     <i class="iconoir-user"></i>
                 </div>
             </div>
@@ -88,7 +89,7 @@
                 <label for="category">Category</label>
                 <div class="inputWithIcon">
                     <div class="customSelect">
-                        <select id="category">
+                        <select name="category" id="category">
                             <option value="0">All categories</option>
                             <?php foreach ($categories as $category): ?>
                                 <option value="<?= $category->getCategoryId() ?>"><?= $category->getCategoryName() ?></option>
@@ -103,7 +104,7 @@
                 <label for="language">Language</label>
                 <div class="inputWithIcon">
                     <div class="customSelect">
-                        <select id="language">
+                        <select name="language" id="language">
                             <option value="0">All languages</option>
                             <?php foreach ($languages as $language): ?>
                                 <option value="<?= $language->getLanguageId() ?>"><?= $language->getLanguageName() ?></option>
@@ -114,8 +115,8 @@
                 </div>
             </div>
 
-            <button class="buttonPrimary">Search albums</button>
-        </form>
+            <button class="buttonPrimary" id="searchButton">Search albums</button>
+        </div>
     </div>
     <div class="albumsList">
         <?php foreach ($shortenAlbums as $album): ?>
@@ -125,7 +126,7 @@
                         <i class="iconoir-heart"></i>
                     </div>
                     <img class="albumItemCover" src="/public/assets/imgs/covers/<?= $album['cover'] ?>"
-                         alt="1-800-Oświecenie-Album-Cover">
+                         alt="<?= $album['name'] ?>-Album-Cover">
                 </div>
                 <div class="albumItemContent flexColumn rowGap24">
                     <div class="flexColumn rowGap8">
@@ -156,5 +157,41 @@
     </div>
 </div>
 </body>
+
+<template id="albumTemplate">
+    <div class="albumItem flexColumn rowGap24">
+        <div class="albumItemCoverArea">
+            <div class="favouriteButtonDefault flexCenter">
+                <i class="iconoir-heart"></i>
+            </div>
+            <img class="albumItemCover" src=""
+                 alt="Album-Cover">
+        </div>
+        <div class="albumItemContent flexColumn rowGap24">
+            <div class="flexColumn rowGap8">
+                <h3 id="albumTitle">Album title</h3>
+                <p id="albumAuthor">Author</p>
+            </div>
+            <div class="flexColumn rowGap8">
+                <div class="flexRow columnGap8">
+                    <p class="albumItemDetailLabel">Release date</p>
+                    <p class="albumItemDetailText" id="albumReleaseDate">Release date</p>
+                </div>
+                <div class="flexRow columnGap8">
+                    <p class="albumItemDetailLabel">Rate</p>
+                    <p class="albumItemDetailText" id="albumRate">Rate</p>
+                </div>
+                <div class="flexRow columnGap8">
+                    <p class="albumItemDetailLabel">Category</p>
+                    <p class="albumItemDetailText" id="albumCategory">Category</p>
+                </div>
+                <div class="flexRow columnGap8">
+                    <p class="albumItemDetailLabel">Language</p>
+                    <p class="albumItemDetailText" id="albumLanguage">Language</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
 
 </html>

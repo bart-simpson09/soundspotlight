@@ -37,4 +37,18 @@ class AlbumRepository extends Repository
         return $albumsResult;
     }
 
+    public function getFilteredAlbums(string $albumTitle)
+    {
+        $albumTitle = '%' . strtolower($albumTitle) . '%';
+
+        $stmt = $this->database->connect()->prepare('
+        SELECT * FROM albums WHERE LOWER(albumtitle) LIKE :albumtitle
+        ');
+
+        $stmt->bindParam(':albumtitle', $albumTitle, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }

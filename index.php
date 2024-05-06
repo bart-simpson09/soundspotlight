@@ -11,5 +11,6 @@ Router::get('dashboard', 'DashboardController');
 
 Router::post('login', 'SecurityController');
 Router::post('logout', 'SecurityController');
+Router::post('searchAlbum', 'DashboardController');
 
 Router::run($path);
