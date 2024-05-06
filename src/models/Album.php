@@ -3,71 +3,36 @@
 class Album
 {
     private $id;
-    private $userId;
     private $albumTitle;
-    private $authorName;
-    private $language;
-    private $releaseDate;
-    private $category;
+    private $authorId;
+    private $languageId;
+    private $categoryId;
     private $numberOfSongs;
     private $description;
+    private $averageRate;
+    private $cover;
+    private $releaseDate;
+    private $uploadDate;
+    private $approveDate;
+    private $declineDate;
+    private $addedBy;
 
-    public function __construct(?int $id, int $userId, string $albumTitle, string $authorName, string $language, string $releaseDate, string $category, int $numberOfSongs, string $description)
+    public function __construct(int $id, string $albumTitle, int $authorId, int $languageId, int $categoryId, int $numberOfSongs, string $description, float $averageRate, string $cover, string $releaseDate, string $uploadDate, string $approveDate, string $declineDate, int $addedBy)
     {
         $this->id = $id;
-        $this->userId = $$userId;
         $this->albumTitle = $albumTitle;
-        $this->authorName = $authorName;
-        $this->language = $language;
-        $this->releaseDate = $releaseDate;
-        $this->category = $category;
+        $this->authorId = $authorId;
+        $this->languageId = $languageId;
+        $this->categoryId = $categoryId;
         $this->numberOfSongs = $numberOfSongs;
         $this->description = $description;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function getUserId()
-    {
-        return $this->userId;
-    }
-
-    public function getAlbumTitle(): string
-    {
-        return $this->albumTitle;
-    }
-
-    public function getAuthorName(): string
-    {
-        return $this->authorName;
-    }
-
-    public function getLanguage(): string
-    {
-        return $this->language;
-    }
-
-    public function getReleaseDate(): string
-    {
-        return $this->releaseDate;
-    }
-
-    public function getCategory(): string
-    {
-        return $this->category;
-    }
-
-    public function getNumberOfSongs(): int
-    {
-        return $this->numberOfSongs;
-    }
-
-    public function getDescription(): string
-    {
-        return $this->description;
+        $this->averageRate = $averageRate;
+        $this->cover = $cover;
+        $this->releaseDate = $releaseDate;
+        $this->uploadDate = $uploadDate;
+        $this->approveDate = $approveDate;
+        $this->declineDate = $declineDate;
+        $this->addedBy = $addedBy;
     }
 
 }
