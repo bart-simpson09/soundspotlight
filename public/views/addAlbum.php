@@ -87,25 +87,33 @@
                     <div class="customSelect">
                         <select id="language">
                             <option value="" disabled="disabled" selected="true">Select language</option>
-                            <option value="">English</option>
-                            <option value="">Spanish</option>
-                            <option value="">French</option>
-                            <option value="">Standard Arabic</option>
-                            <option value="">Polish</option>
-                            <option value="">Portuguese</option>
-                            <option value="">Russian</option>
-                            <option value="">German</option>
+                            <?php foreach ($languages as $language): ?>
+                                <option value="<?= $language->getLanguageId() ?>"><?= $language->getLanguageName() ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                 </div>
                 <div class="inputArea flexColumn rowGap8">
+                    <label for="category">Category</label>
+                    <div class="customSelect">
+                        <select id="category">
+                            <option value="" disabled="disabled" selected="true">Select category</option>
+                            <?php foreach ($categories as $category): ?>
+                                <option value="<?= $category->getCategoryId() ?>"><?= $category->getCategoryName() ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="flexRow columnGap16 rowGap16 mobileWrapped">
+                <div class="inputArea flexColumn rowGap8">
                     <label for="releaseDate">Release date</label>
                     <input type="date" name="" id="releaseDate">
                 </div>
-            </div>
-            <div class="inputArea flexColumn rowGap8">
-                <label for="songsNumber">Number of songs</label>
-                <input type="number" name="" id="songsNumber" placeholder="Type number of songs">
+                <div class="inputArea flexColumn rowGap8">
+                    <label for="songsNumber">Number of songs</label>
+                    <input type="number" name="" id="songsNumber" placeholder="Type number of songs">
+                </div>
             </div>
             <div class="inputArea flexColumn rowGap8">
                 <label for="description">Description</label>

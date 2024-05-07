@@ -12,7 +12,6 @@ class AddAlbumController extends AppController
 {
 
     private $userRepository;
-    private $albumRepository;
     private $categoryRepository;
     private $languageRepository;
 
@@ -20,7 +19,6 @@ class AddAlbumController extends AppController
     {
         parent::__construct();
         $this->userRepository = new UserRepository();
-        $this->albumRepository = new AlbumRepository();
         $this->categoryRepository = new CategoryRepository();
         $this->languageRepository = new LanguageRepository();
     }
@@ -32,7 +30,6 @@ class AddAlbumController extends AppController
         $userEmail = $userSession->__get("userEmail");
 
         $user = $this->userRepository->getUser($userEmail);
-        $allAlbums = $this->albumRepository->getAllAlbums();
 
         if ($userId == null) {
             $url = "http://$_SERVER[HTTP_HOST]";
@@ -44,7 +41,6 @@ class AddAlbumController extends AppController
             'lastName' => $user->getLastName(),
             'avatar' => $user->getAvatar(),
             'isAdmin' => $user->getRole(),
-            'allAlbums' => $allAlbums,
             'categories' => $this->categoryRepository->getCategories(),
             'languages' => $this->languageRepository->getLanguages()]);
     }
