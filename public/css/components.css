@@ -77,6 +77,8 @@ nav {
     border-radius: 8px;
     font-size: 14px;
     white-space: nowrap;
+    cursor: pointer;
+    line-height: 16px;
 }
 
 .buttonSecondary:hover {
@@ -179,6 +181,32 @@ textarea:focus {
 
 .inputArea textarea {
     width: -webkit-fill-available;
+}
+
+input::file-selector-button {
+    background-color: var(--color-teal-10);
+    color: var(--text-primary-teal);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    white-space: nowrap;
+    cursor: pointer;
+    line-height: 16px;
+    border: none;
+}
+
+input::file-selector-button:hover {
+    background-color: var(--color-teal-20);
+}
+
+#albumCoverInput {
+    padding: 0;
+    border: none;
+    font-size: unset;
+    background-color: unset;
+    resize: unset;
+    min-height: unset;
+    width: 100%;
 }
 
 /* Component SELECT */

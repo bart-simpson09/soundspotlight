@@ -30,9 +30,9 @@
     <div class="menuArea flexRow">
         <div class="menuOptions flexRow columnGap32">
             <a class="active" href="dashboard">Home</a>
-            <a href="">Top albums</a>
-            <a href="">Your favourites</a>
-            <a href="">My profile</a>
+            <a href="topAlbums">Top albums</a>
+            <a href="yourFavorite">Your favorites</a>
+            <a href="myProfile">My profile</a>
             <?php if ($isAdmin == "admin"): ?>
                 <a href="">Admin console</a>
             <?php endif; ?>
@@ -40,7 +40,7 @@
         <div class="userSide flexRow columnGap24">
             <button class="flexRow columnGap8">
                 <span class="iconBox flexCenter"><i class="iconoir-music-double-note"></i></span>
-                <a href="">Add album</a>
+                <a href="addAlbum">Add album</a>
             </button>
             <span class="menuDivider"></span>
             <form class="userInfo flexRow columnGap16" action="logout" method="POST">
