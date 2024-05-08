@@ -9,6 +9,7 @@ Router::get('', 'SecurityController');
 Router::get('register', 'SecurityController');
 Router::get('dashboard', 'DashboardController');
 Router::get('addAlbum', 'AddAlbumController');
+Router::get('albumDetails', 'AlbumDetailsController');
 
 Router::post('login', 'SecurityController');
 Router::post('logout', 'SecurityController');

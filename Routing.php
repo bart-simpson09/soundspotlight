@@ -3,6 +3,7 @@
 require_once 'src/controllers/SecurityController.php';
 require_once 'src/controllers/DashboardController.php';
 require_once 'src/controllers/AddAlbumController.php';
+require_once 'src/controllers/AlbumDetailsController.php';
 
 class Router
 {
