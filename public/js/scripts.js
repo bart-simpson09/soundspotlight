@@ -71,17 +71,3 @@ function openModal(modalID) {
 function handleRate(rate, album) {
     console.log(rate)
 }
-
-const uploadCoverInput = document.querySelector("#albumCoverInput");
-const previewUploadedCover = () => {
-    const file = uploadCoverInput.files;
-    if (file) {
-        const fileReader = new FileReader();
-        const preview = document.getElementById('uploadedCoverPreview');
-        fileReader.onload = function (event) {
-            preview.setAttribute('src', event.target.result);
-        }
-        fileReader.readAsDataURL(file[0]);
-    }
-}
-uploadCoverInput.addEventListener("change", previewUploadedCover);

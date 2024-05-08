@@ -13,5 +13,6 @@ Router::get('addAlbum', 'AddAlbumController');
 Router::post('login', 'SecurityController');
 Router::post('logout', 'SecurityController');
 Router::post('searchAlbum', 'DashboardController');
+Router::post('addAlbum', 'AddAlbumController');
 
 Router::run($path);

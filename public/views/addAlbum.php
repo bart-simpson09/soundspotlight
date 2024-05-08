@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="public/css/responsive.css">
 
     <script src="public/js/scripts.js" defer></script>
+    <script src="public/js/validation.js" defer></script>
 
     <title>Add album</title>
 </head>
@@ -64,7 +65,7 @@
 
 <div class="globalPageContainer flexColumn rowGap32 narrowPageContainer">
     <h1>Add new album</h1>
-    <form action="" class="flexColumn rowGap32">
+    <form id="addAlbumForm" action="addAlbum" class="flexColumn rowGap32" method="POST" enctype="multipart/form-data">
         <div class="flexRow columnGap24">
             <img id="uploadedCoverPreview" class="myProfileAvatar" src="/public/assets/imgs/covers/default-cover.png"
                  alt="">
@@ -74,18 +75,18 @@
             <div class="flexRow columnGap16 rowGap16 mobileWrapped">
                 <div class="inputArea flexColumn rowGap8">
                     <label for="albumTitle">Album title</label>
-                    <input type="text" name="" id="albumTitle" placeholder="Type album title">
+                    <input type="text" name="albumTitle" id="albumTitle" placeholder="Type album title">
                 </div>
                 <div class="inputArea flexColumn rowGap8">
                     <label for="authorName">Author name</label>
-                    <input type="text" name="" id="authorName" placeholder="Type author name">
+                    <input type="text" name="authorName" id="authorName" placeholder="Type author name">
                 </div>
             </div>
             <div class="flexRow columnGap16 rowGap16 mobileWrapped">
                 <div class="inputArea flexColumn rowGap8">
                     <label for="language">Language</label>
                     <div class="customSelect">
-                        <select id="language">
+                        <select id="language" name="language">
                             <option value="" disabled="disabled" selected="true">Select language</option>
                             <?php foreach ($languages as $language): ?>
                                 <option value="<?= $language->getLanguageId() ?>"><?= $language->getLanguageName() ?></option>
@@ -96,7 +97,7 @@
                 <div class="inputArea flexColumn rowGap8">
                     <label for="category">Category</label>
                     <div class="customSelect">
-                        <select id="category">
+                        <select id="category" name="category">
                             <option value="" disabled="disabled" selected="true">Select category</option>
                             <?php foreach ($categories as $category): ?>
                                 <option value="<?= $category->getCategoryId() ?>"><?= $category->getCategoryName() ?></option>
@@ -108,20 +109,20 @@
             <div class="flexRow columnGap16 rowGap16 mobileWrapped">
                 <div class="inputArea flexColumn rowGap8">
                     <label for="releaseDate">Release date</label>
-                    <input type="date" name="" id="releaseDate">
+                    <input type="date" name="releaseDate" id="releaseDate">
                 </div>
                 <div class="inputArea flexColumn rowGap8">
                     <label for="songsNumber">Number of songs</label>
-                    <input type="number" name="" id="songsNumber" placeholder="Type number of songs">
+                    <input type="number" name="songsNumber" id="songsNumber" placeholder="Type number of songs">
                 </div>
             </div>
             <div class="inputArea flexColumn rowGap8">
                 <label for="description">Description</label>
-                <textarea name="" id="description" cols="30" rows="10"
+                <textarea name="description" id="description" cols="30" rows="10"
                           placeholder="Type album description"></textarea>
             </div>
         </div>
-        <button class="buttonPrimary">Add new album</button>
+        <button type="submit" class="buttonPrimary" id="submitButton">Add new album</button>
     </form>
 </div>
 </body>

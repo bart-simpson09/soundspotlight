@@ -66,7 +66,7 @@ nav {
     white-space: nowrap;
 }
 
-.buttonPrimary:hover {
+.buttonPrimary:hover:enabled {
     background-color: var(--color-teal-80);
 }
 
@@ -81,7 +81,7 @@ nav {
     line-height: 16px;
 }
 
-.buttonSecondary:hover {
+.buttonSecondary:hover:enabled {
     background-color: var(--color-teal-20);
 }
 
@@ -95,7 +95,7 @@ nav {
     color: var(--text-secondary);
 }
 
-.buttonOutlined:hover {
+.buttonOutlined:hover:enabled {
     background-color: var(--color-grey-30);
     color: var(--text-primary-dark);
 }
@@ -118,6 +118,12 @@ nav {
 .buttonOutlined.positiveAction:hover {
     background-color: var(--color-teal-100);
     color: var(--text-primary-white);
+}
+
+.buttonDisabled {
+    background-color: var(--color-grey-30);
+    color: var(--color-grey-60);
+    cursor: unset;
 }
 
 /* Component LABEL */
@@ -207,6 +213,10 @@ input::file-selector-button:hover {
     resize: unset;
     min-height: unset;
     width: 100%;
+}
+
+.inputError {
+    border: 1px solid var(--color-red-100);
 }
 
 /* Component SELECT */
