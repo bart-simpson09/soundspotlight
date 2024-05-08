@@ -123,6 +123,13 @@
             </div>
         </div>
         <button type="submit" class="buttonPrimary" id="submitButton">Add new album</button>
+        <div class="errorMessageContainer">
+            <?php
+            if (isset($errorMessage)) {
+                echo $errorMessage;
+            }
+            ?>
+        </div>
     </form>
 </div>
 </body>

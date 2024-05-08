@@ -17,7 +17,7 @@ class Album
     private $declineDate;
     private $addedBy;
 
-    public function __construct(int $id, string $albumTitle, int $authorId, int $languageId, int $categoryId, int $numberOfSongs, string $description, ?float $averageRate, string $cover, string $releaseDate, string $uploadDate, ?string $approveDate, ?string $declineDate, int $addedBy)
+    public function __construct(?int $id, string $albumTitle, int $authorId, int $languageId, int $categoryId, int $numberOfSongs, string $description, ?float $averageRate, string $cover, string $releaseDate, string $uploadDate, ?string $approveDate, ?string $declineDate, int $addedBy)
     {
         $this->id = $id;
         $this->albumTitle = $albumTitle;

@@ -43,4 +43,17 @@ class AuthorRepository extends Repository
         }
     }
 
+    public function addAuthor(string $name): Author
+    {
+        $stmt = $this->database->connect()->prepare('
+            INSERT INTO authors (name) VALUES (:name)
+        ');
+        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $authorId = $this->database->connect()->lastInsertId();
+
+        return new Author($authorId, $name);
+    }
+
 }

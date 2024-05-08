@@ -78,4 +78,23 @@ class AlbumRepository extends Repository
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function addAlbum($albumTitle, $authorId, $languageId, $categoryId, $numberOfSongs, $description, $cover, $releaseDate, $uploadDate, $addedBy)
+    {
+        $stmt = $this->database->connect()->prepare('
+    INSERT INTO albums (albumtitle, authorid, languageid, categoryid, numberofsongs, description, cover, releasedate, uploaddate, addedby)
+    VALUES (:albumtitle, :authorid, :languageid, :categoryid, :numberofsongs, :description, :cover, :releasedate, :uploaddate, :addedby);
+  ');
+        $stmt->bindValue(':albumtitle', $albumTitle);
+        $stmt->bindValue(':authorid', $authorId);
+        $stmt->bindValue(':languageid', $languageId);
+        $stmt->bindValue(':categoryid', $categoryId);
+        $stmt->bindValue(':numberofsongs', $numberOfSongs);
+        $stmt->bindValue(':description', $description);
+        $stmt->bindValue(':cover', $cover);
+        $stmt->bindValue(':releasedate', $releaseDate);
+        $stmt->bindValue(':uploaddate', $uploadDate);
+        $stmt->bindValue(':addedby', $addedBy);
+        $stmt->execute();
+    }
 }
