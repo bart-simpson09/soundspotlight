@@ -120,7 +120,7 @@
     </div>
     <div class="albumsList">
         <?php foreach ($allAlbums as $album): ?>
-            <div class="albumItem flexColumn rowGap24">
+            <a href="/albumDetails/<?= $album['id'] ?>" class="albumItem flexColumn rowGap24">
                 <div class="albumItemCoverArea">
                     <div class="favouriteButtonDefault flexCenter">
                         <i class="iconoir-heart"></i>
@@ -152,8 +152,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
         <?php endforeach; ?>
+
     </div>
 </div>
 </body>

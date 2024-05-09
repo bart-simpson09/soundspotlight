@@ -10,15 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css"/>
 
-    <link rel="stylesheet" type="text/css" href="public/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="public/css/fonts.css">
-    <link rel="stylesheet" type="text/css" href="public/css/colors.css">
-    <link rel="stylesheet" type="text/css" href="public/css/flex.css">
-    <link rel="stylesheet" type="text/css" href="public/css/global.css">
-    <link rel="stylesheet" type="text/css" href="public/css/components.css">
-    <link rel="stylesheet" type="text/css" href="public/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/flex.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/global.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/components.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/responsive.css">
 
-    <script src="public/js/scripts.js"></script>
+    <script src="/public/js/scripts.js" defer></script>
 
     <title>Album details</title>
 </head>
@@ -28,21 +28,21 @@
     <a href="/"><img src="/public/assets/logo.svg" alt="SoundSpotlight Logo"></a>
     <div class="menuArea flexRow">
         <div class="menuOptions flexRow columnGap32">
-            <a href="dashboard">Home</a>
-            <a href="topAlbums">Top albums</a>
-            <a href="yourFavorite">Your favorites</a>
-            <a href="myProfile">My profile</a>
+            <a href="../dashboard">Home</a>
+            <a href="../topAlbums">Top albums</a>
+            <a href="../yourFavorite">Your favorites</a>
+            <a href="../myProfile">My profile</a>
             <?php if ($isAdmin == "admin"): ?>
-                <a href="">Admin console</a>
+                <a href="../adminConsole">Admin console</a>
             <?php endif; ?>
         </div>
         <div class="userSide flexRow columnGap24">
             <button class="flexRow columnGap8">
                 <span class="iconBox flexCenter"><i class="iconoir-music-double-note"></i></span>
-                <a href="addAlbum">Add album</a>
+                <a href="../addAlbum">Add album</a>
             </button>
             <span class="menuDivider"></span>
-            <form class="userInfo flexRow columnGap16" action="logout" method="POST">
+            <form class="userInfo flexRow columnGap16" action="../logout" method="POST">
                 <div class="profile flexRow columnGap8">
                     <img class="standardAvatar" src="/public/assets/imgs/avatars/<?= $avatar ?>"
                          alt="<?= $firstName . ' ' . $lastName . ' avatar' ?>">
@@ -63,21 +63,20 @@
 </nav>
 
 <div class="globalPageContainer flexColumn rowGap32 narrowPageContainer">
-    <div class="flexRow columnGap8">
-        <i class="iconoir-arrow-left"></i>
-        <a href="">Go back to albums</a>
+    <div class="flexRow columnGap8 goBackButton">
+        <i class="iconoir-arrow-left"></i>Go back to albums
     </div>
     <div class="flexColumn rowGap24">
         <div class="flexRow columnGap32 albumDetailsTop">
-            <img class="albumDetailsCover" src="/public/assets/imgs/covers/1-800-oswiecenie.png" alt="">
+            <img class="albumDetailsCover" src="/public/assets/imgs/covers/<?= $album['cover'] ?>" alt="">
             <div class="flexColumn rowGap32">
                 <div class="flexColumn rowGap16">
                     <div class="flexColumn rowGap8">
                         <div class="flexRow columnGap16">
-                            <h1>Pocztówka z WWA, lato ‘19</h1>
+                            <h1><?= $album['albumtitle'] ?></h1>
                             <i class="iconoir-heart albumDetailsFavourite"></i>
                         </div>
-                        <p>Taco Hemingway</p>
+                        <p><?= $album['authorname'] ?></p>
                     </div>
                     <span class="dividerHorizon40"></span>
                 </div>
@@ -86,36 +85,30 @@
                         <div class="albumDetailsAttributeIcon flexCenter">
                             <i class="iconoir-music-double-note"></i>
                         </div>
-                        <p>11 songs</p>
+                        <p><?= $album['numberofsongs'] . " songs" ?></p>
                     </div>
                     <div class="flexRow columnGap8 albumDetailsAttribute">
                         <div class="albumDetailsAttributeIcon flexCenter">
                             <i class="iconoir-language"></i>
                         </div>
-                        <p>Polish</p>
+                        <p><?= $album['languagename'] ?></p>
                     </div>
                     <div class="flexRow columnGap8 albumDetailsAttribute">
                         <div class="albumDetailsAttributeIcon flexCenter">
                             <i class="iconoir-calendar"></i>
                         </div>
-                        <p>23.07.2019</p>
+                        <p><?= $album['releasedate'] ?></p>
                     </div>
                     <div class="flexRow columnGap8 albumDetailsAttribute">
                         <div class="albumDetailsAttributeIcon flexCenter">
                             <i class="iconoir-star"></i>
                         </div>
-                        <p>4.5/5</p>
+                        <p><?= $album['averagerate'] !== null ? $album['averagerate'] : '-' ?></p>
                     </div>
                 </div>
             </div>
         </div>
-        <p class="albumDetailsDescription">Płyta Pocztówka z WWA, Lato ‘19 została zapowiedziana przez Taco w jego
-            mediach
-            społecznościowych na tydzień przed premierą albumu. Jest to pierwszy projekt Taco, który dostał
-            przedsprzedaż, co było dużym
-            zaskoczeniem dla jego słuchaczy. Już w pierwszym tygodniu od premiery płyta wskoczyła na pierwsze
-            miejsce najlepiej sprzedających się płyt w Polsce.</br></br> 21 sierpnia 2019 album uzyskał w Polsce
-            status złotej płyty za sprzedaż na poziomie 15 tys. kopii.</p>
+        <p class="albumDetailsDescription"><?= $album['description'] ?></p>
     </div>
     <div class="albumDetailsOpinions flexColumn rowGap24">
         <div class="flexRow header">

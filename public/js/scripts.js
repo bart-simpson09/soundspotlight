@@ -15,7 +15,6 @@ if (defaultTab != null) {
     defaultTab.click();
 }
 
-
 function openTab(event, tabName) {
     let i, tabContent, tabItem;
 
@@ -67,6 +66,11 @@ function openModal(modalID) {
         };
     });
 }
+
+document.querySelector(".goBackButton").addEventListener("click", () => {
+    history.back();
+})
+
 
 function handleRate(rate, album) {
     console.log(rate)

@@ -126,6 +126,18 @@ nav {
     cursor: unset;
 }
 
+.goBackButton {
+    color: var(--text-secondary);
+    text-decoration: none;
+    white-space: nowrap;
+    font-size: 14px;
+}
+
+.goBackButton:hover {
+    color: var(--text-primary-teal);
+    cursor: pointer;
+}
+
 /* Component LABEL */
 
 label {

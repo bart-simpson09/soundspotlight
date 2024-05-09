@@ -21,8 +21,13 @@ class AlbumDetailsController extends AppController
         $this->albumRepository = new AlbumRepository();
     }
 
-    public function albumDetails()
+    public function albumDetails($id)
     {
+        if (!$id) {
+            $url = "http://$_SERVER[HTTP_HOST]";
+            header("Location: $url/dashboard");
+        }
+
         $userSession = SessionManager::getInstance();
         $userId = $userSession->__get("userId");
         $userEmail = $userSession->__get("userEmail");
@@ -34,10 +39,18 @@ class AlbumDetailsController extends AppController
             header("Location: $url/login");
         }
 
+        $album = $this->albumRepository->getAlbumById($id);
+
+        if (!$album) {
+            $url = "http://$_SERVER[HTTP_HOST]";
+            header("Location: $url/dashboard");
+        }
+
         print $this->render('/albumDetails', [
             'firstName' => $user->getFirstName(),
             'lastName' => $user->getLastName(),
             'avatar' => $user->getAvatar(),
-            'isAdmin' => $user->getRole()]);
+            'isAdmin' => $user->getRole(),
+            'album' => $album]);
     }
 }

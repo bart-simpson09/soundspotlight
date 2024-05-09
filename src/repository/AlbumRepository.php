@@ -97,4 +97,30 @@ class AlbumRepository extends Repository
         $stmt->bindValue(':addedby', $addedBy);
         $stmt->execute();
     }
+
+    public function getAlbumById($id)
+    {
+        $stmt = $this->database->connect()->prepare('
+        SELECT albums.*, 
+               authors.name AS authorname,
+               categories.name AS categoryname,
+               languages.name AS languagename
+        FROM albums
+        INNER JOIN authors ON albums.authorid = authors.id
+        INNER JOIN categories ON albums.categoryid = categories.id
+        INNER JOIN languages ON albums.languageid = languages.id
+        WHERE albums.id = :id
+    ');
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $albumData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$albumData) {
+            return null;
+        }
+
+        return $albumData;
+    }
+
 }
