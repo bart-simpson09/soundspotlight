@@ -57,6 +57,9 @@ class DashboardController extends AppController
 
     public function searchAlbum()
     {
+        $userSession = SessionManager::getInstance();
+        $userId = $userSession->__get("userId");
+
         $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
 
         if ($contentType === "application/json") {
@@ -66,7 +69,7 @@ class DashboardController extends AppController
             header('Content-Type: application/json');
             http_response_code(200);
 
-            echo json_encode($this->albumRepository->getFilteredAlbums($decoded['title'], $decoded['artist'], (int)$decoded['category'], (int)$decoded['language']));
+            echo json_encode($this->albumRepository->getFilteredAlbums((int)$userId, $decoded['title'], $decoded['artist'], (int)$decoded['category'], (int)$decoded['language']));
         }
     }
 }

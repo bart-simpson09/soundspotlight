@@ -132,7 +132,7 @@
                          alt="<?= $album['name'] ?>-Album-Cover">
                 </div>
                 <div class="albumItemContent flexColumn rowGap24">
-                    <div class="flexColumn rowGap8">
+                    <div class="flexColumn rowGap4">
                         <h3><?= $album['albumtitle'] ?></h3>
                         <p><?= $album['authorname'] ?></p>
                     </div>
@@ -164,7 +164,7 @@
 <template id="albumTemplate">
     <div class="albumItem flexColumn rowGap24">
         <div class="albumItemCoverArea">
-            <div class="favouriteButtonDefault flexCenter">
+            <div class="favouriteButtonDefault flexCenter" id="favoriteButton">
                 <i class="iconoir-heart"></i>
             </div>
             <img class="albumItemCover" src=""

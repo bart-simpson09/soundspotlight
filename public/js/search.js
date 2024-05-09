@@ -34,7 +34,6 @@ searchButton.addEventListener("click", function (event) {
 
 function loadAlbums(albums) {
     albums.forEach(album => {
-        console.log(album);
         createAlbum(album);
     });
 }
@@ -43,6 +42,13 @@ function createAlbum(album) {
     const template = document.querySelector("#albumTemplate");
 
     const clone = template.content.cloneNode(true);
+
+    const favoriteButton = clone.querySelector("#favoriteButton");
+    if (album.isfavorite) {
+        favoriteButton.innerHTML = '<i class="iconoir-heart-solid"></i>';
+    } else {
+        favoriteButton.innerHTML = '<i class="iconoir-heart"></i>';
+    }
 
     const cover = clone.querySelector("img");
     cover.src = `/public/assets/imgs/covers/${album.cover}`;

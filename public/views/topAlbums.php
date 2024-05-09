@@ -71,13 +71,16 @@
             <a href="/albumDetails/<?= $album['id'] ?>" class="albumItem flexColumn rowGap24">
                 <div class="albumItemCoverArea">
                     <div class="favouriteButtonDefault flexCenter">
-                        <i class="iconoir-heart"></i>
+                        <?php
+                        $heartClass = $album['isfavorite'] ? 'iconoir-heart-solid' : 'iconoir-heart';
+                        ?>
+                        <i class="<?= $heartClass ?>"></i>
                     </div>
                     <img class="albumItemCover" src="/public/assets/imgs/covers/<?= $album['cover'] ?>"
                          alt="<?= $album['name'] ?>-Album-Cover">
                 </div>
                 <div class="albumItemContent flexColumn rowGap24">
-                    <div class="flexColumn rowGap8">
+                    <div class="flexColumn rowGap4">
                         <h3><?= $album['albumtitle'] ?></h3>
                         <p><?= $album['authorname'] ?></p>
                     </div>

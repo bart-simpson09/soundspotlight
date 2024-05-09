@@ -32,7 +32,7 @@ class TopAlbumsController extends AppController
         $userEmail = $userSession->__get("userEmail");
 
         $user = $this->userRepository->getUser($userEmail);
-        $topAlbums = $this->albumRepository->getTopAlbums();
+        $topAlbums = $this->albumRepository->getTopAlbums($userId);
 
         if ($userId == null) {
             $url = "http://$_SERVER[HTTP_HOST]";

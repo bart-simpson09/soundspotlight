@@ -309,11 +309,13 @@ select {
 }
 
 .albumItemDetailLabel {
-    width: 88px;
+    min-width: 88px;
 }
 
 .albumItemDetailText {
     color: var(--text-primary-dark);
+    text-wrap: wrap;
+    width: 100%;
 }
 
 /* Component ALBUM DETAILS OPINION ITEM */
