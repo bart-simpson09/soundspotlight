@@ -30,7 +30,7 @@
         <div class="menuOptions flexRow columnGap32">
             <a href="../dashboard">Home</a>
             <a href="../topAlbums">Top albums</a>
-            <a href="../yourFavorite">Your favorites</a>
+            <a href="../yourFavorites">Your favorites</a>
             <a href="../myProfile">My profile</a>
             <?php if ($isAdmin == "admin"): ?>
                 <a href="../adminConsole">Admin console</a>
