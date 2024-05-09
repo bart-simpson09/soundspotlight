@@ -123,7 +123,10 @@
             <a href="/albumDetails/<?= $album['id'] ?>" class="albumItem flexColumn rowGap24">
                 <div class="albumItemCoverArea">
                     <div class="favouriteButtonDefault flexCenter">
-                        <i class="iconoir-heart"></i>
+                        <?php
+                        $heartClass = $album['isfavorite'] ? 'iconoir-heart-solid' : 'iconoir-heart';
+                        ?>
+                        <i class="<?= $heartClass ?>"></i>
                     </div>
                     <img class="albumItemCover" src="/public/assets/imgs/covers/<?= $album['cover'] ?>"
                          alt="<?= $album['name'] ?>-Album-Cover">

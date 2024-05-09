@@ -5,22 +5,26 @@ require_once __DIR__ . '/../models/Album.php';
 
 class AlbumRepository extends Repository
 {
-    public function getAllAlbums(): array
+    public function getAllAlbums($userId): array
     {
         $stmt = $this->database->connect()->prepare('
         SELECT albums.*, 
                authors.name AS authorname,
                categories.name AS categoryname,
-               languages.name AS languagename
+               languages.name AS languagename,
+               (CASE WHEN favorites.albumid IS NULL THEN FALSE ELSE TRUE END) AS isfavorite
         FROM albums
         INNER JOIN authors ON albums.authorid = authors.id
         INNER JOIN categories ON albums.categoryid = categories.id
         INNER JOIN languages ON albums.languageid = languages.id
+        LEFT JOIN favorites ON albums.id = favorites.albumid AND favorites.userid = :userid
     ');
+        $stmt->bindParam(':userid', $userId, PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     public function getTopAlbums(): array
     {
@@ -44,7 +48,6 @@ class AlbumRepository extends Repository
 
     public function getFilteredAlbums($albumTitle = null, $artistName = null, $categoryId = null, $languageId = null)
     {
-        // Zbieranie warunków dla zapytania
         $conditions = [];
         $params = [];
 
@@ -69,8 +72,7 @@ class AlbumRepository extends Repository
             $conditions[] = "albums.languageid = :languageid";
             $params[':languageid'] = $languageId;
         }
-
-        // Budowanie zapytania z dynamicznymi warunkami
+        
         $query = '
         SELECT albums.*, 
                authors.name AS authorname,
@@ -88,7 +90,6 @@ class AlbumRepository extends Repository
 
         $stmt = $this->database->connect()->prepare($query);
 
-        // Przypisanie wartości do zapytania
         foreach ($params as $key => $value) {
             $stmt->bindValue($key, $value);
         }

@@ -7,6 +7,7 @@ require_once __DIR__ . '/../repository/AlbumRepository.php';
 require_once __DIR__ . '/../repository/AuthorRepository.php';
 require_once __DIR__ . '/../repository/CategoryRepository.php';
 require_once __DIR__ . '/../repository/LanguageRepository.php';
+require_once __DIR__ . '/../repository/FavoriteRepository.php';
 
 class DashboardController extends AppController
 {
@@ -16,6 +17,8 @@ class DashboardController extends AppController
     private $categoryRepository;
     private $languageRepository;
 
+    //private $favoriteRepository;
+
     public function __construct()
     {
         parent::__construct();
@@ -23,6 +26,7 @@ class DashboardController extends AppController
         $this->albumRepository = new AlbumRepository();
         $this->categoryRepository = new CategoryRepository();
         $this->languageRepository = new LanguageRepository();
+        //$this->favoriteRepository = new FavoriteRepository();
     }
 
     public function dashboard()
@@ -32,7 +36,9 @@ class DashboardController extends AppController
         $userEmail = $userSession->__get("userEmail");
 
         $user = $this->userRepository->getUser($userEmail);
-        $allAlbums = $this->albumRepository->getAllAlbums();
+        $allAlbums = $this->albumRepository->getAllAlbums($userId);
+        //$userFavorites = $this->favoriteRepository->getUserFavoriteAlbums($userId);
+
 
         if ($userId == null) {
             $url = "http://$_SERVER[HTTP_HOST]";
