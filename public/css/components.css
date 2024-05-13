@@ -66,7 +66,7 @@ nav {
     white-space: nowrap;
 }
 
-.buttonPrimary:hover {
+.buttonPrimary:hover:enabled {
     background-color: var(--color-teal-80);
 }
 
@@ -77,9 +77,11 @@ nav {
     border-radius: 8px;
     font-size: 14px;
     white-space: nowrap;
+    cursor: pointer;
+    line-height: 16px;
 }
 
-.buttonSecondary:hover {
+.buttonSecondary:hover:enabled {
     background-color: var(--color-teal-20);
 }
 
@@ -93,7 +95,7 @@ nav {
     color: var(--text-secondary);
 }
 
-.buttonOutlined:hover {
+.buttonOutlined:hover:enabled {
     background-color: var(--color-grey-30);
     color: var(--text-primary-dark);
 }
@@ -116,6 +118,24 @@ nav {
 .buttonOutlined.positiveAction:hover {
     background-color: var(--color-teal-100);
     color: var(--text-primary-white);
+}
+
+.buttonDisabled {
+    background-color: var(--color-grey-30);
+    color: var(--color-grey-60);
+    cursor: unset;
+}
+
+.goBackButton {
+    color: var(--text-secondary);
+    text-decoration: none;
+    white-space: nowrap;
+    font-size: 14px;
+}
+
+.goBackButton:hover {
+    color: var(--text-primary-teal);
+    cursor: pointer;
 }
 
 /* Component LABEL */
@@ -179,6 +199,36 @@ textarea:focus {
 
 .inputArea textarea {
     width: -webkit-fill-available;
+}
+
+input::file-selector-button {
+    background-color: var(--color-teal-10);
+    color: var(--text-primary-teal);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    white-space: nowrap;
+    cursor: pointer;
+    line-height: 16px;
+    border: none;
+}
+
+input::file-selector-button:hover {
+    background-color: var(--color-teal-20);
+}
+
+#albumCoverInput {
+    padding: 0;
+    border: none;
+    font-size: unset;
+    background-color: unset;
+    resize: unset;
+    min-height: unset;
+    width: 100%;
+}
+
+.inputError {
+    border: 1px solid var(--color-red-100);
 }
 
 /* Component SELECT */
@@ -259,11 +309,13 @@ select {
 }
 
 .albumItemDetailLabel {
-    width: 88px;
+    min-width: 88px;
 }
 
 .albumItemDetailText {
     color: var(--text-primary-dark);
+    text-wrap: wrap;
+    width: 100%;
 }
 
 /* Component ALBUM DETAILS OPINION ITEM */

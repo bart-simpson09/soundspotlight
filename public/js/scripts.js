@@ -1,21 +1,19 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const hamburgerMenu = document.querySelector(".hamburgerMenu");
-    const menuArea = document.querySelector(".menuArea");
-    const nav = document.querySelector("nav");
+const hamburgerMenu = document.querySelector(".hamburgerMenu");
+const menuArea = document.querySelector(".menuArea");
+const nav = document.querySelector("nav");
 
-    hamburgerMenu.addEventListener("click", mobileMenu);
+hamburgerMenu.addEventListener("click", mobileMenu);
 
-    function mobileMenu() {
-        hamburgerMenu.classList.toggle("active");
-        menuArea.classList.toggle("active");
-        nav.classList.toggle("active");
-    }
+function mobileMenu() {
+    hamburgerMenu.classList.toggle("active");
+    menuArea.classList.toggle("active");
+    nav.classList.toggle("active");
+}
 
-    let defaultTab = document.getElementById("defaultTab");
-    if (defaultTab != null) {
-        defaultTab.click();
-    }
-});
+let defaultTab = document.getElementById("defaultTab");
+if (defaultTab != null) {
+    defaultTab.click();
+}
 
 function openTab(event, tabName) {
     let i, tabContent, tabItem;
@@ -41,7 +39,9 @@ function openModal(modalID) {
 
     modal.style.display = "flex";
 
-    closeButton.onclick = function () { modal.style.display = "none" }
+    closeButton.onclick = function () {
+        modal.style.display = "none"
+    }
 
     window.onclick = function (event) {
         if (event.target === modal) {
@@ -55,8 +55,7 @@ function openModal(modalID) {
             for (let i = 0; i < stars.length; ++i) {
                 if (i <= index) {
                     stars[i].className = "ratingStar iconoir-star-solid";
-                }
-                else {
+                } else {
                     stars[i].className = "ratingStar iconoir-star";
                 }
             }
@@ -67,6 +66,11 @@ function openModal(modalID) {
         };
     });
 }
+
+document.querySelector(".goBackButton").addEventListener("click", () => {
+    history.back();
+})
+
 
 function handleRate(rate, album) {
     console.log(rate)

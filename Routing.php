@@ -2,6 +2,10 @@
 
 require_once 'src/controllers/SecurityController.php';
 require_once 'src/controllers/DashboardController.php';
+require_once 'src/controllers/AddAlbumController.php';
+require_once 'src/controllers/AlbumDetailsController.php';
+require_once 'src/controllers/TopAlbumsController.php';
+require_once 'src/controllers/YourFavoritesController.php';
 
 class Router
 {
@@ -20,7 +24,8 @@ class Router
 
     public static function run($url)
     {
-        $action = explode("/", $url)[0];
+        $urlParts = explode("/", $url);
+        $action = $urlParts[0];
         if (!array_key_exists($action, self::$routes)) {
             die("Wrong url!");
         }
@@ -40,6 +45,8 @@ class Router
         $controller = self::$routes[$action];
         $object = new $controller;
         $action = $action ?: 'redirectBasedOnSession';
-        $object->$action();
+
+        $id = $urlParts[1] ?? '';
+        $object->$action($id);
     }
 }
