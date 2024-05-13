@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="/public/css/responsive.css">
 
     <script src="/public/js/scripts.js" defer></script>
-    <script src="/public/js/validation.js" defer></script>
+    <script src="/public/js/addAlbumValidation.js" defer></script>
 
     <title>Add album</title>
 </head>
@@ -69,7 +69,7 @@
         <div class="flexRow columnGap24">
             <img id="uploadedCoverPreview" class="myProfileAvatar" src="/public/assets/imgs/covers/default-cover.png"
                  alt="">
-            <input type="file" id="albumCoverInput" name="albumCover" accept="image/png, image/jpeg">
+            <input type="file" id="photoInput" name="albumCover" accept="image/png, image/jpeg">
         </div>
         <div class="flexColumn rowGap16">
             <div class="flexRow columnGap16 rowGap16 mobileWrapped">

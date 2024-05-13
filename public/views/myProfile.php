@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="public/css/responsive.css">
 
     <script src="public/js/scripts.js" defer></script>
+    <script src="public/js/userProfile.js" defer></script>
 
     <title>My profile</title>
 </head>
@@ -66,9 +67,12 @@
     <h1>My profile</h1>
     <div class="flexRow columnGap24">
         <img class="myProfileAvatar" src="/public/assets/imgs/avatars/<?= $avatar ?>" alt="">
-        <div class="flexRow columnGap16 rowGap8 flexWrap">
-            <h1>Welcome, <?= $firstName ?></h1>
-            <button class="buttonSecondary">Change your photo</button>
+        <div class="flexRow columnGap16 rowGap8">
+            <h1 style="text-wrap: nowrap">Welcome, <?= $firstName ?></h1>
+            <form id="changeUserPhotoForm" action="changePhoto" method="POST" enctype="multipart/form-data">
+                <input type="file" id="photoInput" name="newPhoto" accept="image/png, image/jpeg">
+            </form>
+
         </div>
     </div>
     <div class="flexColumn rowGap24">

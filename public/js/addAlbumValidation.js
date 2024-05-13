@@ -1,4 +1,4 @@
-const coverInput = document.getElementById("albumCoverInput"); // Poprawka z "albumCover" na "albumCoverInput"
+const photoInput = document.getElementById("photoInput");
 const titleInput = document.getElementById("albumTitle");
 const authorInput = document.getElementById("authorName");
 const languageInput = document.getElementById("language");
@@ -25,7 +25,7 @@ function checkIfEmpty(event) {
 }
 
 function validateForm() {
-    const inputs = [coverInput, titleInput, authorInput, languageInput, categoryInput, releaseDateInput, songsNumberInput, descriptionInput];
+    const inputs = [photoInput, titleInput, authorInput, languageInput, categoryInput, releaseDateInput, songsNumberInput, descriptionInput];
     const allFilled = inputs.every(input => input.value.trim() !== "");
 
     if (allFilled) {
@@ -42,7 +42,7 @@ function checkFileSize(event) {
 
     if (file && file.size > fileSizeLimit) {
         alert("File size is too large! Please choose a file under 1 MB.");
-        coverInput.value = ""; // Clear the input value
+        photoInput.value = ""; // Clear the input value
         document.getElementById('uploadedCoverPreview').setAttribute('src', '/public/assets/imgs/covers/default-cover.png');
         return true;
     }
@@ -50,7 +50,7 @@ function checkFileSize(event) {
     return false;
 }
 
-const uploadCoverInput = document.querySelector("#albumCoverInput");
+const uploadCoverInput = document.querySelector("#photoInput");
 const previewUploadedCover = () => {
     const file = uploadCoverInput.files[0]; // Access the first selected file
     if (file) {
@@ -63,7 +63,7 @@ const previewUploadedCover = () => {
     }
 }
 
-coverInput.addEventListener("change", checkFileSize);
+photoInput.addEventListener("change", checkFileSize);
 
 uploadCoverInput.addEventListener("change", (event) => {
     if (!checkFileSize(event)) {
@@ -71,7 +71,7 @@ uploadCoverInput.addEventListener("change", (event) => {
     }
 });
 
-[coverInput, titleInput, authorInput, languageInput, categoryInput, releaseDateInput, songsNumberInput, descriptionInput].forEach(input => {
+[photoInput, titleInput, authorInput, languageInput, categoryInput, releaseDateInput, songsNumberInput, descriptionInput].forEach(input => {
     input.addEventListener("blur", checkIfEmpty);
     input.addEventListener("input", validateForm);
 });

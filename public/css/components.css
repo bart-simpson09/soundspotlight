@@ -217,7 +217,7 @@ input::file-selector-button:hover {
     background-color: var(--color-teal-20);
 }
 
-#albumCoverInput {
+#photoInput {
     padding: 0;
     border: none;
     font-size: unset;

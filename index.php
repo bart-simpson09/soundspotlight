@@ -18,5 +18,6 @@ Router::post('login', 'SecurityController');
 Router::post('logout', 'SecurityController');
 Router::post('searchAlbum', 'DashboardController');
 Router::post('addAlbum', 'AddAlbumController');
+Router::post('changePhoto', 'MyProfileController');
 
 Router::run($path);

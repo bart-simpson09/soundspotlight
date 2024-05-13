@@ -40,4 +40,14 @@ class UserRepository extends Repository
 
     }
 
+    public function changePhoto(int $userId, string $newPhoto)
+    {
+        $stmt = $this->database->connect()->prepare('
+        UPDATE users SET avatar = :newPhoto WHERE id = :userId
+    ');
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmt->bindParam(':newPhoto', $newPhoto, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
 }

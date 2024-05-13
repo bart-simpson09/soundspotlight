@@ -17,7 +17,6 @@ class AddAlbumController extends AppController
     private $albumRepository;
     private $authorRepository;
 
-    const MAX_FILE_SIZE = 1024 * 1024;
     const UPLOAD_DIRECTORY = '/../public/assets/imgs/covers/';
 
     public function __construct()
@@ -100,7 +99,10 @@ class AddAlbumController extends AppController
 
     private function validateAlbumName($albumTitle): bool
     {
-        $allAlbums = $this->albumRepository->getAllAlbums();
+        $userSession = SessionManager::getInstance();
+        $userId = $userSession->__get("userId");
+        
+        $allAlbums = $this->albumRepository->getAllAlbums($userId);
         foreach ($allAlbums as $album) {
             if ($album['albumtitle'] == $albumTitle) {
                 return false;
