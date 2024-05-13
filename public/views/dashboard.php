@@ -143,7 +143,7 @@
                         </div>
                         <div class="flexRow columnGap8">
                             <p class="albumItemDetailLabel">Rate</p>
-                            <p class="albumItemDetailText"><?= $album['averagerate'] != 0 ? $album['averagerate'] : '-' ?></p>
+                            <p class="albumItemDetailText"><?= $album['averagerate'] != 0 ? $album['averagerate'] . "/5" : '-' ?></p>
                         </div>
                         <div class="flexRow columnGap8">
                             <p class="albumItemDetailLabel">Category</p>
@@ -163,37 +163,39 @@
 
 <template id="albumTemplate">
     <div class="albumItem flexColumn rowGap24">
-        <div class="albumItemCoverArea">
-            <div class="favouriteButtonDefault flexCenter" id="favoriteButton">
-                <i class="iconoir-heart"></i>
+        <a href="/albumDetails/<?= $album['id'] ?>" class="albumItem flexColumn rowGap24">
+            <div class="albumItemCoverArea">
+                <div class="favouriteButtonDefault flexCenter" id="favoriteButton">
+                    <i class="iconoir-heart"></i>
+                </div>
+                <img class="albumItemCover" src=""
+                     alt="Album-Cover">
             </div>
-            <img class="albumItemCover" src=""
-                 alt="Album-Cover">
-        </div>
-        <div class="albumItemContent flexColumn rowGap24">
-            <div class="flexColumn rowGap8">
-                <h3 id="albumTitle">Album title</h3>
-                <p id="albumAuthor">Author</p>
-            </div>
-            <div class="flexColumn rowGap8">
-                <div class="flexRow columnGap8">
-                    <p class="albumItemDetailLabel">Release date</p>
-                    <p class="albumItemDetailText" id="albumReleaseDate">Release date</p>
+            <div class="albumItemContent flexColumn rowGap24">
+                <div class="flexColumn rowGap8">
+                    <h3 id="albumTitle">Album title</h3>
+                    <p id="albumAuthor">Author</p>
                 </div>
-                <div class="flexRow columnGap8">
-                    <p class="albumItemDetailLabel">Rate</p>
-                    <p class="albumItemDetailText" id="albumRate">Rate</p>
-                </div>
-                <div class="flexRow columnGap8">
-                    <p class="albumItemDetailLabel">Category</p>
-                    <p class="albumItemDetailText" id="albumCategory">Category</p>
-                </div>
-                <div class="flexRow columnGap8">
-                    <p class="albumItemDetailLabel">Language</p>
-                    <p class="albumItemDetailText" id="albumLanguage">Language</p>
+                <div class="flexColumn rowGap8">
+                    <div class="flexRow columnGap8">
+                        <p class="albumItemDetailLabel">Release date</p>
+                        <p class="albumItemDetailText" id="albumReleaseDate">Release date</p>
+                    </div>
+                    <div class="flexRow columnGap8">
+                        <p class="albumItemDetailLabel">Rate</p>
+                        <p class="albumItemDetailText" id="albumRate">Rate</p>
+                    </div>
+                    <div class="flexRow columnGap8">
+                        <p class="albumItemDetailLabel">Category</p>
+                        <p class="albumItemDetailText" id="albumCategory">Category</p>
+                    </div>
+                    <div class="flexRow columnGap8">
+                        <p class="albumItemDetailLabel">Language</p>
+                        <p class="albumItemDetailText" id="albumLanguage">Language</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
 </template>
 

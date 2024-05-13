@@ -90,7 +90,7 @@
                         </div>
                         <div class="flexRow columnGap8">
                             <p class="albumItemDetailLabel">Rate</p>
-                            <p class="albumItemDetailText"><?= $album['averagerate'] != 0 ? $album['averagerate'] : '-' ?></p>
+                            <p class="albumItemDetailText"><?= $album['averagerate'] != 0 ? $album['averagerate'] . "/5" : '-' ?></p>
                         </div>
                         <div class="flexRow columnGap8">
                             <p class="albumItemDetailLabel">Category</p>

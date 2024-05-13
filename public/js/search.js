@@ -50,6 +50,9 @@ function createAlbum(album) {
         favoriteButton.innerHTML = '<i class="iconoir-heart"></i>';
     }
 
+    const id = clone.querySelector("a");
+    id.href = `/albumDetails/${album.id}`;
+
     const cover = clone.querySelector("img");
     cover.src = `/public/assets/imgs/covers/${album.cover}`;
 
@@ -63,8 +66,8 @@ function createAlbum(album) {
     releaseDate.innerHTML = album.releasedate;
 
     const rate = clone.querySelector("#albumRate");
-    if (album.averagerate) {
-        rate.innerHTML = album.averagerate;
+    if (album.averagerate != 0) {
+        rate.innerHTML = album.averagerate + "/5";
     } else {
         rate.innerHTML = "-";
     }

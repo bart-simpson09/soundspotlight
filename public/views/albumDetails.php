@@ -103,7 +103,7 @@
                         <div class="albumDetailsAttributeIcon flexCenter">
                             <i class="iconoir-star"></i>
                         </div>
-                        <p><?= $album['averagerate'] !== null ? $album['averagerate'] : '-' ?></p>
+                        <p><?= $album['averagerate'] != 0 ? $album['averagerate'] . "/5" : '-' ?></p>
                     </div>
                 </div>
             </div>
