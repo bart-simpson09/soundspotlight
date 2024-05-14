@@ -118,74 +118,32 @@
             <h2>People opinions</h2>
             <button class="buttonPrimary" onclick="openModal('addReviewModal')">Add your review</button>
         </div>
-        <div class="flexColumn rowGap16">
-            <div class="albumDetailsOpinionItem flexRow columnGap16">
-                <img class="standardAvatar" src="/public/assets/imgs/avatar.png" alt="">
-                <div class="flexColumn rowGap8 opinionContent">
-                    <div class="flexRow opinionHeader">
-                        <div class="opinionBasicInfo flexRow columnGap8">
-                            <p class="opinionAurhor">Marry Smith</p>
-                            <span class="opinionItemDivider"></span>
-                            <p>26.03.2024</p>
-                        </div>
-                        <div class="flexRow columnGap8 opinionRate">
-                            4.5/5
-                            <i class="iconoir-star-solid"></i>
-                        </div>
-                    </div>
-                    <p class="opinionDescription">Boldly experimental yet beautifully cohesive, this album pushes
-                        the boundaries of genre with its innovative soundscapes and emotive lyricism. Each track
-                        unfolds like a chapter in a captivating narrative, drawing listeners into its immersive
-                        sonic world. From the haunting melodies to the intricate layers of instrumentation, every
-                        moment is crafted with meticulous attention to detail, leaving a lasting impression that
-                        resonates long after the final note fades.</p>
-                </div>
-            </div>
-            <div class="albumDetailsOpinionItem flexRow columnGap16">
-                <img class="standardAvatar" src="/public/assets/imgs/avatar.png" alt="">
-                <div class="flexColumn rowGap8 opinionContent">
-                    <div class="flexRow opinionHeader">
-                        <div class="opinionBasicInfo flexRow columnGap8">
-                            <p class="opinionAurhor">Marry Smith</p>
-                            <span class="opinionItemDivider"></span>
-                            <p>26.03.2024</p>
-                        </div>
-                        <div class="flexRow columnGap8 opinionRate">
-                            4.5/5
-                            <i class="iconoir-star-solid"></i>
+        <?php if (!empty($reviews)): ?>
+            <div class="flexColumn rowGap16">
+                <?php foreach ($reviews as $review): ?>
+                    <div class="albumDetailsOpinionItem flexRow columnGap16">
+                        <img class="standardAvatar" src="/public/assets/imgs/avatars/<?= $review['authoravatar'] ?>"
+                             alt="">
+                        <div class="flexColumn rowGap8 opinionContent">
+                            <div class="flexRow opinionHeader">
+                                <div class="opinionBasicInfo flexRow columnGap8">
+                                    <p class="opinionAurhor"><?= $review['authorfirstname'] . " " . $review['authorlastname'] ?></p>
+                                    <span class="opinionItemDivider"></span>
+                                    <p><?= $review['createddate'] ?></p>
+                                </div>
+                                <div class="flexRow columnGap8 opinionRate">
+                                    <?= $review['rate'] . "/5" ?>
+                                    <i class="iconoir-star-solid"></i>
+                                </div>
+                            </div>
+                            <p class="opinionDescription"><?= $review['content'] ?></p>
                         </div>
                     </div>
-                    <p class="opinionDescription">Boldly experimental yet beautifully cohesive, this album pushes
-                        the boundaries of genre with its innovative soundscapes and emotive lyricism. Each track
-                        unfolds like a chapter in a captivating narrative, drawing listeners into its immersive
-                        sonic world. From the haunting melodies to the intricate layers of instrumentation, every
-                        moment is crafted with meticulous attention to detail, leaving a lasting impression that
-                        resonates long after the final note fades.</p>
-                </div>
+                <?php endforeach; ?>
             </div>
-            <div class="albumDetailsOpinionItem flexRow columnGap16">
-                <img class="standardAvatar" src="/public/assets/imgs/avatar.png" alt="">
-                <div class="flexColumn rowGap8 opinionContent">
-                    <div class="flexRow opinionHeader">
-                        <div class="opinionBasicInfo flexRow columnGap8">
-                            <p class="opinionAurhor">Marry Smith</p>
-                            <span class="opinionItemDivider"></span>
-                            <p>26.03.2024</p>
-                        </div>
-                        <div class="flexRow columnGap8 opinionRate">
-                            4.5/5
-                            <i class="iconoir-star-solid"></i>
-                        </div>
-                    </div>
-                    <p class="opinionDescription">Boldly experimental yet beautifully cohesive, this album pushes
-                        the boundaries of genre with its innovative soundscapes and emotive lyricism. Each track
-                        unfolds like a chapter in a captivating narrative, drawing listeners into its immersive
-                        sonic world. From the haunting melodies to the intricate layers of instrumentation, every
-                        moment is crafted with meticulous attention to detail, leaving a lasting impression that
-                        resonates long after the final note fades.</p>
-                </div>
-            </div>
-        </div>
+        <?php else: ?>
+            <p>This album doesn't have any opinions yet. Let's add your review!</p>
+        <?php endif; ?>
     </div>
 </div>
 
