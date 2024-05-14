@@ -8,12 +8,14 @@ class MyProfileController extends AppController
 {
 
     private $userRepository;
+    private $albumsRepository;
     const UPLOAD_DIRECTORY = '/../public/assets/imgs/avatars/';
 
     public function __construct()
     {
         parent::__construct();
         $this->userRepository = new UserRepository();
+        $this->albumsRepository = new AlbumRepository();
     }
 
     public function myProfile()
@@ -29,11 +31,14 @@ class MyProfileController extends AppController
             header("Location: $url/login");
         }
 
+        $userAlbums = $this->albumsRepository->getAlbumsAddedByUser($userId);
+
         print $this->render('/myProfile', [
             'firstName' => $user->getFirstName(),
             'lastName' => $user->getLastName(),
             'avatar' => $user->getAvatar(),
-            'isAdmin' => $user->getRole()]);
+            'isAdmin' => $user->getRole(),
+            'userAlbums' => $userAlbums]);
     }
 
     public function changePhoto()

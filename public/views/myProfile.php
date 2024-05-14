@@ -132,92 +132,59 @@
                 </div>
             </div>
             <div id="addedAlbums" class="tabContent flexColumn rowGap16">
-                <div class="yourProfileItem flexRow columnGap16">
-                    <img src="/public/assets/imgs/covers/1-800-oswiecenie.png" class="albumSmallCover" alt="">
-                    <div class="flexColumn rowGap16">
-                        <div class="flexRow yourProfileItemHeader">
-                            <div class="flexColumn rowGap4">
-                                <h4>1-800-Oświecenie</h4>
-                                <h5>Taco Hemingway</h5>
+                <?php foreach ($userAlbums as $album): ?>
+
+                    <?php
+                    if ($album['status'] == "Approved") {
+                        echo '<a style="white-space: normal;" href="/albumDetails/' . $album['id'] . '">';
+                    }
+                    ?>
+                    <div class="yourProfileItem flexRow columnGap16">
+                        <img src="/public/assets/imgs/covers/<?= $album['cover'] ?>" class="albumSmallCover" alt="">
+                        <div class="flexColumn rowGap16" style="width: 100%">
+                            <div class="flexRow yourProfileItemHeader">
+                                <div class="flexColumn rowGap4">
+                                    <h4><?= $album['albumtitle'] ?></h4>
+                                    <h5><?= $album['authorname'] ?></h5>
+                                </div>
+                                <?php
+                                if ($album['status'] == "Pending") {
+                                    echo '<div class="yourAddedElementStatus statusPending flexCenter">Pending</div>';
+                                }
+                                if ($album['status'] == "Approved") {
+                                    echo '<div class="yourAddedElementStatus statusApproved flexCenter">Approved</div>';
+                                }
+                                if ($album['status'] == "Declined") {
+                                    echo '<div class="yourAddedElementStatus statusDeclined flexCenter">Declined</div>';
+                                }
+                                ?>
                             </div>
-                            <div class="yourAddedElementStatus statusDeclined flexCenter">Declined</div>
-                        </div>
-                        <span class="dividerHorizon40"></span>
-                        <div class="flexColumn rowGap8">
-                            <div class="flexRow columnGap32 flexWrap">
-                                <div class="flexRow columnGap8">
-                                    <h5>Number of songs:</h5>
-                                    <p>11</p>
+                            <span class="dividerHorizon40"></span>
+                            <div class="flexColumn rowGap8">
+                                <div class="flexRow columnGap32 flexWrap">
+                                    <div class="flexRow columnGap8">
+                                        <h5>Category:</h5>
+                                        <p><?= $album['categoryname'] ?></p>
+                                    </div>
+                                    <div class="flexRow columnGap8">
+                                        <h5>Language:</h5>
+                                        <p><?= $album['languagename'] ?></p>
+                                    </div>
+                                    <div class="flexRow columnGap8">
+                                        <h5>Release date:</h5>
+                                        <p><?= $album['releasedate'] ?></p>
+                                    </div>
                                 </div>
-                                <div class="flexRow columnGap8">
-                                    <h5>Language:</h5>
-                                    <p>Polish</p>
-                                </div>
-                                <div class="flexRow columnGap8">
-                                    <h5>Release date:</h5>
-                                    <p>01.01.2023</p>
-                                </div>
+                                <p class="shortAlbumDescription"><?= $album['description'] ?></p>
                             </div>
-                            <p class="shortAlbumDescription">Boldly experimental yet beautifully cohesive, this
-                                album pushes the boundaries of
-                                genre
-                                with
-                                its innovative soundscapes and emotive lyricism. Each track unfolds like a chapter
-                                in a
-                                captivating narrative, drawing listeners into its immersive sonic world. From the
-                                haunting
-                                melodies to the intricate layers of instrumentation, every moment is crafted with
-                                meticulous
-                                attention to detail, leaving a lasting impression that resonates long after the
-                                final
-                                note
-                                fades.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="yourProfileItem flexRow columnGap16">
-                    <img src="/public/assets/imgs/covers/1-800-oswiecenie.png" class="albumSmallCover" alt="">
-                    <div class="flexColumn rowGap16">
-                        <div class="flexRow yourProfileItemHeader">
-                            <div class="flexColumn rowGap4">
-                                <h4>1-800-Oświecenie</h4>
-                                <h5>Taco Hemingway</h5>
-                            </div>
-                            <div class="yourAddedElementStatus statusApproved flexCenter">Approved</div>
-                        </div>
-                        <span class="dividerHorizon40"></span>
-                        <div class="flexColumn rowGap8">
-                            <div class="flexRow columnGap32 flexWrap">
-                                <div class="flexRow columnGap8">
-                                    <h5>Number of songs:</h5>
-                                    <p>11</p>
-                                </div>
-                                <div class="flexRow columnGap8">
-                                    <h5>Language:</h5>
-                                    <p>Polish</p>
-                                </div>
-                                <div class="flexRow columnGap8">
-                                    <h5>Release date:</h5>
-                                    <p>01.01.2023</p>
-                                </div>
-                            </div>
-                            <p class="shortAlbumDescription">Boldly experimental yet beautifully cohesive, this
-                                album pushes the boundaries of
-                                genre
-                                with
-                                its innovative soundscapes and emotive lyricism. Each track unfolds like a chapter
-                                in a
-                                captivating narrative, drawing listeners into its immersive sonic world. From the
-                                haunting
-                                melodies to the intricate layers of instrumentation, every moment is crafted with
-                                meticulous
-                                attention to detail, leaving a lasting impression that resonates long after the
-                                final
-                                note
-                                fades.</p>
                         </div>
                     </div>
-                </div>
+                    <?php
+                    if ($album['status'] == "Approved") {
+                        echo '</a>';
+                    }
+                    ?>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>

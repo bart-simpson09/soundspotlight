@@ -442,3 +442,8 @@ select {
     color: var(--color-red-100);
     background-color: var(--color-red-50);
 }
+
+.statusPending {
+    color: var(--text-secondary);
+    background-color: var(--color-grey-30);
+}
