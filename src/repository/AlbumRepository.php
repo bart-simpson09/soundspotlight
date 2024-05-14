@@ -127,20 +127,23 @@ class AlbumRepository extends Repository
         $stmt->execute();
     }
 
-    public function getAlbumById($id)
+    public function getAlbumById($id, $userId)
     {
         $stmt = $this->database->connect()->prepare('
         SELECT albums.*, 
-               authors.name AS authorname,
-               categories.name AS categoryname,
-               languages.name AS languagename
-        FROM albums
-        INNER JOIN authors ON albums.authorid = authors.id
-        INNER JOIN categories ON albums.categoryid = categories.id
-        INNER JOIN languages ON albums.languageid = languages.id
-        WHERE albums.id = :id
+           authors.name AS authorname,
+           categories.name AS categoryname,
+           languages.name AS languagename,
+           (CASE WHEN favorites.albumid IS NULL THEN FALSE ELSE TRUE END) AS isfavorite
+    FROM albums
+    INNER JOIN authors ON albums.authorid = authors.id
+    INNER JOIN categories ON albums.categoryid = categories.id
+    INNER JOIN languages ON albums.languageid = languages.id
+    LEFT JOIN favorites ON albums.id = favorites.albumid AND favorites.userid = :userid
+    WHERE albums.id = :id
     ');
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':userid', $userId, PDO::PARAM_INT);
         $stmt->execute();
 
         $albumData = $stmt->fetch(PDO::FETCH_ASSOC);

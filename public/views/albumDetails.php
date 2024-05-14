@@ -74,7 +74,10 @@
                     <div class="flexColumn rowGap8">
                         <div class="flexRow columnGap16">
                             <h1><?= $album['albumtitle'] ?></h1>
-                            <i class="iconoir-heart albumDetailsFavourite"></i>
+                            <?php
+                            $heartClass = $album['isfavorite'] ? 'iconoir-heart-solid' : 'iconoir-heart';
+                            ?>
+                            <i class="<?= $heartClass ?> albumDetailsFavourite"></i>
                         </div>
                         <p><?= $album['authorname'] ?></p>
                     </div>

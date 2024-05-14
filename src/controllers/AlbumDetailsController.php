@@ -39,7 +39,7 @@ class AlbumDetailsController extends AppController
             header("Location: $url/login");
         }
 
-        $album = $this->albumRepository->getAlbumById($id);
+        $album = $this->albumRepository->getAlbumById($id, $userId);
 
         if (!$album) {
             $url = "http://$_SERVER[HTTP_HOST]";
