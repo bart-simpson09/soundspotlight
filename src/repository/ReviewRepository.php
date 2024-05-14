@@ -13,7 +13,7 @@ class ReviewRepository extends Repository
                users.avatar AS authoravatar
         FROM reviews
         INNER JOIN users ON reviews.authorid = users.id
-        WHERE reviews.albumid = :albumid
+        WHERE reviews.albumid = :albumid AND reviews.status = 'Approved'
     ");
         $stmt->bindParam(':albumid', $albumId, PDO::PARAM_INT);
         $stmt->execute();
@@ -30,6 +30,9 @@ class ReviewRepository extends Repository
             $stmt->execute([
                 $userId, $albumId, $creationDate, $rate, $content
             ]);
+
+            //TODO
+            //Update album rate while adding review
 
             return true;
         } catch (PDOException $e) {
