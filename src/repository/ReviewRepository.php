@@ -21,4 +21,20 @@ class ReviewRepository extends Repository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function addAlbumReview($userId, $albumId, $creationDate, $rate, $content): bool
+    {
+        try {
+            $stmt = $this->database->connect()->prepare('
+            INSERT INTO reviews (authorid, albumid, createddate, rate, content) VALUES (?, ?, ?, ?, ?)
+        ');
+            $stmt->execute([
+                $userId, $albumId, $creationDate, $rate, $content
+            ]);
+
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
 }

@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="/public/css/responsive.css">
 
     <script src="/public/js/scripts.js" defer></script>
+    <script src="/public/js/addReview.js" defer></script>
 
     <title>Album details</title>
 </head>
@@ -66,7 +67,7 @@
     <div class="flexRow columnGap8 goBackButton">
         <i class="iconoir-arrow-left"></i>Go back to albums
     </div>
-    <div class="flexColumn rowGap24">
+    <div class="flexColumn rowGap24 topAlbumSection" id="<?= $album['id'] ?>">
         <div class="flexRow columnGap32 albumDetailsTop">
             <img class="albumDetailsCover" src="/public/assets/imgs/covers/<?= $album['cover'] ?>" alt="">
             <div class="flexColumn rowGap32">
@@ -153,22 +154,23 @@
             <h2>Add your review</h2>
             <p>Express your feelings about this album in the field below.</p>
         </div>
-        <form action="" class="flexColumn rowGap24">
-            <div class="flexColumn rowGap16">
-                <textarea name="" id="" cols="30" rows="10" placeholder="Type your review here"></textarea>
-                <div class="flexRow columnGap8 stars">
-                    <i class="ratingStar iconoir-star"></i>
-                    <i class="ratingStar iconoir-star"></i>
-                    <i class="ratingStar iconoir-star"></i>
-                    <i class="ratingStar iconoir-star"></i>
-                    <i class="ratingStar iconoir-star"></i>
-                </div>
+
+        <div class="flexColumn rowGap16">
+            <textarea name="reviewContent" id="reviewContent" cols="30" rows="10"
+                      placeholder="Type your review here"></textarea>
+            <div class="flexRow columnGap8 stars">
+                <i class="ratingStar iconoir-star"></i>
+                <i class="ratingStar iconoir-star"></i>
+                <i class="ratingStar iconoir-star"></i>
+                <i class="ratingStar iconoir-star"></i>
+                <i class="ratingStar iconoir-star"></i>
             </div>
-            <div class="flexRow columnGap16">
-                <button class="buttonOutlined" style="padding: 10.5px 16px;" id="addReviewClose">Cancel</button>
-                <button class="buttonPrimary">Add review</button>
-            </div>
-        </form>
+        </div>
+        <div class="flexRow columnGap16">
+            <button class="buttonOutlined" style="padding: 10.5px 16px;" id="addReviewClose">Cancel</button>
+            <button class="buttonPrimary" id="addReviewButton">Add review</button>
+        </div>
+
     </div>
 </div>
 
