@@ -7,7 +7,7 @@ class AlbumRepository extends Repository
 {
     public function getAllAlbums($userId): array
     {
-        $stmt = $this->database->connect()->prepare('
+        $stmt = $this->database->connect()->prepare("
         SELECT albums.*, 
                authors.name AS authorname,
                categories.name AS categoryname,
@@ -18,7 +18,8 @@ class AlbumRepository extends Repository
         INNER JOIN categories ON albums.categoryid = categories.id
         INNER JOIN languages ON albums.languageid = languages.id
         LEFT JOIN favorites ON albums.id = favorites.albumid AND favorites.userid = :userid
-    ');
+        WHERE albums.status = 'Approved'
+    ");
         $stmt->bindParam(':userid', $userId, PDO::PARAM_INT);
         $stmt->execute();
 
@@ -28,7 +29,7 @@ class AlbumRepository extends Repository
 
     public function getTopAlbums($userId): array
     {
-        $stmt = $this->database->connect()->prepare('
+        $stmt = $this->database->connect()->prepare("
         SELECT albums.*, 
                authors.name AS authorname,
                categories.name AS categoryname,
@@ -39,9 +40,10 @@ class AlbumRepository extends Repository
         INNER JOIN categories ON albums.categoryid = categories.id
         INNER JOIN languages ON albums.languageid = languages.id
         LEFT JOIN favorites ON albums.id = favorites.albumid AND favorites.userid = :userid
+        WHERE albums.status = 'Approved'
         ORDER BY averagerate DESC
         LIMIT 5
-    ');
+    ");
         $stmt->bindParam(':userid', $userId, PDO::PARAM_INT);
         $stmt->execute();
 
@@ -51,7 +53,7 @@ class AlbumRepository extends Repository
 
     public function getFilteredAlbums($userId, $albumTitle = null, $artistName = null, $categoryId = null, $languageId = null)
     {
-        $conditions = [];
+        $conditions = ["albums.status = 'Approved'"];
         $params = [];
 
         $params[':userid'] = $userId;
@@ -78,7 +80,7 @@ class AlbumRepository extends Repository
             $params[':languageid'] = $languageId;
         }
 
-        $query = '
+        $query = "
         SELECT albums.*, 
                authors.name AS authorname,
                categories.name AS categoryname,
@@ -89,7 +91,7 @@ class AlbumRepository extends Repository
         INNER JOIN categories ON albums.categoryid = categories.id
         INNER JOIN languages ON albums.languageid = languages.id
         LEFT JOIN favorites ON albums.id = favorites.albumid AND favorites.userid = :userid
-    ';
+    ";
 
         if (!empty($conditions)) {
             $query .= ' WHERE ' . implode(' AND ', $conditions);
