@@ -110,10 +110,18 @@ class AlbumRepository extends Repository
 
     public function addAlbum($albumTitle, $authorId, $languageId, $categoryId, $numberOfSongs, $description, $cover, $releaseDate, $uploadDate, $addedBy)
     {
-        $stmt = $this->database->connect()->prepare('
-    INSERT INTO albums (albumtitle, authorid, languageid, categoryid, numberofsongs, description, cover, releasedate, uploaddate, addedby)
-    VALUES (:albumtitle, :authorid, :languageid, :categoryid, :numberofsongs, :description, :cover, :releasedate, :uploaddate, :addedby);
-  ');
+        if ($this->isAdmin($addedBy)) {
+            $stmt = $this->database->connect()->prepare('
+            INSERT INTO albums (albumtitle, authorid, languageid, categoryid, numberofsongs, description, cover, releasedate, uploaddate, addedby, status)
+            VALUES (:albumtitle, :authorid, :languageid, :categoryid, :numberofsongs, :description, :cover, :releasedate, :uploaddate, :addedby, :status);
+        ');
+            $stmt->bindValue(':status', 'Approved');
+        } else {
+            $stmt = $this->database->connect()->prepare('
+            INSERT INTO albums (albumtitle, authorid, languageid, categoryid, numberofsongs, description, cover, releasedate, uploaddate, addedby)
+            VALUES (:albumtitle, :authorid, :languageid, :categoryid, :numberofsongs, :description, :cover, :releasedate, :uploaddate, :addedby);
+        ');
+        }
         $stmt->bindValue(':albumtitle', $albumTitle);
         $stmt->bindValue(':authorid', $authorId);
         $stmt->bindValue(':languageid', $languageId);
@@ -125,6 +133,18 @@ class AlbumRepository extends Repository
         $stmt->bindValue(':uploaddate', $uploadDate);
         $stmt->bindValue(':addedby', $addedBy);
         $stmt->execute();
+    }
+
+    private function isAdmin($userId): bool
+    {
+        $stmt = $this->database->connect()->prepare('
+        SELECT role FROM users WHERE id = :userid;
+    ');
+        $stmt->bindValue(':userid', $userId);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result && $result['role'] === 'admin';
     }
 
     public function getAlbumById($id, $userId)

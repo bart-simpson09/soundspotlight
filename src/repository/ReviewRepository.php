@@ -25,12 +25,23 @@ class ReviewRepository extends Repository
     {
         try {
             // Add review to DB
-            $stmt = $this->database->connect()->prepare('
-            INSERT INTO reviews (authorid, albumid, createddate, rate, content) VALUES (?, ?, ?, ?, ?)
+            if ($this->isAdmin($userId)) {
+                $stmt = $this->database->connect()->prepare('
+            INSERT INTO reviews (authorid, albumid, createddate, rate, content, status) 
+            VALUES (?, ?, ?, ?, ?, ?)
         ');
-            $stmt->execute([
-                $userId, $albumId, $creationDate, $rate, $content
-            ]);
+                $stmt->execute([
+                    $userId, $albumId, $creationDate, $rate, $content, 'Approved'
+                ]);
+            } else {
+                $stmt = $this->database->connect()->prepare('
+            INSERT INTO reviews (authorid, albumid, createddate, rate, content) 
+            VALUES (?, ?, ?, ?, ?)
+        ');
+                $stmt->execute([
+                    $userId, $albumId, $creationDate, $rate, $content
+                ]);
+            }
 
             // Calculate the new avg rate for the album
             $stmt = $this->database->connect()->prepare('
@@ -54,6 +65,18 @@ class ReviewRepository extends Repository
         } catch (PDOException $e) {
             return false;
         }
+    }
+
+    private function isAdmin($userId)
+    {
+        $stmt = $this->database->connect()->prepare('
+        SELECT role FROM users WHERE id = :userid;
+    ');
+        $stmt->bindValue(':userid', $userId);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result && $result['role'] === 'admin';
     }
 
     public function getReviewsAddedByUser($userId): array
