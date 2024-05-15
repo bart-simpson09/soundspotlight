@@ -48,4 +48,9 @@ class YourFavoritesController extends AppController
             'categories' => $this->categoryRepository->getCategories(),
             'languages' => $this->languageRepository->getLanguages()]);
     }
+
+    public function addToFavorites()
+    {
+
+    }
 }
