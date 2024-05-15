@@ -78,7 +78,7 @@
                             <?php
                             $heartClass = $album['isfavorite'] ? 'iconoir-heart-solid' : 'iconoir-heart';
                             ?>
-                            <i class="<?= $heartClass ?> albumDetailsFavourite"></i>
+                            <i class="<?= $heartClass ?> albumDetailsFavourite favoriteButton"></i>
                         </div>
                         <p><?= $album['authorname'] ?></p>
                     </div>

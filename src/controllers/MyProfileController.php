@@ -9,6 +9,7 @@ class MyProfileController extends AppController
 
     private $userRepository;
     private $albumsRepository;
+    private $reviewsRepository;
     const UPLOAD_DIRECTORY = '/../public/assets/imgs/avatars/';
 
     public function __construct()
@@ -16,6 +17,7 @@ class MyProfileController extends AppController
         parent::__construct();
         $this->userRepository = new UserRepository();
         $this->albumsRepository = new AlbumRepository();
+        $this->reviewsRepository = new ReviewRepository();
     }
 
     public function myProfile()
@@ -32,13 +34,15 @@ class MyProfileController extends AppController
         }
 
         $userAlbums = $this->albumsRepository->getAlbumsAddedByUser($userId);
+        $userReviews = $this->reviewsRepository->getReviewsAddedByUser($userId);
 
         print $this->render('/myProfile', [
             'firstName' => $user->getFirstName(),
             'lastName' => $user->getLastName(),
             'avatar' => $user->getAvatar(),
             'isAdmin' => $user->getRole(),
-            'userAlbums' => $userAlbums]);
+            'userAlbums' => $userAlbums,
+            'userReviews' => $userReviews]);
     }
 
     public function changePhoto()

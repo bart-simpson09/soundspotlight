@@ -20,6 +20,7 @@
 
     <script src="/public/js/scripts.js" defer></script>
     <script src="/public/js/search.js" defer></script>
+    <script src="/public/js/favoriting.js" defer></script>
 
     <title>Dashboard</title>
 </head>
@@ -122,7 +123,7 @@
         <?php foreach ($allAlbums as $album): ?>
             <a href="/albumDetails/<?= $album['id'] ?>" class="albumItem flexColumn rowGap24">
                 <div class="albumItemCoverArea">
-                    <div class="favouriteButtonDefault flexCenter">
+                    <div class="favouriteButtonDefault flexCenter favoriteButton">
                         <?php
                         $heartClass = $album['isfavorite'] ? 'iconoir-heart-solid' : 'iconoir-heart';
                         ?>
@@ -165,7 +166,7 @@
     <div class="albumItem flexColumn rowGap24">
         <a href="/albumDetails/<?= $album['id'] ?>" class="albumItem flexColumn rowGap24">
             <div class="albumItemCoverArea">
-                <div class="favouriteButtonDefault flexCenter" id="favoriteButton">
+                <div class="favouriteButtonDefault flexCenter favoriteButton" id="favoriteButton">
                     <i class="iconoir-heart"></i>
                 </div>
                 <img class="albumItemCover" src=""

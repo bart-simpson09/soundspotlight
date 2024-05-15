@@ -56,4 +56,23 @@ class ReviewRepository extends Repository
         }
     }
 
+    public function getReviewsAddedByUser($userId): array
+    {
+        $stmt = $this->database->connect()->prepare('
+        SELECT reviews.*, 
+               albums.albumtitle AS albumtitle,
+               authors.name AS albumauthorname
+        FROM reviews
+        INNER JOIN albums ON reviews.albumid = albums.id
+        INNER JOIN authors ON albums.authorid = authors.id
+        WHERE reviews.authorid = :userid
+        ORDER BY albums.status DESC
+    ');
+
+        $stmt->bindValue(':userid', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }

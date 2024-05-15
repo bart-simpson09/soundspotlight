@@ -88,48 +88,34 @@
         </div>
         <div>
             <div id="yourReviews" class="tabContent flexColumn rowGap16">
-                <div class="yourProfileItem flexColumn rowGap16">
-                    <div class="flexRow yourProfileItemHeader">
-                        <div class="flexColumn rowGap4">
-                            <h4>1-800-Oświecenie</h4>
-                            <h5>Taco Hemingway</h5>
-                        </div>
-                        <div class="flexRow columnGap16">
-                            <div class="flexRow columnGap8 opinionRate">
-                                <i class="iconoir-star-solid"></i>
-                                4.5/5
+                <?php foreach ($userReviews as $review): ?>
+                    <div class="yourProfileItem flexColumn rowGap16">
+                        <div class="flexRow yourProfileItemHeader">
+                            <div class="flexColumn rowGap4">
+                                <h4><?= $review['albumtitle'] ?></h4>
+                                <h5><?= $review['albumauthorname'] ?></h5>
                             </div>
-                            <div class="yourAddedElementStatus statusApproved flexCenter">Approved</div>
-                        </div>
-                    </div>
-                    <p>Boldly experimental yet beautifully cohesive, this album pushes the boundaries of genre with
-                        its innovative soundscapes and emotive lyricism. Each track unfolds like a chapter in a
-                        captivating narrative, drawing listeners into its immersive sonic world. From the haunting
-                        melodies to the intricate layers of instrumentation, every moment is crafted with meticulous
-                        attention to detail, leaving a lasting impression that resonates long after the final note
-                        fades.</p>
-                </div>
-                <div class="yourProfileItem flexColumn rowGap16">
-                    <div class="flexRow yourProfileItemHeader">
-                        <div class="flexColumn rowGap4">
-                            <h4>1-800-Oświecenie</h4>
-                            <h5>Taco Hemingway</h5>
-                        </div>
-                        <div class="flexRow columnGap16">
-                            <div class="flexRow columnGap8 opinionRate">
-                                <i class="iconoir-star-solid"></i>
-                                4.5/5
+                            <div class="flexRow columnGap16">
+                                <div class="flexRow columnGap8 opinionRate">
+                                    <i class="iconoir-star-solid"></i>
+                                    <?= $review['rate'] . "/5" ?>
+                                </div>
+                                <?php
+                                if ($review['status'] == "Pending") {
+                                    echo '<div class="yourAddedElementStatus statusPending flexCenter">Pending</div>';
+                                }
+                                if ($review['status'] == "Approved") {
+                                    echo '<div class="yourAddedElementStatus statusApproved flexCenter">Approved</div>';
+                                }
+                                if ($review['status'] == "Declined") {
+                                    echo '<div class="yourAddedElementStatus statusDeclined flexCenter">Declined</div>';
+                                }
+                                ?>
                             </div>
-                            <div class="yourAddedElementStatus statusDeclined flexCenter">Declined</div>
                         </div>
+                        <p><?= $review['content'] ?></p>
                     </div>
-                    <p>Boldly experimental yet beautifully cohesive, this album pushes the boundaries of genre with
-                        its innovative soundscapes and emotive lyricism. Each track unfolds like a chapter in a
-                        captivating narrative, drawing listeners into its immersive sonic world. From the haunting
-                        melodies to the intricate layers of instrumentation, every moment is crafted with meticulous
-                        attention to detail, leaving a lasting impression that resonates long after the final note
-                        fades.</p>
-                </div>
+                <?php endforeach; ?>
             </div>
             <div id="addedAlbums" class="tabContent flexColumn rowGap16">
                 <?php foreach ($userAlbums as $album): ?>

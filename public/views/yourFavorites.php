@@ -72,7 +72,7 @@
         <?php foreach ($favoriteAlbums as $album): ?>
             <a href="/albumDetails/<?= $album['id'] ?>" class="albumItem flexColumn rowGap24">
                 <div class="albumItemCoverArea">
-                    <div class="favouriteButtonDefault flexCenter">
+                    <div class="favouriteButtonDefault flexCenter favoriteButton">
                         <i class="iconoir-heart-solid"></i>
                     </div>
                     <img class="albumItemCover" src="/public/assets/imgs/covers/<?= $album['cover'] ?>"
