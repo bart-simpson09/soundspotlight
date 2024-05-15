@@ -1,8 +1,7 @@
-function openModal(modalID) {
+function openModal(modalID, albumId) {
     let modal = document.getElementById(modalID);
     let closeButton = document.getElementById("addReviewClose");
     let stars = [...modal.querySelectorAll(".stars i")];
-    let albumId = document.getElementsByClassName("topAlbumSection")[0].id;
 
     const reviewContent = document.querySelector("#reviewContent");
     let reviewRate = 0;

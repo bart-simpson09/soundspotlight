@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="/public/css/responsive.css">
 
     <script src="/public/js/scripts.js" defer></script>
+    <script src="/public/js/toggleFavorite.js" defer></script>
 
     <title>Your favorite albums</title>
 </head>
@@ -70,42 +71,87 @@
     </div>
     <div class="albumsList">
         <?php foreach ($favoriteAlbums as $album): ?>
-            <a href="/albumDetails/<?= $album['id'] ?>" class="albumItem flexColumn rowGap24">
-                <div class="albumItemCoverArea">
-                    <div class="favouriteButtonDefault flexCenter favoriteButton">
-                        <i class="iconoir-heart-solid"></i>
+            <div class="albumItemContainer">
+                <a href="/albumDetails/<?= $album['id'] ?>" class="albumItem flexColumn rowGap24">
+                    <div class="albumItemCoverArea">
+                        <img class="albumItemCover" src="/public/assets/imgs/covers/<?= $album['cover'] ?>"
+                             alt="<?= $album['name'] ?>-Album-Cover">
                     </div>
-                    <img class="albumItemCover" src="/public/assets/imgs/covers/<?= $album['cover'] ?>"
-                         alt="<?= $album['name'] ?>-Album-Cover">
+                    <div class="albumItemContent flexColumn rowGap24">
+                        <div class="flexColumn rowGap4">
+                            <h3><?= $album['albumtitle'] ?></h3>
+                            <p><?= $album['authorname'] ?></p>
+                        </div>
+                        <div class="flexColumn rowGap8">
+                            <div class="flexRow columnGap8">
+                                <p class="albumItemDetailLabel">Release date</p>
+                                <p class="albumItemDetailText"><?= $album['releasedate'] ?></p>
+                            </div>
+                            <div class="flexRow columnGap8">
+                                <p class="albumItemDetailLabel">Rate</p>
+                                <p class="albumItemDetailText"><?= $album['averagerate'] != 0 ? $album['averagerate'] . "/5" : '-' ?></p>
+                            </div>
+                            <div class="flexRow columnGap8">
+                                <p class="albumItemDetailLabel">Category</p>
+                                <p class="albumItemDetailText"><?= $album['categoryname'] ?></p>
+                            </div>
+                            <div class="flexRow columnGap8">
+                                <p class="albumItemDetailLabel">Language</p>
+                                <p class="albumItemDetailText"><?= $album['languagename'] ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <div class="favouriteButtonDefault flexCenter favoriteButton"
+                     onclick="toggleFavorite(<?= $album['id'] ?>, this)">
+                    <?php
+                    $heartClass = $album['isfavorite'] ? 'iconoir-heart-solid' : 'iconoir-heart';
+                    ?>
+                    <i class="<?= $heartClass ?>"></i>
                 </div>
-                <div class="albumItemContent flexColumn rowGap24">
-                    <div class="flexColumn rowGap4">
-                        <h3><?= $album['albumtitle'] ?></h3>
-                        <p><?= $album['authorname'] ?></p>
-                    </div>
-                    <div class="flexColumn rowGap8">
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Release date</p>
-                            <p class="albumItemDetailText"><?= $album['releasedate'] ?></p>
-                        </div>
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Rate</p>
-                            <p class="albumItemDetailText"><?= $album['averagerate'] != 0 ? $album['averagerate'] . "/5" : '-' ?></p>
-                        </div>
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Category</p>
-                            <p class="albumItemDetailText"><?= $album['categoryname'] ?></p>
-                        </div>
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Language</p>
-                            <p class="albumItemDetailText"><?= $album['languagename'] ?></p>
-                        </div>
-                    </div>
-                </div>
-            </a>
+            </div>
         <?php endforeach; ?>
     </div>
 </div>
 </body>
+
+<template id="albumTemplate">
+    <div class="albumItemContainer">
+        <a href="/albumDetails/<?= $album['id'] ?>" class="albumItem flexColumn rowGap24">
+            <div class="albumItemCoverArea">
+                <img class="albumItemCover" src=""
+                     alt="Album-Cover">
+            </div>
+            <div class="albumItemContent flexColumn rowGap24">
+                <div class="flexColumn rowGap8">
+                    <h3 id="albumTitle">Album title</h3>
+                    <p id="albumAuthor">Author</p>
+                </div>
+                <div class="flexColumn rowGap8">
+                    <div class="flexRow columnGap8">
+                        <p class="albumItemDetailLabel">Release date</p>
+                        <p class="albumItemDetailText" id="albumReleaseDate">Release date</p>
+                    </div>
+                    <div class="flexRow columnGap8">
+                        <p class="albumItemDetailLabel">Rate</p>
+                        <p class="albumItemDetailText" id="albumRate">Rate</p>
+                    </div>
+                    <div class="flexRow columnGap8">
+                        <p class="albumItemDetailLabel">Category</p>
+                        <p class="albumItemDetailText" id="albumCategory">Category</p>
+                    </div>
+                    <div class="flexRow columnGap8">
+                        <p class="albumItemDetailLabel">Language</p>
+                        <p class="albumItemDetailText" id="albumLanguage">Language</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <div class="favouriteButtonDefault flexCenter favoriteButton" id="favoriteButton"
+             onclick="toggleFavorite(<?= $album['id'] ?>, this)">
+            <i class="iconoir-heart"></i>
+        </div>
+    </div>
+</template>
 
 </html>

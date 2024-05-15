@@ -49,8 +49,31 @@ class YourFavoritesController extends AppController
             'languages' => $this->languageRepository->getLanguages()]);
     }
 
-    public function addToFavorites()
+    public function toggleFavorite()
     {
+        $userSession = SessionManager::getInstance();
+        $userId = $userSession->__get("userId");
 
+        $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
+
+        if ($contentType === "application/json") {
+            $content = trim(file_get_contents("php://input"));
+            $decoded = json_decode($content, true);
+
+            $albumId = $decoded["albumid"];
+
+            $isfavorite = $this->favoriteRepository->doesFavoriteMatchExists($albumId, $userId);
+
+            if ($isfavorite) {
+                $this->favoriteRepository->removeFromFavorites($albumId, $userId);
+            } else {
+                $this->favoriteRepository->addToFavorites($albumId, $userId);
+            }
+
+            header('Content-Type: application/json');
+            http_response_code(200);
+
+            echo json_encode(['isfavorite' => $isfavorite, 'favoriteAlbums' => $this->favoriteRepository->getUserFavoriteAlbums($userId)]);
+        }
     }
 }

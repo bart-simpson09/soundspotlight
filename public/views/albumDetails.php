@@ -20,6 +20,7 @@
 
     <script src="/public/js/scripts.js" defer></script>
     <script src="/public/js/addReview.js" defer></script>
+    <script src="/public/js/toggleFavorite.js" defer></script>
 
     <title>Album details</title>
 </head>
@@ -67,7 +68,7 @@
     <div class="flexRow columnGap8 goBackButton">
         <i class="iconoir-arrow-left"></i>Go back to albums
     </div>
-    <div class="flexColumn rowGap24 topAlbumSection" id="<?= $album['id'] ?>">
+    <div class="flexColumn rowGap24 topAlbumSection">
         <div class="flexRow columnGap32 albumDetailsTop">
             <img class="albumDetailsCover" src="/public/assets/imgs/covers/<?= $album['cover'] ?>" alt="">
             <div class="flexColumn rowGap32">
@@ -75,10 +76,12 @@
                     <div class="flexColumn rowGap8">
                         <div class="flexRow columnGap16">
                             <h1><?= $album['albumtitle'] ?></h1>
-                            <?php
-                            $heartClass = $album['isfavorite'] ? 'iconoir-heart-solid' : 'iconoir-heart';
-                            ?>
-                            <i class="<?= $heartClass ?> albumDetailsFavourite favoriteButton"></i>
+                            <div onclick="toggleFavorite(<?= $album['id'] ?>, this)">
+                                <?php
+                                $heartClass = $album['isfavorite'] ? 'iconoir-heart-solid' : 'iconoir-heart';
+                                ?>
+                                <i class="<?= $heartClass ?> albumDetailsFavourite favoriteButton"></i>
+                            </div>
                         </div>
                         <p><?= $album['authorname'] ?></p>
                     </div>
@@ -117,7 +120,8 @@
     <div class="albumDetailsOpinions flexColumn rowGap24">
         <div class="flexRow header">
             <h2>People opinions</h2>
-            <button class="buttonPrimary" onclick="openModal('addReviewModal')">Add your review</button>
+            <button class="buttonPrimary" onclick="openModal('addReviewModal', <?= $album['id'] ?>)">Add your review
+            </button>
         </div>
         <?php if (!empty($reviews)): ?>
             <div class="flexColumn rowGap16">
