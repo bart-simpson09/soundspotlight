@@ -6,11 +6,12 @@ const categoryInput = document.getElementById("category");
 const releaseDateInput = document.getElementById("releaseDate");
 const songsNumberInput = document.getElementById("songsNumber");
 const descriptionInput = document.getElementById("description");
+const photoPreview = document.getElementById("uploadedCoverPreview");
 const submitButton = document.getElementById("submitButton");
 
-submitButton.disabled = true;
-submitButton.classList.add("buttonDisabled");
-submitButton.classList.remove("buttonPrimary:hover");
+submitButton.addEventListener('click', () => {
+    validateForm();
+})
 
 function checkIfEmpty(event) {
     const input = event.target;
@@ -20,19 +21,24 @@ function checkIfEmpty(event) {
     } else {
         input.classList.remove("inputError");
     }
-
-    validateForm();
 }
 
 function validateForm() {
     const inputs = [photoInput, titleInput, authorInput, languageInput, categoryInput, releaseDateInput, songsNumberInput, descriptionInput];
     const allFilled = inputs.every(input => input.value.trim() !== "");
 
-    if (allFilled) {
-        submitButton.disabled = false;
-        submitButton.classList.remove("buttonDisabled");
+    if (!allFilled) {
+        inputs.forEach(input => {
+            if (input.value.trim() === "") {
+                input.classList.add('inputError');
+            }
+        });
+    }
+
+    if (photoInput.value.trim() === "") {
+        photoPreview.style.borderColor = 'var(--color-red-100)';
     } else {
-        submitButton.disabled = true;
+        photoPreview.style.borderColor = 'var(--color-grey-30)';
     }
 }
 
@@ -58,6 +64,7 @@ const previewUploadedCover = () => {
         const preview = document.getElementById('uploadedCoverPreview');
         fileReader.onload = function (event) {
             preview.setAttribute('src', event.target.result);
+            preview.style.borderColor = 'var(--color-grey-30)';
         }
         fileReader.readAsDataURL(file); // Pass the actual file object
     }
@@ -73,5 +80,4 @@ uploadCoverInput.addEventListener("change", (event) => {
 
 [photoInput, titleInput, authorInput, languageInput, categoryInput, releaseDateInput, songsNumberInput, descriptionInput].forEach(input => {
     input.addEventListener("blur", checkIfEmpty);
-    input.addEventListener("input", validateForm);
 });

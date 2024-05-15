@@ -89,7 +89,7 @@ class ReviewRepository extends Repository
         INNER JOIN albums ON reviews.albumid = albums.id
         INNER JOIN authors ON albums.authorid = authors.id
         WHERE reviews.authorid = :userid
-        ORDER BY albums.status DESC
+        ORDER BY reviews.status DESC
     ');
 
         $stmt->bindValue(':userid', $userId, PDO::PARAM_INT);
