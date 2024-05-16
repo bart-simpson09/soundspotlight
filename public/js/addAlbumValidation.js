@@ -1,4 +1,4 @@
-const coverInput = document.getElementById("albumCoverInput"); // Poprawka z "albumCover" na "albumCoverInput"
+const photoInput = document.getElementById("photoInput");
 const titleInput = document.getElementById("albumTitle");
 const authorInput = document.getElementById("authorName");
 const languageInput = document.getElementById("language");
@@ -6,11 +6,12 @@ const categoryInput = document.getElementById("category");
 const releaseDateInput = document.getElementById("releaseDate");
 const songsNumberInput = document.getElementById("songsNumber");
 const descriptionInput = document.getElementById("description");
+const photoPreview = document.getElementById("uploadedCoverPreview");
 const submitButton = document.getElementById("submitButton");
 
-submitButton.disabled = true;
-submitButton.classList.add("buttonDisabled");
-submitButton.classList.remove("buttonPrimary:hover");
+submitButton.addEventListener('click', () => {
+    validateForm();
+})
 
 function checkIfEmpty(event) {
     const input = event.target;
@@ -20,19 +21,24 @@ function checkIfEmpty(event) {
     } else {
         input.classList.remove("inputError");
     }
-
-    validateForm();
 }
 
 function validateForm() {
-    const inputs = [coverInput, titleInput, authorInput, languageInput, categoryInput, releaseDateInput, songsNumberInput, descriptionInput];
+    const inputs = [photoInput, titleInput, authorInput, languageInput, categoryInput, releaseDateInput, songsNumberInput, descriptionInput];
     const allFilled = inputs.every(input => input.value.trim() !== "");
 
-    if (allFilled) {
-        submitButton.disabled = false;
-        submitButton.classList.remove("buttonDisabled");
+    if (!allFilled) {
+        inputs.forEach(input => {
+            if (input.value.trim() === "") {
+                input.classList.add('inputError');
+            }
+        });
+    }
+
+    if (photoInput.value.trim() === "") {
+        photoPreview.style.borderColor = 'var(--color-red-100)';
     } else {
-        submitButton.disabled = true;
+        photoPreview.style.borderColor = 'var(--color-grey-30)';
     }
 }
 
@@ -42,7 +48,7 @@ function checkFileSize(event) {
 
     if (file && file.size > fileSizeLimit) {
         alert("File size is too large! Please choose a file under 1 MB.");
-        coverInput.value = ""; // Clear the input value
+        photoInput.value = ""; // Clear the input value
         document.getElementById('uploadedCoverPreview').setAttribute('src', '/public/assets/imgs/covers/default-cover.png');
         return true;
     }
@@ -50,7 +56,7 @@ function checkFileSize(event) {
     return false;
 }
 
-const uploadCoverInput = document.querySelector("#albumCoverInput");
+const uploadCoverInput = document.querySelector("#photoInput");
 const previewUploadedCover = () => {
     const file = uploadCoverInput.files[0]; // Access the first selected file
     if (file) {
@@ -58,12 +64,13 @@ const previewUploadedCover = () => {
         const preview = document.getElementById('uploadedCoverPreview');
         fileReader.onload = function (event) {
             preview.setAttribute('src', event.target.result);
+            preview.style.borderColor = 'var(--color-grey-30)';
         }
         fileReader.readAsDataURL(file); // Pass the actual file object
     }
 }
 
-coverInput.addEventListener("change", checkFileSize);
+photoInput.addEventListener("change", checkFileSize);
 
 uploadCoverInput.addEventListener("change", (event) => {
     if (!checkFileSize(event)) {
@@ -71,7 +78,6 @@ uploadCoverInput.addEventListener("change", (event) => {
     }
 });
 
-[coverInput, titleInput, authorInput, languageInput, categoryInput, releaseDateInput, songsNumberInput, descriptionInput].forEach(input => {
+[photoInput, titleInput, authorInput, languageInput, categoryInput, releaseDateInput, songsNumberInput, descriptionInput].forEach(input => {
     input.addEventListener("blur", checkIfEmpty);
-    input.addEventListener("input", validateForm);
 });

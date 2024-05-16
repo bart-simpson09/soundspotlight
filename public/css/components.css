@@ -217,7 +217,7 @@ input::file-selector-button:hover {
     background-color: var(--color-teal-20);
 }
 
-#albumCoverInput {
+#photoInput {
     padding: 0;
     border: none;
     font-size: unset;
@@ -229,6 +229,7 @@ input::file-selector-button:hover {
 
 .inputError {
     border: 1px solid var(--color-red-100);
+!important;
 }
 
 /* Component SELECT */
@@ -286,7 +287,12 @@ select {
     cursor: pointer;
 }
 
-.albumItem i {
+.albumItemContainer {
+    position: relative;
+    display: inline-block;
+}
+
+.favoriteButton i {
     color: var(--color-pure-white);
     font-size: 16px;
 }
@@ -441,4 +447,9 @@ select {
 .statusDeclined {
     color: var(--color-red-100);
     background-color: var(--color-red-50);
+}
+
+.statusPending {
+    color: var(--text-secondary);
+    background-color: var(--color-grey-30);
 }

@@ -19,6 +19,8 @@
     <link rel="stylesheet" type="text/css" href="/public/css/responsive.css">
 
     <script src="/public/js/scripts.js" defer></script>
+    <script src="/public/js/addReview.js" defer></script>
+    <script src="/public/js/toggleFavorite.js" defer></script>
 
     <title>Album details</title>
 </head>
@@ -66,7 +68,7 @@
     <div class="flexRow columnGap8 goBackButton">
         <i class="iconoir-arrow-left"></i>Go back to albums
     </div>
-    <div class="flexColumn rowGap24">
+    <div class="flexColumn rowGap24 topAlbumSection">
         <div class="flexRow columnGap32 albumDetailsTop">
             <img class="albumDetailsCover" src="/public/assets/imgs/covers/<?= $album['cover'] ?>" alt="">
             <div class="flexColumn rowGap32">
@@ -74,7 +76,12 @@
                     <div class="flexColumn rowGap8">
                         <div class="flexRow columnGap16">
                             <h1><?= $album['albumtitle'] ?></h1>
-                            <i class="iconoir-heart albumDetailsFavourite"></i>
+                            <div onclick="toggleFavorite(<?= $album['id'] ?>, this)">
+                                <?php
+                                $heartClass = $album['isfavorite'] ? 'iconoir-heart-solid' : 'iconoir-heart';
+                                ?>
+                                <i class="<?= $heartClass ?> albumDetailsFavourite favoriteButton"></i>
+                            </div>
                         </div>
                         <p><?= $album['authorname'] ?></p>
                     </div>
@@ -113,76 +120,35 @@
     <div class="albumDetailsOpinions flexColumn rowGap24">
         <div class="flexRow header">
             <h2>People opinions</h2>
-            <button class="buttonPrimary" onclick="openModal('addReviewModal')">Add your review</button>
+            <button class="buttonPrimary" onclick="openModal('addReviewModal', <?= $album['id'] ?>)">Add your review
+            </button>
         </div>
-        <div class="flexColumn rowGap16">
-            <div class="albumDetailsOpinionItem flexRow columnGap16">
-                <img class="standardAvatar" src="/public/assets/imgs/avatar.png" alt="">
-                <div class="flexColumn rowGap8 opinionContent">
-                    <div class="flexRow opinionHeader">
-                        <div class="opinionBasicInfo flexRow columnGap8">
-                            <p class="opinionAurhor">Marry Smith</p>
-                            <span class="opinionItemDivider"></span>
-                            <p>26.03.2024</p>
-                        </div>
-                        <div class="flexRow columnGap8 opinionRate">
-                            4.5/5
-                            <i class="iconoir-star-solid"></i>
-                        </div>
-                    </div>
-                    <p class="opinionDescription">Boldly experimental yet beautifully cohesive, this album pushes
-                        the boundaries of genre with its innovative soundscapes and emotive lyricism. Each track
-                        unfolds like a chapter in a captivating narrative, drawing listeners into its immersive
-                        sonic world. From the haunting melodies to the intricate layers of instrumentation, every
-                        moment is crafted with meticulous attention to detail, leaving a lasting impression that
-                        resonates long after the final note fades.</p>
-                </div>
-            </div>
-            <div class="albumDetailsOpinionItem flexRow columnGap16">
-                <img class="standardAvatar" src="/public/assets/imgs/avatar.png" alt="">
-                <div class="flexColumn rowGap8 opinionContent">
-                    <div class="flexRow opinionHeader">
-                        <div class="opinionBasicInfo flexRow columnGap8">
-                            <p class="opinionAurhor">Marry Smith</p>
-                            <span class="opinionItemDivider"></span>
-                            <p>26.03.2024</p>
-                        </div>
-                        <div class="flexRow columnGap8 opinionRate">
-                            4.5/5
-                            <i class="iconoir-star-solid"></i>
+        <?php if (!empty($reviews)): ?>
+            <div class="flexColumn rowGap16 reviewsList">
+                <?php foreach ($reviews as $review): ?>
+                    <div class="albumDetailsOpinionItem flexRow columnGap16">
+                        <img class="standardAvatar" src="/public/assets/imgs/avatars/<?= $review['authoravatar'] ?>"
+                             alt="">
+                        <div class="flexColumn rowGap8 opinionContent">
+                            <div class="flexRow opinionHeader">
+                                <div class="opinionBasicInfo flexRow columnGap8">
+                                    <p class="opinionAuthor"><?= $review['authorfirstname'] . " " . $review['authorlastname'] ?></p>
+                                    <span class="opinionItemDivider"></span>
+                                    <p id="creationDate"><?= $review['createddate'] ?></p>
+                                </div>
+                                <div class="flexRow columnGap8 opinionRate">
+                                    <?= $review['rate'] . "/5" ?>
+                                    <i class="iconoir-star-solid"></i>
+                                </div>
+                            </div>
+                            <p class="opinionDescription"><?= $review['content'] ?></p>
                         </div>
                     </div>
-                    <p class="opinionDescription">Boldly experimental yet beautifully cohesive, this album pushes
-                        the boundaries of genre with its innovative soundscapes and emotive lyricism. Each track
-                        unfolds like a chapter in a captivating narrative, drawing listeners into its immersive
-                        sonic world. From the haunting melodies to the intricate layers of instrumentation, every
-                        moment is crafted with meticulous attention to detail, leaving a lasting impression that
-                        resonates long after the final note fades.</p>
-                </div>
+                <?php endforeach; ?>
             </div>
-            <div class="albumDetailsOpinionItem flexRow columnGap16">
-                <img class="standardAvatar" src="/public/assets/imgs/avatar.png" alt="">
-                <div class="flexColumn rowGap8 opinionContent">
-                    <div class="flexRow opinionHeader">
-                        <div class="opinionBasicInfo flexRow columnGap8">
-                            <p class="opinionAurhor">Marry Smith</p>
-                            <span class="opinionItemDivider"></span>
-                            <p>26.03.2024</p>
-                        </div>
-                        <div class="flexRow columnGap8 opinionRate">
-                            4.5/5
-                            <i class="iconoir-star-solid"></i>
-                        </div>
-                    </div>
-                    <p class="opinionDescription">Boldly experimental yet beautifully cohesive, this album pushes
-                        the boundaries of genre with its innovative soundscapes and emotive lyricism. Each track
-                        unfolds like a chapter in a captivating narrative, drawing listeners into its immersive
-                        sonic world. From the haunting melodies to the intricate layers of instrumentation, every
-                        moment is crafted with meticulous attention to detail, leaving a lasting impression that
-                        resonates long after the final note fades.</p>
-                </div>
-            </div>
-        </div>
+        <?php else: ?>
+            <p>This album doesn't have any opinions yet. Let's add your review!</p>
+        <?php endif; ?>
     </div>
 </div>
 
@@ -192,25 +158,46 @@
             <h2>Add your review</h2>
             <p>Express your feelings about this album in the field below.</p>
         </div>
-        <form action="" class="flexColumn rowGap24">
-            <div class="flexColumn rowGap16">
-                <textarea name="" id="" cols="30" rows="10" placeholder="Type your review here"></textarea>
-                <div class="flexRow columnGap8 stars">
-                    <i class="ratingStar iconoir-star"></i>
-                    <i class="ratingStar iconoir-star"></i>
-                    <i class="ratingStar iconoir-star"></i>
-                    <i class="ratingStar iconoir-star"></i>
-                    <i class="ratingStar iconoir-star"></i>
-                </div>
+
+        <div class="flexColumn rowGap16">
+            <textarea name="reviewContent" id="reviewContent" cols="30" rows="10"
+                      placeholder="Type your review here"></textarea>
+            <div class="flexRow columnGap8 stars">
+                <i class="ratingStar iconoir-star"></i>
+                <i class="ratingStar iconoir-star"></i>
+                <i class="ratingStar iconoir-star"></i>
+                <i class="ratingStar iconoir-star"></i>
+                <i class="ratingStar iconoir-star"></i>
             </div>
-            <div class="flexRow columnGap16">
-                <button class="buttonOutlined" style="padding: 10.5px 16px;" id="addReviewClose">Cancel</button>
-                <button class="buttonPrimary">Add review</button>
-            </div>
-        </form>
+        </div>
+        <div class="flexRow columnGap16">
+            <button class="buttonOutlined" style="padding: 10.5px 16px;" id="addReviewClose">Cancel</button>
+            <button class="buttonPrimary" id="addReviewButton">Add review</button>
+        </div>
+
     </div>
 </div>
-
 </body>
+
+<template id="reviewTemplate">
+    <div class="albumDetailsOpinionItem flexRow columnGap16">
+        <img class="standardAvatar" src="/public/assets/imgs/avatars/<?= $review['authoravatar'] ?>"
+             alt="">
+        <div class="flexColumn rowGap8 opinionContent">
+            <div class="flexRow opinionHeader">
+                <div class="opinionBasicInfo flexRow columnGap8">
+                    <p class="opinionAuthor"><?= $review['authorfirstname'] . " " . $review['authorlastname'] ?></p>
+                    <span class="opinionItemDivider"></span>
+                    <p id="creationDate"><?= $review['createddate'] ?></p>
+                </div>
+                <div class="flexRow columnGap8 opinionRate">
+                    <?= $review['rate'] . "/5" ?>
+                    <i class="iconoir-star-solid"></i>
+                </div>
+            </div>
+            <p class="opinionDescription"><?= $review['content'] ?></p>
+        </div>
+    </div>
+</template>
 
 </html>

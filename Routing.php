@@ -6,6 +6,7 @@ require_once 'src/controllers/AddAlbumController.php';
 require_once 'src/controllers/AlbumDetailsController.php';
 require_once 'src/controllers/TopAlbumsController.php';
 require_once 'src/controllers/YourFavoritesController.php';
+require_once 'src/controllers/MyProfileController.php';
 
 class Router
 {

@@ -12,10 +12,14 @@ Router::get('addAlbum', 'AddAlbumController');
 Router::get('albumDetails', 'AlbumDetailsController');
 Router::get('topAlbums', 'TopAlbumsController');
 Router::get('yourFavorites', 'YourFavoritesController');
+Router::get('myProfile', 'MyProfileController');
 
 Router::post('login', 'SecurityController');
 Router::post('logout', 'SecurityController');
 Router::post('searchAlbum', 'DashboardController');
 Router::post('addAlbum', 'AddAlbumController');
+Router::post('changePhoto', 'MyProfileController');
+Router::post('addReview', 'AlbumDetailsController');
+Router::post('toggleFavorite', 'YourFavoritesController');
 
 Router::run($path);

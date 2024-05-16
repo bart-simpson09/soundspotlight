@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="/public/css/responsive.css">
 
     <script src="/public/js/scripts.js" defer></script>
-    <script src="/public/js/validation.js" defer></script>
+    <script src="/public/js/addAlbumValidation.js" defer></script>
 
     <title>Add album</title>
 </head>
@@ -69,24 +69,24 @@
         <div class="flexRow columnGap24">
             <img id="uploadedCoverPreview" class="myProfileAvatar" src="/public/assets/imgs/covers/default-cover.png"
                  alt="">
-            <input type="file" id="albumCoverInput" name="albumCover" accept="image/png, image/jpeg">
+            <input type="file" id="photoInput" name="albumCover" accept="image/png, image/jpeg" required>
         </div>
         <div class="flexColumn rowGap16">
             <div class="flexRow columnGap16 rowGap16 mobileWrapped">
                 <div class="inputArea flexColumn rowGap8">
                     <label for="albumTitle">Album title</label>
-                    <input type="text" name="albumTitle" id="albumTitle" placeholder="Type album title">
+                    <input type="text" name="albumTitle" id="albumTitle" placeholder="Type album title" required>
                 </div>
                 <div class="inputArea flexColumn rowGap8">
                     <label for="authorName">Author name</label>
-                    <input type="text" name="authorName" id="authorName" placeholder="Type author name">
+                    <input type="text" name="authorName" id="authorName" placeholder="Type author name" required>
                 </div>
             </div>
             <div class="flexRow columnGap16 rowGap16 mobileWrapped">
                 <div class="inputArea flexColumn rowGap8">
                     <label for="language">Language</label>
                     <div class="customSelect">
-                        <select id="language" name="language">
+                        <select id="language" name="language" required>
                             <option value="" disabled="disabled" selected="true">Select language</option>
                             <?php foreach ($languages as $language): ?>
                                 <option value="<?= $language->getLanguageId() ?>"><?= $language->getLanguageName() ?></option>
@@ -97,7 +97,7 @@
                 <div class="inputArea flexColumn rowGap8">
                     <label for="category">Category</label>
                     <div class="customSelect">
-                        <select id="category" name="category">
+                        <select id="category" name="category" required>
                             <option value="" disabled="disabled" selected="true">Select category</option>
                             <?php foreach ($categories as $category): ?>
                                 <option value="<?= $category->getCategoryId() ?>"><?= $category->getCategoryName() ?></option>
@@ -109,17 +109,18 @@
             <div class="flexRow columnGap16 rowGap16 mobileWrapped">
                 <div class="inputArea flexColumn rowGap8">
                     <label for="releaseDate">Release date</label>
-                    <input type="date" name="releaseDate" id="releaseDate">
+                    <input type="date" name="releaseDate" id="releaseDate" required>
                 </div>
                 <div class="inputArea flexColumn rowGap8">
                     <label for="songsNumber">Number of songs</label>
-                    <input type="number" name="songsNumber" id="songsNumber" placeholder="Type number of songs">
+                    <input type="number" name="songsNumber" id="songsNumber" placeholder="Type number of songs"
+                           required>
                 </div>
             </div>
             <div class="inputArea flexColumn rowGap8">
                 <label for="description">Description</label>
                 <textarea name="description" id="description" cols="30" rows="10"
-                          placeholder="Type album description"></textarea>
+                          placeholder="Type album description" required></textarea>
             </div>
         </div>
         <button type="submit" class="buttonPrimary" id="submitButton">Add new album</button>

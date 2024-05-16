@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="/public/css/responsive.css">
 
     <script src="/public/js/scripts.js" defer></script>
+    <script src="/public/js/toggleFavorite.js" defer></script>
 
     <title>Top albums</title>
 </head>
@@ -68,42 +69,45 @@
     </div>
     <div class="albumsList">
         <?php foreach ($allAlbums as $album): ?>
-            <a href="/albumDetails/<?= $album['id'] ?>" class="albumItem flexColumn rowGap24">
-                <div class="albumItemCoverArea">
-                    <div class="favouriteButtonDefault flexCenter">
-                        <?php
-                        $heartClass = $album['isfavorite'] ? 'iconoir-heart-solid' : 'iconoir-heart';
-                        ?>
-                        <i class="<?= $heartClass ?>"></i>
+            <div class="albumItemContainer">
+                <a href="/albumDetails/<?= $album['id'] ?>" class="albumItem flexColumn rowGap24">
+                    <div class="albumItemCoverArea">
+                        <img class="albumItemCover" src="/public/assets/imgs/covers/<?= $album['cover'] ?>"
+                             alt="<?= $album['name'] ?>-Album-Cover">
                     </div>
-                    <img class="albumItemCover" src="/public/assets/imgs/covers/<?= $album['cover'] ?>"
-                         alt="<?= $album['name'] ?>-Album-Cover">
+                    <div class="albumItemContent flexColumn rowGap24">
+                        <div class="flexColumn rowGap4">
+                            <h3><?= $album['albumtitle'] ?></h3>
+                            <p><?= $album['authorname'] ?></p>
+                        </div>
+                        <div class="flexColumn rowGap8">
+                            <div class="flexRow columnGap8">
+                                <p class="albumItemDetailLabel">Release date</p>
+                                <p class="albumItemDetailText"><?= $album['releasedate'] ?></p>
+                            </div>
+                            <div class="flexRow columnGap8">
+                                <p class="albumItemDetailLabel">Rate</p>
+                                <p class="albumItemDetailText"><?= $album['averagerate'] != 0 ? $album['averagerate'] . "/5" : '-' ?></p>
+                            </div>
+                            <div class="flexRow columnGap8">
+                                <p class="albumItemDetailLabel">Category</p>
+                                <p class="albumItemDetailText"><?= $album['categoryname'] ?></p>
+                            </div>
+                            <div class="flexRow columnGap8">
+                                <p class="albumItemDetailLabel">Language</p>
+                                <p class="albumItemDetailText"><?= $album['languagename'] ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <div class="favouriteButtonDefault flexCenter favoriteButton"
+                     onclick="toggleFavorite(<?= $album['id'] ?>, this)">
+                    <?php
+                    $heartClass = $album['isfavorite'] ? 'iconoir-heart-solid' : 'iconoir-heart';
+                    ?>
+                    <i class="<?= $heartClass ?>"></i>
                 </div>
-                <div class="albumItemContent flexColumn rowGap24">
-                    <div class="flexColumn rowGap4">
-                        <h3><?= $album['albumtitle'] ?></h3>
-                        <p><?= $album['authorname'] ?></p>
-                    </div>
-                    <div class="flexColumn rowGap8">
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Release date</p>
-                            <p class="albumItemDetailText"><?= $album['releasedate'] ?></p>
-                        </div>
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Rate</p>
-                            <p class="albumItemDetailText"><?= $album['averagerate'] != 0 ? $album['averagerate'] . "/5" : '-' ?></p>
-                        </div>
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Category</p>
-                            <p class="albumItemDetailText"><?= $album['categoryname'] ?></p>
-                        </div>
-                        <div class="flexRow columnGap8">
-                            <p class="albumItemDetailLabel">Language</p>
-                            <p class="albumItemDetailText"><?= $album['languagename'] ?></p>
-                        </div>
-                    </div>
-                </div>
-            </a>
+            </div>
         <?php endforeach; ?>
     </div>
 </div>

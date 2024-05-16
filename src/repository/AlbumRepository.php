@@ -7,7 +7,7 @@ class AlbumRepository extends Repository
 {
     public function getAllAlbums($userId): array
     {
-        $stmt = $this->database->connect()->prepare('
+        $stmt = $this->database->connect()->prepare("
         SELECT albums.*, 
                authors.name AS authorname,
                categories.name AS categoryname,
@@ -18,7 +18,8 @@ class AlbumRepository extends Repository
         INNER JOIN categories ON albums.categoryid = categories.id
         INNER JOIN languages ON albums.languageid = languages.id
         LEFT JOIN favorites ON albums.id = favorites.albumid AND favorites.userid = :userid
-    ');
+        WHERE albums.status = 'Approved'
+    ");
         $stmt->bindParam(':userid', $userId, PDO::PARAM_INT);
         $stmt->execute();
 
@@ -28,7 +29,7 @@ class AlbumRepository extends Repository
 
     public function getTopAlbums($userId): array
     {
-        $stmt = $this->database->connect()->prepare('
+        $stmt = $this->database->connect()->prepare("
         SELECT albums.*, 
                authors.name AS authorname,
                categories.name AS categoryname,
@@ -39,9 +40,10 @@ class AlbumRepository extends Repository
         INNER JOIN categories ON albums.categoryid = categories.id
         INNER JOIN languages ON albums.languageid = languages.id
         LEFT JOIN favorites ON albums.id = favorites.albumid AND favorites.userid = :userid
+        WHERE albums.status = 'Approved'
         ORDER BY averagerate DESC
         LIMIT 5
-    ');
+    ");
         $stmt->bindParam(':userid', $userId, PDO::PARAM_INT);
         $stmt->execute();
 
@@ -51,7 +53,7 @@ class AlbumRepository extends Repository
 
     public function getFilteredAlbums($userId, $albumTitle = null, $artistName = null, $categoryId = null, $languageId = null)
     {
-        $conditions = [];
+        $conditions = ["albums.status = 'Approved'"];
         $params = [];
 
         $params[':userid'] = $userId;
@@ -78,7 +80,7 @@ class AlbumRepository extends Repository
             $params[':languageid'] = $languageId;
         }
 
-        $query = '
+        $query = "
         SELECT albums.*, 
                authors.name AS authorname,
                categories.name AS categoryname,
@@ -89,7 +91,7 @@ class AlbumRepository extends Repository
         INNER JOIN categories ON albums.categoryid = categories.id
         INNER JOIN languages ON albums.languageid = languages.id
         LEFT JOIN favorites ON albums.id = favorites.albumid AND favorites.userid = :userid
-    ';
+    ";
 
         if (!empty($conditions)) {
             $query .= ' WHERE ' . implode(' AND ', $conditions);
@@ -108,10 +110,18 @@ class AlbumRepository extends Repository
 
     public function addAlbum($albumTitle, $authorId, $languageId, $categoryId, $numberOfSongs, $description, $cover, $releaseDate, $uploadDate, $addedBy)
     {
-        $stmt = $this->database->connect()->prepare('
-    INSERT INTO albums (albumtitle, authorid, languageid, categoryid, numberofsongs, description, cover, releasedate, uploaddate, addedby)
-    VALUES (:albumtitle, :authorid, :languageid, :categoryid, :numberofsongs, :description, :cover, :releasedate, :uploaddate, :addedby);
-  ');
+        if ($this->isAdmin($addedBy)) {
+            $stmt = $this->database->connect()->prepare('
+            INSERT INTO albums (albumtitle, authorid, languageid, categoryid, numberofsongs, description, cover, releasedate, uploaddate, addedby, status)
+            VALUES (:albumtitle, :authorid, :languageid, :categoryid, :numberofsongs, :description, :cover, :releasedate, :uploaddate, :addedby, :status);
+        ');
+            $stmt->bindValue(':status', 'Approved');
+        } else {
+            $stmt = $this->database->connect()->prepare('
+            INSERT INTO albums (albumtitle, authorid, languageid, categoryid, numberofsongs, description, cover, releasedate, uploaddate, addedby)
+            VALUES (:albumtitle, :authorid, :languageid, :categoryid, :numberofsongs, :description, :cover, :releasedate, :uploaddate, :addedby);
+        ');
+        }
         $stmt->bindValue(':albumtitle', $albumTitle);
         $stmt->bindValue(':authorid', $authorId);
         $stmt->bindValue(':languageid', $languageId);
@@ -125,7 +135,47 @@ class AlbumRepository extends Repository
         $stmt->execute();
     }
 
-    public function getAlbumById($id)
+    private function isAdmin($userId): bool
+    {
+        $stmt = $this->database->connect()->prepare('
+        SELECT role FROM users WHERE id = :userid;
+    ');
+        $stmt->bindValue(':userid', $userId);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result && $result['role'] === 'admin';
+    }
+
+    public function getAlbumById($id, $userId)
+    {
+        $stmt = $this->database->connect()->prepare('
+        SELECT albums.*, 
+           authors.name AS authorname,
+           categories.name AS categoryname,
+           languages.name AS languagename,
+           (CASE WHEN favorites.albumid IS NULL THEN FALSE ELSE TRUE END) AS isfavorite
+    FROM albums
+    INNER JOIN authors ON albums.authorid = authors.id
+    INNER JOIN categories ON albums.categoryid = categories.id
+    INNER JOIN languages ON albums.languageid = languages.id
+    LEFT JOIN favorites ON albums.id = favorites.albumid AND favorites.userid = :userid
+    WHERE albums.id = :id
+    ');
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':userid', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $albumData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$albumData) {
+            return null;
+        }
+
+        return $albumData;
+    }
+
+    public function getAlbumsAddedByUser($userId): array
     {
         $stmt = $this->database->connect()->prepare('
         SELECT albums.*, 
@@ -136,18 +186,14 @@ class AlbumRepository extends Repository
         INNER JOIN authors ON albums.authorid = authors.id
         INNER JOIN categories ON albums.categoryid = categories.id
         INNER JOIN languages ON albums.languageid = languages.id
-        WHERE albums.id = :id
+        WHERE albums.addedby = :userid
+        ORDER BY albums.status DESC
     ');
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->bindValue(':userid', $userId, PDO::PARAM_INT);
         $stmt->execute();
 
-        $albumData = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if (!$albumData) {
-            return null;
-        }
-
-        return $albumData;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }
