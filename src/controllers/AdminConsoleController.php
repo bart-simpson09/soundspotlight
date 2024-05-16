@@ -33,7 +33,7 @@ class AdminConsoleController extends AppController
         }
 
         $pendingReviews = $this->reviewsRepository->getPendingReviews();
-        //$pendingAlbums = $this->albumsRepository->getPendingAlbums();
+        $pendingAlbums = $this->albumsRepository->getPendingAlbums();
         //$allUsers = $this->userRepository->getAllUsers();
 
         print $this->render('/adminConsole', [
@@ -41,8 +41,8 @@ class AdminConsoleController extends AppController
             'lastName' => $user->getLastName(),
             'avatar' => $user->getAvatar(),
             'isAdmin' => $user->getRole(),
-            'pendingReviews' => $pendingReviews]);
-        //'pendingAlbums' => $pendingAlbums,
+            'pendingReviews' => $pendingReviews,
+            'pendingAlbums' => $pendingAlbums]);
         //'allUsers' => $allUsers]);
     }
 
@@ -56,9 +56,6 @@ class AdminConsoleController extends AppController
 
             header('Content-Type: application/json');
             http_response_code(200);
-
-            error_log($decoded["decision"]);
-            error_log($decoded["reviewId"]);
 
             if ($decoded['decision'] == "Approve") {
                 $this->reviewsRepository->changeReviewStatus((int)$decoded['reviewId'], "Approved");

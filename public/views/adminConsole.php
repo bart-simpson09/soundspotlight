@@ -119,108 +119,51 @@
 
             </div>
             <div id="pendingAlbums" class="tabContent flexColumn rowGap16">
-                <div class="yourProfileItem flexRow columnGap16">
-                    <img src="/public/assets/imgs/covers/1-800-oswiecenie.png" class="albumSmallCover" alt="">
-                    <div class="flexColumn rowGap16">
-                        <div class="flexRow yourProfileItemHeader">
-                            <div class="flexColumn rowGap4">
-                                <h4>1-800-Oświecenie</h4>
-                                <h5>Taco Hemingway</h5>
-                            </div>
-                            <div class="flexRow columnGap8">
-                                <button class="buttonOutlined positiveAction">Approve</button>
-                                <button class="buttonOutlined importantAction">Decline</button>
+                <?php if (!empty($pendingAlbums)): ?>
+                    <?php foreach ($pendingAlbums as $pendingAlbum): ?>
+                        <div class="yourProfileItem flexRow columnGap16">
+                            <img src="/public/assets/imgs/covers/<?= $pendingAlbum['cover'] ?>" class="albumSmallCover"
+                                 alt="">
+                            <div class="flexColumn rowGap16" style="width: 100%;">
+                                <div class="flexRow yourProfileItemHeader">
+                                    <div class="flexColumn rowGap4">
+                                        <h4><?= $pendingAlbum['albumtitle'] ?></h4>
+                                        <h5><?= $pendingAlbum['authorname'] ?></h5>
+                                    </div>
+                                    <div class="flexRow columnGap8">
+                                        <button class="buttonOutlined positiveAction">Approve</button>
+                                        <button class="buttonOutlined importantAction">Decline</button>
+                                    </div>
+                                </div>
+                                <span class="dividerHorizon40"></span>
+                                <div class="flexColumn rowGap8">
+                                    <div class="flexRow columnGap32 flexWrap">
+                                        <div class="flexRow columnGap8">
+                                            <h5>Category:</h5>
+                                            <p><?= $pendingAlbum['categoryname'] ?></p>
+                                        </div>
+                                        <div class="flexRow columnGap8">
+                                            <h5>Language:</h5>
+                                            <p><?= $pendingAlbum['languagename'] ?></p>
+                                        </div>
+                                        <div class="flexRow columnGap8">
+                                            <h5>Release date:</h5>
+                                            <p><?= $pendingAlbum['releasedate'] ?></p>
+                                        </div>
+                                    </div>
+                                    <p class="shortAlbumDescription"><?= $pendingAlbum['description'] ?></p>
+                                    <span class="pendingDivider"></span>
+                                    <div class="flexRow columnGap8">
+                                        <h5>Added by:</h5>
+                                        <p><?= $pendingAlbum['userfirstname'] . " " . $pendingAlbum['userlastname'] ?></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <span class="dividerHorizon40"></span>
-                        <div class="flexColumn rowGap8">
-                            <div class="flexRow columnGap32 flexWrap">
-                                <div class="flexRow columnGap8">
-                                    <h5>Number of songs:</h5>
-                                    <p>11</p>
-                                </div>
-                                <div class="flexRow columnGap8">
-                                    <h5>Language:</h5>
-                                    <p>Polish</p>
-                                </div>
-                                <div class="flexRow columnGap8">
-                                    <h5>Release date:</h5>
-                                    <p>01.01.2023</p>
-                                </div>
-                            </div>
-                            <p class="shortAlbumDescription">Boldly experimental yet beautifully cohesive, this
-                                album pushes the boundaries of
-                                genre
-                                with
-                                its innovative soundscapes and emotive lyricism. Each track unfolds like a chapter
-                                in a
-                                captivating narrative, drawing listeners into its immersive sonic world. From the
-                                haunting
-                                melodies to the intricate layers of instrumentation, every moment is crafted with
-                                meticulous
-                                attention to detail, leaving a lasting impression that resonates long after the
-                                final
-                                note
-                                fades.</p>
-                            <span class="pendingDivider"></span>
-                            <div class="flexRow columnGap8">
-                                <h5>Added by:</h5>
-                                <p>Marry Smith</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="yourProfileItem flexRow columnGap16">
-                    <img src="/public/assets/imgs/covers/1-800-oswiecenie.png" class="albumSmallCover" alt="">
-                    <div class="flexColumn rowGap16">
-                        <div class="flexRow yourProfileItemHeader">
-                            <div class="flexColumn rowGap4">
-                                <h4>1-800-Oświecenie</h4>
-                                <h5>Taco Hemingway</h5>
-                            </div>
-                            <div class="flexRow columnGap8">
-                                <button class="buttonOutlined positiveAction">Approve</button>
-                                <button class="buttonOutlined importantAction">Decline</button>
-                            </div>
-                        </div>
-                        <span class="dividerHorizon40"></span>
-                        <div class="flexColumn rowGap8">
-                            <div class="flexRow columnGap32 flexWrap">
-                                <div class="flexRow columnGap8">
-                                    <h5>Number of songs:</h5>
-                                    <p>11</p>
-                                </div>
-                                <div class="flexRow columnGap8">
-                                    <h5>Language:</h5>
-                                    <p>Polish</p>
-                                </div>
-                                <div class="flexRow columnGap8">
-                                    <h5>Release date:</h5>
-                                    <p>01.01.2023</p>
-                                </div>
-                            </div>
-                            <p class="shortAlbumDescription">Boldly experimental yet beautifully cohesive, this
-                                album pushes the boundaries of
-                                genre
-                                with
-                                its innovative soundscapes and emotive lyricism. Each track unfolds like a chapter
-                                in a
-                                captivating narrative, drawing listeners into its immersive sonic world. From the
-                                haunting
-                                melodies to the intricate layers of instrumentation, every moment is crafted with
-                                meticulous
-                                attention to detail, leaving a lasting impression that resonates long after the
-                                final
-                                note
-                                fades.</p>
-                            <span class="pendingDivider"></span>
-                            <div class="flexRow columnGap8">
-                                <h5>Added by:</h5>
-                                <p>Marry Smith</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>There are no pending albums at the moment.</p>
+                <?php endif; ?>
             </div>
             <div id="manageUsers" class="tabContent flexColumn rowGap16">
                 <div class="yourProfileItem flexRow yourProfileItemHeader">
