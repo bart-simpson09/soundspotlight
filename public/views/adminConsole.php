@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="public/css/responsive.css">
 
     <script src="public/js/scripts.js" defer></script>
+    <script src="public/js/adminScripts.js" defer></script>
 
     <title>Admin console</title>
 </head>
@@ -81,64 +82,41 @@
         </div>
         <div>
             <div id="pendingReviews" class="tabContent flexColumn rowGap16">
-                <div class="yourProfileItem flexColumn rowGap16">
-                    <div class="flexRow yourProfileItemHeader">
-                        <div class="flexColumn rowGap4">
-                            <h4>1-800-Oświecenie</h4>
-                            <h5>Taco Hemingway</h5>
-                        </div>
-                        <div class="flexRow columnGap16">
-                            <div class="flexRow columnGap8 opinionRate">
-                                <i class="iconoir-star-solid"></i>
-                                4.5/5
+                <?php if (!empty($pendingReviews)): ?>
+                    <?php foreach ($pendingReviews as $pendingReview): ?>
+                        <div class="yourProfileItem flexColumn rowGap16">
+                            <div class="flexRow yourProfileItemHeader">
+                                <div class="flexColumn rowGap4">
+                                    <h4><?= $pendingReview['albumname'] ?></h4>
+                                    <h5><?= $pendingReview['albumauthorname'] ?></h5>
+                                </div>
+                                <div class="flexRow columnGap16">
+                                    <div class="flexRow columnGap8 opinionRate">
+                                        <i class="iconoir-star-solid"></i>
+                                        <?= $pendingReview['rate'] . "/5" ?>
+                                    </div>
+                                    <div class="flexRow columnGap8">
+                                        <button class="buttonOutlined positiveAction"
+                                                onclick="reviewOpinion('Approve', <?= $pendingReview['id'] ?>)">Approve
+                                        </button>
+                                        <button class="buttonOutlined importantAction"
+                                                onclick="reviewOpinion('Decline', <?= $pendingReview['id'] ?>)">Decline
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
+                            <p><?= $pendingReview['content'] ?></p>
+                            <span class="pendingDivider"></span>
                             <div class="flexRow columnGap8">
-                                <button class="buttonOutlined positiveAction">Approve</button>
-                                <button class="buttonOutlined importantAction">Decline</button>
+                                <h5>Added by:</h5>
+                                <p><?= $pendingReview['authorfirstname'] . " " . $pendingReview['authorlastname'] ?></p>
                             </div>
                         </div>
-                    </div>
-                    <p>Boldly experimental yet beautifully cohesive, this album pushes the boundaries of genre with
-                        its innovative soundscapes and emotive lyricism. Each track unfolds like a chapter in a
-                        captivating narrative, drawing listeners into its immersive sonic world. From the haunting
-                        melodies to the intricate layers of instrumentation, every moment is crafted with meticulous
-                        attention to detail, leaving a lasting impression that resonates long after the final note
-                        fades.</p>
-                    <span class="pendingDivider"></span>
-                    <div class="flexRow columnGap8">
-                        <h5>Added by:</h5>
-                        <p>Marry Smith</p>
-                    </div>
-                </div>
-                <div class="yourProfileItem flexColumn rowGap16">
-                    <div class="flexRow yourProfileItemHeader">
-                        <div class="flexColumn rowGap4">
-                            <h4>1-800-Oświecenie</h4>
-                            <h5>Taco Hemingway</h5>
-                        </div>
-                        <div class="flexRow columnGap16 rowGap8 flexWrap itemRightSide">
-                            <div class="flexRow columnGap8 opinionRate">
-                                <i class="iconoir-star-solid"></i>
-                                4.5/5
-                            </div>
-                            <div class="flexRow columnGap8">
-                                <button class="buttonOutlined positiveAction">Approve</button>
-                                <button class="buttonOutlined importantAction">Decline</button>
-                            </div>
-                        </div>
-                    </div>
-                    <p>Boldly experimental yet beautifully cohesive, this album pushes the boundaries of genre with
-                        its innovative soundscapes and emotive lyricism. Each track unfolds like a chapter in a
-                        captivating narrative, drawing listeners into its immersive sonic world. From the haunting
-                        melodies to the intricate layers of instrumentation, every moment is crafted with meticulous
-                        attention to detail, leaving a lasting impression that resonates long after the final note
-                        fades.</p>
-                    <span class="pendingDivider"></span>
-                    <div class="flexRow columnGap8">
-                        <h5>Added by:</h5>
-                        <p>Marry Smith</p>
-                    </div>
-                </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>There are no pending reviews at the moment.</p>
+                <?php endif; ?>
+
             </div>
             <div id="pendingAlbums" class="tabContent flexColumn rowGap16">
                 <div class="yourProfileItem flexRow columnGap16">
@@ -281,5 +259,36 @@
     </div>
 </div>
 </body>
+
+<template id="reviewTemplate">
+    <div class="yourProfileItem flexColumn rowGap16">
+        <div class="flexRow yourProfileItemHeader">
+            <div class="flexColumn rowGap4">
+                <h4 id="rAlbumName"><?= $pendingReview['albumname'] ?></h4>
+                <h5 id="rAlbumAuthorName"><?= $pendingReview['albumauthorname'] ?></h5>
+            </div>
+            <div class="flexRow columnGap16">
+                <div class="flexRow columnGap8 opinionRate" id="rOpinionRate">
+                    <i class="iconoir-star-solid"></i>
+                    <?= $pendingReview['rate'] . "/5" ?>
+                </div>
+                <div class="flexRow columnGap8" id="rActionButtons">
+                    <button class="buttonOutlined positiveAction"
+                            onclick="reviewOpinion('Approve', <?= $pendingReview['id'] ?>)">Approve
+                    </button>
+                    <button class="buttonOutlined importantAction"
+                            onclick="reviewOpinion('Decline', <?= $pendingReview['id'] ?>)">Decline
+                    </button>
+                </div>
+            </div>
+        </div>
+        <p id="rContent"><?= $pendingReview['content'] ?></p>
+        <span class="pendingDivider"></span>
+        <div class="flexRow columnGap8">
+            <h5>Added by:</h5>
+            <p id="rAuthorName"><?= $pendingReview['authorfirstname'] . " " . $pendingReview['authorlastname'] ?></p>
+        </div>
+    </div>
+</template>
 
 </html>

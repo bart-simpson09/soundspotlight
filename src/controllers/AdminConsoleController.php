@@ -32,15 +32,43 @@ class AdminConsoleController extends AppController
             header("Location: $url/login");
         }
 
-        $userAlbums = $this->albumsRepository->getAlbumsAddedByUser($userId);
-        $userReviews = $this->reviewsRepository->getReviewsAddedByUser($userId);
+        $pendingReviews = $this->reviewsRepository->getPendingReviews();
+        //$pendingAlbums = $this->albumsRepository->getPendingAlbums();
+        //$allUsers = $this->userRepository->getAllUsers();
 
         print $this->render('/adminConsole', [
             'firstName' => $user->getFirstName(),
             'lastName' => $user->getLastName(),
             'avatar' => $user->getAvatar(),
             'isAdmin' => $user->getRole(),
-            'userAlbums' => $userAlbums,
-            'userReviews' => $userReviews]);
+            'pendingReviews' => $pendingReviews]);
+        //'pendingAlbums' => $pendingAlbums,
+        //'allUsers' => $allUsers]);
+    }
+
+    public function changeReviewStatus()
+    {
+        $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
+
+        if ($contentType === "application/json") {
+            $content = trim(file_get_contents("php://input"));
+            $decoded = json_decode($content, true);
+
+            header('Content-Type: application/json');
+            http_response_code(200);
+
+            error_log($decoded["decision"]);
+            error_log($decoded["reviewId"]);
+
+            if ($decoded['decision'] == "Approve") {
+                $this->reviewsRepository->changeReviewStatus((int)$decoded['reviewId'], "Approved");
+            }
+
+            if ($decoded['decision'] == "Decline") {
+                $this->reviewsRepository->changeReviewStatus((int)$decoded['reviewId'], "Declined");
+            }
+
+            echo json_encode($this->reviewsRepository->getPendingReviews());
+        }
     }
 }

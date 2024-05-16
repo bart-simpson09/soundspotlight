@@ -181,21 +181,21 @@
 
 <template id="reviewTemplate">
     <div class="albumDetailsOpinionItem flexRow columnGap16">
-        <img class="standardAvatar" src="/public/assets/imgs/avatars/<?= $review['authoravatar'] ?>"
+        <img class="standardAvatar" src="/public/assets/imgs/avatars"
              alt="">
         <div class="flexColumn rowGap8 opinionContent">
             <div class="flexRow opinionHeader">
                 <div class="opinionBasicInfo flexRow columnGap8">
-                    <p class="opinionAuthor"><?= $review['authorfirstname'] . " " . $review['authorlastname'] ?></p>
+                    <p class="opinionAuthor">Opinion Author</p>
                     <span class="opinionItemDivider"></span>
-                    <p id="creationDate"><?= $review['createddate'] ?></p>
+                    <p id="creationDate">Creation date</p>
                 </div>
                 <div class="flexRow columnGap8 opinionRate">
-                    <?= $review['rate'] . "/5" ?>
+                    4/5
                     <i class="iconoir-star-solid"></i>
                 </div>
             </div>
-            <p class="opinionDescription"><?= $review['content'] ?></p>
+            <p class="opinionDescription">Opinion Content</p>
         </div>
     </div>
 </template>
