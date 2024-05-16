@@ -1,3 +1,5 @@
+const reviewsContainer = document.querySelector(".reviewsList");
+
 function openModal(modalID, albumId) {
     let modal = document.getElementById(modalID);
     let closeButton = document.getElementById("addReviewClose");
@@ -26,8 +28,8 @@ function openModal(modalID, albumId) {
                 body: JSON.stringify(data)
             }).then(function (response) {
                 return response.json();
-            }).then(function (isAdded) {
-                if (isAdded) {
+            }).then(function (reviews) {
+                if (reviews) {
                     modal.style.display = "none";
                     reviewContent.value = "";
                     reviewRate = 0;
@@ -36,6 +38,8 @@ function openModal(modalID, albumId) {
                             stars[i].className = "ratingStar iconoir-star";
                         }
                     })
+                    reviewsContainer.innerHTML = "";
+                    loadReviews(reviews);
                     alert("Opinion added! Now our team must review it.");
                 } else {
                     alert("Error occurred while adding a review!");
@@ -76,4 +80,34 @@ function openModal(modalID, albumId) {
             reviewRate = rate;
         };
     });
+}
+
+function loadReviews(reviews) {
+    reviews.forEach(review => {
+        createReview(review);
+    });
+}
+
+function createReview(review) {
+    const template = document.querySelector("#reviewTemplate");
+
+    const clone = template.content.cloneNode(true);
+
+    const userAvatar = clone.querySelector("img");
+    userAvatar.src = `/public/assets/imgs/avatars/${review.authoravatar}`;
+
+    const userName = clone.querySelector(".opinionAuthor");
+    userName.innerHTML = review.authorfirstname + " " + review.authorlastname;
+
+    const creationDate = clone.querySelector("#creationDate");
+    creationDate.innerHTML = review.createddate;
+
+    const rate = clone.querySelector(".opinionRate");
+    rate.innerHTML = review.rate + "/5";
+    rate.innerHTML += `<i class="iconoir-star-solid"></i>`;
+
+    const opinionDescription = clone.querySelector(".opinionDescription");
+    opinionDescription.innerHTML = review.content;
+
+    reviewsContainer.appendChild(clone);
 }

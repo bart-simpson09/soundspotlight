@@ -73,7 +73,9 @@ class AlbumDetailsController extends AppController
             header('Content-Type: application/json');
             http_response_code(200);
 
-            echo json_encode($this->reviewRepository->addAlbumReview((int)$userId, $decoded['albumId'], date("Y-m-d"), $decoded['reviewRate'], $decoded['reviewContent']));
+            $this->reviewRepository->addAlbumReview((int)$userId, $decoded['albumId'], date("Y-m-d"), $decoded['reviewRate'], $decoded['reviewContent']);
+
+            echo json_encode($this->reviewRepository->getAlbumReviews($decoded['albumId']));
         }
     }
 }

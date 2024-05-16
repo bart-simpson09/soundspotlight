@@ -124,7 +124,7 @@
             </button>
         </div>
         <?php if (!empty($reviews)): ?>
-            <div class="flexColumn rowGap16">
+            <div class="flexColumn rowGap16 reviewsList">
                 <?php foreach ($reviews as $review): ?>
                     <div class="albumDetailsOpinionItem flexRow columnGap16">
                         <img class="standardAvatar" src="/public/assets/imgs/avatars/<?= $review['authoravatar'] ?>"
@@ -132,9 +132,9 @@
                         <div class="flexColumn rowGap8 opinionContent">
                             <div class="flexRow opinionHeader">
                                 <div class="opinionBasicInfo flexRow columnGap8">
-                                    <p class="opinionAurhor"><?= $review['authorfirstname'] . " " . $review['authorlastname'] ?></p>
+                                    <p class="opinionAuthor"><?= $review['authorfirstname'] . " " . $review['authorlastname'] ?></p>
                                     <span class="opinionItemDivider"></span>
-                                    <p><?= $review['createddate'] ?></p>
+                                    <p id="creationDate"><?= $review['createddate'] ?></p>
                                 </div>
                                 <div class="flexRow columnGap8 opinionRate">
                                     <?= $review['rate'] . "/5" ?>
@@ -177,7 +177,27 @@
 
     </div>
 </div>
-
 </body>
+
+<template id="reviewTemplate">
+    <div class="albumDetailsOpinionItem flexRow columnGap16">
+        <img class="standardAvatar" src="/public/assets/imgs/avatars/<?= $review['authoravatar'] ?>"
+             alt="">
+        <div class="flexColumn rowGap8 opinionContent">
+            <div class="flexRow opinionHeader">
+                <div class="opinionBasicInfo flexRow columnGap8">
+                    <p class="opinionAuthor"><?= $review['authorfirstname'] . " " . $review['authorlastname'] ?></p>
+                    <span class="opinionItemDivider"></span>
+                    <p id="creationDate"><?= $review['createddate'] ?></p>
+                </div>
+                <div class="flexRow columnGap8 opinionRate">
+                    <?= $review['rate'] . "/5" ?>
+                    <i class="iconoir-star-solid"></i>
+                </div>
+            </div>
+            <p class="opinionDescription"><?= $review['content'] ?></p>
+        </div>
+    </div>
+</template>
 
 </html>
