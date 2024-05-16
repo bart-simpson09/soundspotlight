@@ -34,7 +34,7 @@
             <a class="active" href="yourFavorites">Your favorites</a>
             <a href="myProfile">My profile</a>
             <?php if ($isAdmin == "admin"): ?>
-                <a href="">Admin console</a>
+                <a href="adminConsole">Admin console</a>
             <?php endif; ?>
         </div>
         <div class="userSide flexRow columnGap24">

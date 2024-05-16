@@ -13,6 +13,7 @@ Router::get('albumDetails', 'AlbumDetailsController');
 Router::get('topAlbums', 'TopAlbumsController');
 Router::get('yourFavorites', 'YourFavoritesController');
 Router::get('myProfile', 'MyProfileController');
+Router::get('adminConsole', 'AdminConsoleController');
 
 Router::post('login', 'SecurityController');
 Router::post('logout', 'SecurityController');
