@@ -68,4 +68,27 @@ class AdminConsoleController extends AppController
             echo json_encode($this->reviewsRepository->getPendingReviews());
         }
     }
+
+    public function changeAlbumStatus()
+    {
+        $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
+
+        if ($contentType === "application/json") {
+            $content = trim(file_get_contents("php://input"));
+            $decoded = json_decode($content, true);
+
+            header('Content-Type: application/json');
+            http_response_code(200);
+
+            if ($decoded['decision'] == "Approve") {
+                $this->albumsRepository->changeAlbumStatus((int)$decoded['albumId'], "Approved");
+            }
+
+            if ($decoded['decision'] == "Decline") {
+                $this->albumsRepository->changeAlbumStatus((int)$decoded['albumId'], "Declined");
+            }
+
+            echo json_encode($this->albumsRepository->getPendingAlbums());
+        }
+    }
 }

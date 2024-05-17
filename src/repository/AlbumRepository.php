@@ -217,4 +217,17 @@ class AlbumRepository extends Repository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function changeAlbumStatus($albumId, $status)
+    {
+        $stmt = $this->database->connect()->prepare('
+            UPDATE albums
+            SET status = :status
+            WHERE id = :albumId
+        ');
+        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+        $stmt->bindParam(':albumId', $albumId, PDO::PARAM_INT);
+        $stmt->execute();
+        return true;
+    }
+
 }

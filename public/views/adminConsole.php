@@ -131,8 +131,12 @@
                                         <h5><?= $pendingAlbum['authorname'] ?></h5>
                                     </div>
                                     <div class="flexRow columnGap8">
-                                        <button class="buttonOutlined positiveAction">Approve</button>
-                                        <button class="buttonOutlined importantAction">Decline</button>
+                                        <button class="buttonOutlined positiveAction"
+                                                onclick="reviewAlbum('Approve', <?= $pendingAlbum['id'] ?>)">Approve
+                                        </button>
+                                        <button class="buttonOutlined importantAction"
+                                                onclick="reviewAlbum('Decline', <?= $pendingAlbum['id'] ?>)">Decline
+                                        </button>
                                     </div>
                                 </div>
                                 <span class="dividerHorizon40"></span>
@@ -207,29 +211,71 @@
     <div class="yourProfileItem flexColumn rowGap16">
         <div class="flexRow yourProfileItemHeader">
             <div class="flexColumn rowGap4">
-                <h4 id="rAlbumName"><?= $pendingReview['albumname'] ?></h4>
-                <h5 id="rAlbumAuthorName"><?= $pendingReview['albumauthorname'] ?></h5>
+                <h4 id="rAlbumName">Album name</h4>
+                <h5 id="rAlbumAuthorName">Album author name</h5>
             </div>
             <div class="flexRow columnGap16">
                 <div class="flexRow columnGap8 opinionRate" id="rOpinionRate">
                     <i class="iconoir-star-solid"></i>
-                    <?= $pendingReview['rate'] . "/5" ?>
+                    4/5
                 </div>
                 <div class="flexRow columnGap8" id="rActionButtons">
-                    <button class="buttonOutlined positiveAction"
-                            onclick="reviewOpinion('Approve', <?= $pendingReview['id'] ?>)">Approve
+                    <button class="buttonOutlined positiveAction">Approve
                     </button>
-                    <button class="buttonOutlined importantAction"
-                            onclick="reviewOpinion('Decline', <?= $pendingReview['id'] ?>)">Decline
+                    <button class="buttonOutlined importantAction">Decline
                     </button>
                 </div>
             </div>
         </div>
-        <p id="rContent"><?= $pendingReview['content'] ?></p>
+        <p id="rContent">Review content</p>
         <span class="pendingDivider"></span>
         <div class="flexRow columnGap8">
             <h5>Added by:</h5>
-            <p id="rAuthorName"><?= $pendingReview['authorfirstname'] . " " . $pendingReview['authorlastname'] ?></p>
+            <p id="rAuthorName">Marry Smith</p>
+        </div>
+    </div>
+</template>
+
+<template id="albumTemplate">
+    <div class="yourProfileItem flexRow columnGap16">
+        <img src="" class="albumSmallCover"
+             alt="">
+        <div class="flexColumn rowGap16" style="width: 100%;">
+            <div class="flexRow yourProfileItemHeader">
+                <div class="flexColumn rowGap4">
+                    <h4 id="aAlbumName">Album Name</h4>
+                    <h5 id="aAlbumAuthorName">Album Author Name</h5>
+                </div>
+                <div class="flexRow columnGap8" id="aActionButtons">
+                    <button class="buttonOutlined positiveAction">Approve
+                    </button>
+                    <button class="buttonOutlined importantAction">Decline
+                    </button>
+                </div>
+            </div>
+            <span class="dividerHorizon40"></span>
+            <div class="flexColumn rowGap8">
+                <div class="flexRow columnGap32 flexWrap">
+                    <div class="flexRow columnGap8">
+                        <h5>Category:</h5>
+                        <p id="aCategoryName">Category name</p>
+                    </div>
+                    <div class="flexRow columnGap8">
+                        <h5>Language:</h5>
+                        <p id="aLanguage"></p>
+                    </div>
+                    <div class="flexRow columnGap8">
+                        <h5>Release date:</h5>
+                        <p id="aReleaseDate">Release date</p>
+                    </div>
+                </div>
+                <p class="shortAlbumDescription">Album description</p>
+                <span class="pendingDivider"></span>
+                <div class="flexRow columnGap8">
+                    <h5>Added by:</h5>
+                    <p id="aAuthorName">Marry Smith</p>
+                </div>
+            </div>
         </div>
     </div>
 </template>

@@ -1,4 +1,5 @@
 const pendingReviewsContainer = document.querySelector("#pendingReviews");
+const pendingAlbumsContainer = document.querySelector("#pendingAlbums");
 
 function reviewOpinion(decision, reviewId) {
     const data = {
@@ -60,4 +61,74 @@ function createReview(review) {
     authorName.innerHTML = review.authorfirstname + " " + review.authorlastname;
 
     pendingReviewsContainer.appendChild(clone);
+}
+
+function reviewAlbum(decision, albumId) {
+    const data = {
+        decision: decision,
+        albumId: albumId
+    };
+
+    fetch("/changeAlbumStatus", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then(function (response) {
+        return response.json();
+    }).then(function (albums) {
+        pendingAlbumsContainer.innerHTML = "";
+        loadAlbums(albums);
+    })
+}
+
+function loadAlbums(albums) {
+    if (albums.length > 0) {
+        albums.forEach(album => {
+            createAlbum(album);
+        });
+    } else {
+        pendingAlbumsContainer.innerHTML = `<p>There are no pending albums at the moment.</p>`;
+    }
+}
+
+function createAlbum(album) {
+    const template = document.querySelector("#albumTemplate");
+
+    const clone = template.content.cloneNode(true);
+
+    const albumCover = clone.querySelector("img");
+    albumCover.src = `/public/assets/imgs/covers/${album.cover}`;
+
+    const albumName = clone.querySelector("#aAlbumName");
+    albumName.innerHTML = album.albumtitle;
+
+    const albumAuthorName = clone.querySelector("#aAlbumAuthorName");
+    albumAuthorName.innerHTML = album.authorname;
+
+    const actionButtons = clone.querySelector("#aActionButtons");
+    actionButtons.innerHTML = `<button class="buttonOutlined positiveAction"
+                            onclick="reviewAlbum('Approve', ${album.id})">Approve
+                    </button>`;
+    actionButtons.innerHTML += `<button class="buttonOutlined importantAction"
+                            onclick="reviewAlbum('Decline', ${album.id})">Decline
+                    </button>`;
+
+    const category = clone.querySelector("#aCategoryName");
+    category.innerHTML = album.categoryname;
+
+    const language = clone.querySelector("#aLanguage");
+    language.innerHTML = album.languagename;
+
+    const releaseDate = clone.querySelector("#aReleaseDate");
+    releaseDate.innerHTML = album.releasedate;
+
+    const albumDescription = clone.querySelector(".shortAlbumDescription");
+    albumDescription.innerHTML = album.description;
+
+    const authorName = clone.querySelector("#aAuthorName");
+    authorName.innerHTML = album.userfirstname + " " + album.userlastname;
+
+    pendingAlbumsContainer.appendChild(clone);
 }
