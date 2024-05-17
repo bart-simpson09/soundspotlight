@@ -176,6 +176,14 @@
 
     </div>
 </div>
+<div id="toast">
+    <div id="toastIconArea">
+        <div id="iconCircle">
+            <i class="ratingStar iconoir-check"></i>
+        </div>
+    </div>
+    <div id="toastDescription">Sample toast description</div>
+</div>
 </body>
 
 <template id="reviewTemplate">

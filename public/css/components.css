@@ -454,3 +454,159 @@ select {
     color: var(--text-secondary);
     background-color: var(--color-grey-30);
 }
+
+/* Component TOAST */
+
+#toast {
+    visibility: hidden;
+    max-width: 56px;
+    height: 48px;
+    margin: auto;
+    background-color: var(--toast-background);
+    color: var(--text-primary-white);
+    border-radius: 12px;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    bottom: 40px;
+    font-size: 14px;
+    white-space: nowrap;
+    display: flex;
+}
+
+#toast #toastIconArea {
+    width: 48px;
+    height: 48px;
+    padding: 8px 12px;
+    border-radius: 12px;
+}
+
+#iconCircle {
+    background-color: var(--color-teal-100);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 32px;
+}
+
+#iconCircle i {
+    color: var(--color-pure-white);
+    font-size: 24px;
+}
+
+#toast #toastDescription {
+    color: var(--text-primary-white);
+    padding: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+#toast.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, expand 0.5s 0.5s, stay 3s 1s, shrink 0.5s 2s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, expand 0.5s 0.5s, stay 3s 1s, shrink 0.5s 4s, fadeout 0.5s 4.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+    to {
+        bottom: 40px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+    to {
+        bottom: 40px;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes expand {
+    from {
+        min-width: 48px
+    }
+    to {
+        min-width: 400px
+    }
+}
+
+@keyframes expand {
+    from {
+        min-width: 48px
+    }
+    to {
+        min-width: 400px
+    }
+}
+
+@-webkit-keyframes stay {
+    from {
+        min-width: 400px
+    }
+    to {
+        min-width: 400px
+    }
+}
+
+@keyframes stay {
+    from {
+        min-width: 400px
+    }
+    to {
+        min-width: 400px
+    }
+}
+
+@-webkit-keyframes shrink {
+    from {
+        min-width: 400px;
+    }
+    to {
+        min-width: 48px;
+    }
+}
+
+@keyframes shrink {
+    from {
+        min-width: 400px;
+    }
+    to {
+        min-width: 48px;
+    }
+}
+
+@-webkit-keyframes fadeout {
+    from {
+        bottom: 40px;
+        opacity: 1;
+    }
+    to {
+        bottom: 64px;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        bottom: 40px;
+        opacity: 1;
+    }
+    to {
+        bottom: 64px;
+        opacity: 0;
+    }
+}

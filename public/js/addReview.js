@@ -10,7 +10,6 @@ function openModal(modalID, albumId) {
 
     const addReviewButton = document.querySelector("#addReviewButton");
 
-    // Usuń istniejące nasłuchiwanie, jeśli istnieje
     const newReviewHandler = function (event) {
         event.preventDefault();
 
@@ -43,7 +42,7 @@ function openModal(modalID, albumId) {
                     })
                     reviewsContainer.innerHTML = "";
                     loadReviews(reviews);
-                    alert("Opinion added! Now our team must review it.");
+                    launchToast("Opinion added! Now our team must review it.");
                 } else {
                     alert("Error occurred while adding a review!");
                 }
@@ -53,11 +52,8 @@ function openModal(modalID, albumId) {
         }
     };
 
-    // Usuń poprzednie nasłuchiwanie
     addReviewButton.removeEventListener("click", addReviewButton._handler);
-    // Dodaj nowe nasłuchiwanie
     addReviewButton.addEventListener("click", newReviewHandler);
-    // Przypisz referencję do nowego nasłuchiwania
     addReviewButton._handler = newReviewHandler;
 
     modal.style.display = "flex";
@@ -134,4 +130,14 @@ function createReview(review) {
     }
 
     reviewsContainer.appendChild(clone);
+}
+
+function launchToast(description) {
+    const toastDescription = document.getElementById("toastDescription");
+    toastDescription.innerHTML = description;
+    const toast = document.getElementById("toast")
+    toast.className = "show";
+    setTimeout(function () {
+        toast.className = toast.className.replace("show", "");
+    }, 5000);
 }
