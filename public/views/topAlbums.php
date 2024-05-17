@@ -32,7 +32,6 @@
             <a href="dashboard">Home</a>
             <a class="active" href="topAlbums">Top albums</a>
             <a href="yourFavorites">Your favorites</a>
-            <a href="myProfile">My profile</a>
             <?php if ($isAdmin == "admin"): ?>
                 <a href="adminConsole">Admin console</a>
             <?php endif; ?>
@@ -44,11 +43,11 @@
             </button>
             <span class="menuDivider"></span>
             <form class="userInfo flexRow columnGap16" action="logout" method="POST">
-                <div class="profile flexRow columnGap8">
+                <a href="myProfile" class="profile flexRow columnGap8">
                     <img class="standardAvatar" src="/public/assets/imgs/avatars/<?= $avatar ?>"
                          alt="<?= $firstName . ' ' . $lastName . ' avatar' ?>">
                     <p class="fontMedium"><?= $firstName . ' ' . $lastName ?></p>
-                </div>
+                </a>
                 <button class="flexRow" type="submit">
                     <i class="iconoir-log-out" style="font-size: 24px; color: #70758F;"></i>
                 </button>
