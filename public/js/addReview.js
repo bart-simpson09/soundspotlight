@@ -133,11 +133,33 @@ function createReview(review) {
 }
 
 function launchToast(description) {
-    const toastDescription = document.getElementById("toastDescription");
+    const toast = document.createElement("div");
+    toast.id = "toast";
+
+    const toastIconArea = document.createElement("div");
+    toastIconArea.id = "toastIconArea";
+
+    const iconCircle = document.createElement("div");
+    iconCircle.id = "iconCircle";
+
+    const icon = document.createElement("i");
+    icon.className = "ratingStar iconoir-check";
+
+    iconCircle.appendChild(icon);
+    toastIconArea.appendChild(iconCircle);
+
+    const toastDescription = document.createElement("div");
+    toastDescription.id = "toastDescription";
     toastDescription.innerHTML = description;
-    const toast = document.getElementById("toast")
+
+    toast.appendChild(toastIconArea);
+    toast.appendChild(toastDescription);
+    
+    document.body.appendChild(toast);
+
     toast.className = "show";
     setTimeout(function () {
         toast.className = toast.className.replace("show", "");
+        document.body.removeChild(toast);
     }, 5000);
 }
