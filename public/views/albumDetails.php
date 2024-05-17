@@ -122,8 +122,8 @@
             <button class="buttonPrimary" onclick="openModal('addReviewModal', <?= $album['id'] ?>)">Add your review
             </button>
         </div>
-        <?php if (!empty($reviews)): ?>
-            <div class="flexColumn rowGap16 reviewsList">
+        <div class="flexColumn rowGap16 reviewsList">
+            <?php if (!empty($reviews)): ?>
                 <?php foreach ($reviews as $review): ?>
                     <div class="albumDetailsOpinionItem flexRow columnGap16">
                         <img class="standardAvatar" src="/public/assets/imgs/avatars/<?= $review['authoravatar'] ?>"
@@ -144,9 +144,9 @@
                         </div>
                     </div>
                 <?php endforeach; ?>
-            </div>
-        <?php else: ?>
+            <?php else: ?>
             <p>This album doesn't have any opinions yet. Let's add your review!</p>
+        </div>
         <?php endif; ?>
     </div>
 </div>

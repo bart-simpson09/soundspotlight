@@ -10,8 +10,12 @@ function openModal(modalID, albumId) {
 
     const addReviewButton = document.querySelector("#addReviewButton");
 
-    addReviewButton.addEventListener("click", function (event) {
+    // Usuń istniejące nasłuchiwanie, jeśli istnieje
+    const newReviewHandler = function (event) {
         event.preventDefault();
+
+        console.log(reviewContent.value)
+        console.log(reviewRate)
 
         if (reviewContent.value !== "" && reviewRate !== 0) {
             const data = {
@@ -32,7 +36,6 @@ function openModal(modalID, albumId) {
                 if (reviews) {
                     modal.style.display = "none";
                     reviewContent.value = "";
-                    reviewRate = 0;
                     stars.map((star, index) => {
                         for (let i = 0; i < stars.length; ++i) {
                             stars[i].className = "ratingStar iconoir-star";
@@ -48,9 +51,14 @@ function openModal(modalID, albumId) {
         } else {
             alert("Fill all required fields!");
         }
+    };
 
-
-    })
+    // Usuń poprzednie nasłuchiwanie
+    addReviewButton.removeEventListener("click", addReviewButton._handler);
+    // Dodaj nowe nasłuchiwanie
+    addReviewButton.addEventListener("click", newReviewHandler);
+    // Przypisz referencję do nowego nasłuchiwania
+    addReviewButton._handler = newReviewHandler;
 
     modal.style.display = "flex";
 
@@ -66,7 +74,6 @@ function openModal(modalID, albumId) {
 
     stars.map((star, index) => {
         star.onclick = () => {
-
             for (let i = 0; i < stars.length; ++i) {
                 if (i <= index) {
                     stars[i].className = "ratingStar iconoir-star-solid";
@@ -74,10 +81,7 @@ function openModal(modalID, albumId) {
                     stars[i].className = "ratingStar iconoir-star";
                 }
             }
-
-            const rate = index + 1;
-
-            reviewRate = rate;
+            reviewRate = index + 1;
         };
     });
 }
@@ -94,20 +98,40 @@ function createReview(review) {
     const clone = template.content.cloneNode(true);
 
     const userAvatar = clone.querySelector("img");
-    userAvatar.src = `/public/assets/imgs/avatars/${review.authoravatar}`;
+    if (userAvatar) {
+        userAvatar.src = `/public/assets/imgs/avatars/${review.authoravatar}`;
+    } else {
+        console.error("User avatar element not found");
+    }
 
     const userName = clone.querySelector(".opinionAuthor");
-    userName.innerHTML = review.authorfirstname + " " + review.authorlastname;
+    if (userName) {
+        userName.innerHTML = review.authorfirstname + " " + review.authorlastname;
+    } else {
+        console.error("User name element not found");
+    }
 
     const creationDate = clone.querySelector("#creationDate");
-    creationDate.innerHTML = review.createddate;
+    if (creationDate) {
+        creationDate.innerHTML = review.createddate;
+    } else {
+        console.error("Creation date element not found");
+    }
 
     const rate = clone.querySelector(".opinionRate");
-    rate.innerHTML = review.rate + "/5";
-    rate.innerHTML += `<i class="iconoir-star-solid"></i>`;
+    if (rate) {
+        rate.innerHTML = review.rate + "/5";
+        rate.innerHTML += `<i class="iconoir-star-solid"></i>`;
+    } else {
+        console.error("Rate element not found");
+    }
 
     const opinionDescription = clone.querySelector(".opinionDescription");
-    opinionDescription.innerHTML = review.content;
+    if (opinionDescription) {
+        opinionDescription.innerHTML = review.content;
+    } else {
+        console.error("Opinion description element not found");
+    }
 
     reviewsContainer.appendChild(clone);
 }
