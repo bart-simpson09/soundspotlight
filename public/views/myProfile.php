@@ -88,89 +88,96 @@
         </div>
         <div>
             <div id="yourReviews" class="tabContent flexColumn rowGap16">
-                <?php foreach ($userReviews as $review): ?>
-                    <div class="yourProfileItem flexColumn rowGap16">
-                        <div class="flexRow yourProfileItemHeader">
-                            <div class="flexColumn rowGap4">
-                                <h4><?= $review['albumtitle'] ?></h4>
-                                <h5><?= $review['albumauthorname'] ?></h5>
-                            </div>
-                            <div class="flexRow columnGap16">
-                                <div class="flexRow columnGap8 opinionRate">
-                                    <i class="iconoir-star-solid"></i>
-                                    <?= $review['rate'] . "/5" ?>
-                                </div>
-                                <?php
-                                if ($review['status'] == "Pending") {
-                                    echo '<div class="yourAddedElementStatus statusPending flexCenter">Pending</div>';
-                                }
-                                if ($review['status'] == "Approved") {
-                                    echo '<div class="yourAddedElementStatus statusApproved flexCenter">Approved</div>';
-                                }
-                                if ($review['status'] == "Declined") {
-                                    echo '<div class="yourAddedElementStatus statusDeclined flexCenter">Declined</div>';
-                                }
-                                ?>
-                            </div>
-                        </div>
-                        <p><?= $review['content'] ?></p>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-            <div id="addedAlbums" class="tabContent flexColumn rowGap16">
-                <?php foreach ($userAlbums as $album): ?>
-
-                    <?php
-                    if ($album['status'] == "Approved") {
-                        echo '<a style="white-space: normal;" href="/albumDetails/' . $album['id'] . '">';
-                    }
-                    ?>
-                    <div class="yourProfileItem flexRow columnGap16">
-                        <img src="/public/assets/imgs/covers/<?= $album['cover'] ?>" class="albumSmallCover" alt="">
-                        <div class="flexColumn rowGap16" style="width: 100%">
+                <?php if (empty($userReviews)): ?>
+                    <p>You didn't add any reviews yet.</p>
+                <?php else: ?>
+                    <?php foreach ($userReviews as $review): ?>
+                        <div class="yourProfileItem flexColumn rowGap16">
                             <div class="flexRow yourProfileItemHeader">
                                 <div class="flexColumn rowGap4">
-                                    <h4><?= $album['albumtitle'] ?></h4>
-                                    <h5><?= $album['authorname'] ?></h5>
+                                    <h4><?= $review['albumtitle'] ?></h4>
+                                    <h5><?= $review['albumauthorname'] ?></h5>
                                 </div>
-                                <?php
-                                if ($album['status'] == "Pending") {
-                                    echo '<div class="yourAddedElementStatus statusPending flexCenter">Pending</div>';
-                                }
-                                if ($album['status'] == "Approved") {
-                                    echo '<div class="yourAddedElementStatus statusApproved flexCenter">Approved</div>';
-                                }
-                                if ($album['status'] == "Declined") {
-                                    echo '<div class="yourAddedElementStatus statusDeclined flexCenter">Declined</div>';
-                                }
-                                ?>
+                                <div class="flexRow columnGap16">
+                                    <div class="flexRow columnGap8 opinionRate">
+                                        <i class="iconoir-star-solid"></i>
+                                        <?= $review['rate'] . "/5" ?>
+                                    </div>
+                                    <?php
+                                    if ($review['status'] == "Pending") {
+                                        echo '<div class="yourAddedElementStatus statusPending flexCenter">Pending</div>';
+                                    }
+                                    if ($review['status'] == "Approved") {
+                                        echo '<div class="yourAddedElementStatus statusApproved flexCenter">Approved</div>';
+                                    }
+                                    if ($review['status'] == "Declined") {
+                                        echo '<div class="yourAddedElementStatus statusDeclined flexCenter">Declined</div>';
+                                    }
+                                    ?>
+                                </div>
                             </div>
-                            <span class="dividerHorizon40"></span>
-                            <div class="flexColumn rowGap8">
-                                <div class="flexRow columnGap32 flexWrap">
-                                    <div class="flexRow columnGap8">
-                                        <h5>Category:</h5>
-                                        <p><?= $album['categoryname'] ?></p>
+                            <p><?= $review['content'] ?></p>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+            <div id="addedAlbums" class="tabContent flexColumn rowGap16">
+                <?php if (empty($userAlbums)): ?>
+                    <p>You didn't add any albums yet.</p>
+                <?php else: ?>
+                    <?php foreach ($userAlbums as $album): ?>
+                        <?php
+                        if ($album['status'] == "Approved") {
+                            echo '<a style="white-space: normal;" href="/albumDetails/' . $album['id'] . '">';
+                        }
+                        ?>
+                        <div class="yourProfileItem flexRow columnGap16">
+                            <img src="/public/assets/imgs/covers/<?= $album['cover'] ?>" class="albumSmallCover" alt="">
+                            <div class="flexColumn rowGap16" style="width: 100%">
+                                <div class="flexRow yourProfileItemHeader">
+                                    <div class="flexColumn rowGap4">
+                                        <h4><?= $album['albumtitle'] ?></h4>
+                                        <h5><?= $album['authorname'] ?></h5>
                                     </div>
-                                    <div class="flexRow columnGap8">
-                                        <h5>Language:</h5>
-                                        <p><?= $album['languagename'] ?></p>
-                                    </div>
-                                    <div class="flexRow columnGap8">
-                                        <h5>Release date:</h5>
-                                        <p><?= $album['releasedate'] ?></p>
-                                    </div>
+                                    <?php
+                                    if ($album['status'] == "Pending") {
+                                        echo '<div class="yourAddedElementStatus statusPending flexCenter">Pending</div>';
+                                    }
+                                    if ($album['status'] == "Approved") {
+                                        echo '<div class="yourAddedElementStatus statusApproved flexCenter">Approved</div>';
+                                    }
+                                    if ($album['status'] == "Declined") {
+                                        echo '<div class="yourAddedElementStatus statusDeclined flexCenter">Declined</div>';
+                                    }
+                                    ?>
                                 </div>
-                                <p class="shortAlbumDescription"><?= $album['description'] ?></p>
+                                <span class="dividerHorizon40"></span>
+                                <div class="flexColumn rowGap8">
+                                    <div class="flexRow columnGap32 flexWrap">
+                                        <div class="flexRow columnGap8">
+                                            <h5>Category:</h5>
+                                            <p><?= $album['categoryname'] ?></p>
+                                        </div>
+                                        <div class="flexRow columnGap8">
+                                            <h5>Language:</h5>
+                                            <p><?= $album['languagename'] ?></p>
+                                        </div>
+                                        <div class="flexRow columnGap8">
+                                            <h5>Release date:</h5>
+                                            <p><?= $album['releasedate'] ?></p>
+                                        </div>
+                                    </div>
+                                    <p class="shortAlbumDescription"><?= $album['description'] ?></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <?php
-                    if ($album['status'] == "Approved") {
-                        echo '</a>';
-                    }
-                    ?>
-                <?php endforeach; ?>
+                        <?php
+                        if ($album['status'] == "Approved") {
+                            echo '</a>';
+                        }
+                        ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
         </div>
     </div>
