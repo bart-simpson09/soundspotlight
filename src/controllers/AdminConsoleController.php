@@ -34,7 +34,7 @@ class AdminConsoleController extends AppController
 
         $pendingReviews = $this->reviewsRepository->getPendingReviews();
         $pendingAlbums = $this->albumsRepository->getPendingAlbums();
-        //$allUsers = $this->userRepository->getAllUsers();
+        $allUsers = $this->userRepository->getAllUsers();
 
         print $this->render('/adminConsole', [
             'firstName' => $user->getFirstName(),
@@ -42,8 +42,9 @@ class AdminConsoleController extends AppController
             'avatar' => $user->getAvatar(),
             'isAdmin' => $user->getRole(),
             'pendingReviews' => $pendingReviews,
-            'pendingAlbums' => $pendingAlbums]);
-        //'allUsers' => $allUsers]);
+            'pendingAlbums' => $pendingAlbums,
+            'allUsers' => $allUsers,
+            'loggedUserId' => $userId]);
     }
 
     public function changeReviewStatus()
@@ -89,6 +90,33 @@ class AdminConsoleController extends AppController
             }
 
             echo json_encode($this->albumsRepository->getPendingAlbums());
+        }
+    }
+
+    public function manageUser()
+    {
+        $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
+
+        if ($contentType === "application/json") {
+            $content = trim(file_get_contents("php://input"));
+            $decoded = json_decode($content, true);
+
+            header('Content-Type: application/json');
+            http_response_code(200);
+
+            if ($decoded['decision'] == "removeAdmin") {
+                $this->userRepository->changeUserRole((int)$decoded['userId'], "removeAdmin");
+            }
+
+            if ($decoded['decision'] == "addAdmin") {
+                $this->userRepository->changeUserRole((int)$decoded['userId'], "addAdmin");
+            }
+
+            if ($decoded['decision'] == "deleteUser") {
+                $this->userRepository->deleteUser((int)$decoded['userId']);
+            }
+
+            echo json_encode($this->userRepository->getAllUsers());
         }
     }
 }

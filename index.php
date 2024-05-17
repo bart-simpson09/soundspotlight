@@ -24,5 +24,6 @@ Router::post('addReview', 'AlbumDetailsController');
 Router::post('toggleFavorite', 'YourFavoritesController');
 Router::post('changeReviewStatus', 'AdminConsoleController');
 Router::post('changeAlbumStatus', 'AdminConsoleController');
+Router::post('manageUser', 'AdminConsoleController');
 
 Router::run($path);

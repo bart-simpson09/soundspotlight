@@ -1,5 +1,6 @@
 const pendingReviewsContainer = document.querySelector("#pendingReviews");
 const pendingAlbumsContainer = document.querySelector("#pendingAlbums");
+const manageUsersContainer = document.querySelector("#manageUsers");
 
 function reviewOpinion(decision, reviewId) {
     const data = {
@@ -131,4 +132,68 @@ function createAlbum(album) {
     authorName.innerHTML = album.userfirstname + " " + album.userlastname;
 
     pendingAlbumsContainer.appendChild(clone);
+}
+
+function manageUser(decision, userId, loggedUserId) {
+    const data = {
+        decision: decision,
+        userId: userId
+    };
+
+    fetch("/manageUser", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then(function (response) {
+        return response.json();
+    }).then(function (users) {
+        manageUsersContainer.innerHTML = "";
+        loadUsers(users, loggedUserId);
+    })
+}
+
+function loadUsers(users, loggedUserId) {
+    users.forEach(user => {
+        createUser(user, loggedUserId);
+    });
+}
+
+function createUser(user, loggedUserId) {
+    const template = document.querySelector("#userTemplate");
+
+    const clone = template.content.cloneNode(true);
+
+    const userAvatar = clone.querySelector("img");
+    userAvatar.src = `/public/assets/imgs/avatars/${user.avatar}`;
+
+    const userName = clone.querySelector("#uUserName");
+    userName.innerHTML = user.firstname + " " + user.lastname;
+
+    if (user.role === "admin") {
+        const userNameSection = clone.querySelector("#userNameSection");
+        userNameSection.innerHTML += `<i class="iconoir-user-crown"></i>`;
+    }
+
+    const userEmail = clone.querySelector("#userEmail");
+    userEmail.innerHTML = user.email;
+
+    const userActions = clone.querySelector("#userActions");
+    if (user.id !== loggedUserId) {
+        if (user.role === "admin") {
+            userActions.innerHTML = `<button class="buttonOutlined"
+                                            onclick="manageUser('removeAdmin', ${user.id}, ${loggedUserId})">
+                                        Revoke admin role
+                                    </button>`;
+        } else {
+            userActions.innerHTML = `<button class="buttonOutlined" onclick="manageUser('addAdmin', ${user.id}, ${loggedUserId})"> Grant admin role</button>`;
+
+        }
+        userActions.innerHTML += `<button class="buttonOutlined importantAction" onclick="manageUser('deleteUser', ${user.id}, ${loggedUserId})">Remove user</button>`;
+    } else {
+        userActions.innerHTML = `<h5>This is your account</h5>`;
+    }
+
+    manageUsersContainer.appendChild(clone);
 }

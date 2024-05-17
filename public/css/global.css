@@ -229,6 +229,10 @@ body {
     color: var(--color-teal-100);
 }
 
+#userNameSection {
+    min-height: 24px;
+}
+
 /* MODAL */
 
 .modalArea {

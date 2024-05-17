@@ -29,6 +29,18 @@ class UserRepository extends Repository
             $user['role']);
     }
 
+    public function getAllUsers(): array
+    {
+        $stmt = $this->database->connect()->prepare('
+            SELECT * FROM users ORDER BY id
+        ');
+        $stmt->execute();
+
+        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $users;
+    }
+
     public function addUser(User $newUser)
     {
         $stmt = $this->database->connect()->prepare('
@@ -47,6 +59,27 @@ class UserRepository extends Repository
     ');
         $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
         $stmt->bindParam(':newPhoto', $newPhoto, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
+    public function changeUserRole(int $userId, string $action)
+    {
+        $newRole = $action === "removeAdmin" ? "user" : ($action === "addAdmin" ? "admin" : null);
+
+        if ($newRole) {
+            $stmt = $this->database->connect()->prepare('
+        UPDATE users SET role = :role WHERE id = :userId');
+            $stmt->bindParam(':role', $newRole, PDO::PARAM_STR);
+            $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+            $stmt->execute();
+        }
+    }
+
+    public function deleteUser(int $userId)
+    {
+        $stmt = $this->database->connect()->prepare('
+    DELETE FROM users WHERE id = :userId');
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
         $stmt->execute();
     }
 

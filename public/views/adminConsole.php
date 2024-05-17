@@ -170,37 +170,43 @@
                 <?php endif; ?>
             </div>
             <div id="manageUsers" class="tabContent flexColumn rowGap16">
-                <div class="yourProfileItem flexRow yourProfileItemHeader">
-                    <div class="flexRow columnGap16">
-                        <img class="standardAvatar" src="/public/assets/imgs/avatar.png" alt="">
-                        <div class="flexColumn">
-                            <div class="flexRow columnGap4">
-                                <h4>Marry Smith</h4>
-                                <i class="iconoir-user-crown"></i>
+                <?php foreach ($allUsers as $user): ?>
+                    <div class="yourProfileItem flexRow yourProfileItemHeader">
+                        <div class="flexRow columnGap16">
+                            <img class="standardAvatar" src="/public/assets/imgs/avatars/<?= $user['avatar'] ?>" alt="">
+                            <div class="flexColumn">
+                                <div class="flexRow columnGap4" id="userNameSection">
+                                    <h4><?= $user['firstname'] . " " . $user['lastname'] ?></h4>
+                                    <?php if ($user['role'] == 'admin'): ?>
+                                        <i class="iconoir-user-crown"></i>
+                                    <?php endif; ?>
+                                </div>
+                                <h5><?= $user['email'] ?></h5>
                             </div>
-                            <h5>marry.smith@example.com</h5>
+                        </div>
+                        <div class="flexRow columnGap8">
+                            <?php if ($loggedUserId != $user['id']): ?>
+                                <?php if ($user['role'] == 'admin'): ?>
+                                    <button class="buttonOutlined"
+                                            onclick="manageUser('removeAdmin', <?= $user['id'] ?>, <?= $loggedUserId ?>)">
+                                        Revoke admin role
+                                    </button>
+                                <?php else: ?>
+                                    <button class="buttonOutlined"
+                                            onclick="manageUser('addAdmin', <?= $user['id'] ?>, <?= $loggedUserId ?>)">
+                                        Grant admin role
+                                    </button>
+                                <?php endif; ?>
+                                <button class="buttonOutlined importantAction"
+                                        onclick="manageUser('deleteUser', <?= $user['id'] ?>, <?= $loggedUserId ?>)">
+                                    Remove user
+                                </button>
+                            <?php else: ?>
+                                <h5>This is your account</h5>
+                            <?php endif; ?>
                         </div>
                     </div>
-                    <div class="flexRow columnGap8">
-                        <button class="buttonOutlined">Revoke admin role</button>
-                        <button class="buttonOutlined importantAction">Remove user</button>
-                    </div>
-                </div>
-                <div class="yourProfileItem flexRow yourProfileItemHeader">
-                    <div class="flexRow columnGap16">
-                        <img class="standardAvatar" src="/public/assets/imgs/avatar.png" alt="">
-                        <div class="flexColumn rowGap4">
-                            <div class="flexRow columnGap4">
-                                <h4>Michael Jackson</h4>
-                            </div>
-                            <h5>michael.jackson@example.com</h5>
-                        </div>
-                    </div>
-                    <div class="flexRow columnGap8">
-                        <button class="buttonOutlined">Grant admin role</button>
-                        <button class="buttonOutlined importantAction">Remove user</button>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
@@ -276,6 +282,23 @@
                     <p id="aAuthorName">Marry Smith</p>
                 </div>
             </div>
+        </div>
+    </div>
+</template>
+
+<template id="userTemplate">
+    <div class="yourProfileItem flexRow yourProfileItemHeader">
+        <div class="flexRow columnGap16">
+            <img class="standardAvatar" src="" alt="">
+            <div class="flexColumn">
+                <div class="flexRow columnGap4" id="userNameSection">
+                    <h4 id="uUserName">Marry Smith</h4>
+                </div>
+                <h5 id="userEmail">marry.smith@example.com</h5>
+            </div>
+        </div>
+        <div class="flexRow columnGap8" id="userActions">
+            Content
         </div>
     </div>
 </template>
