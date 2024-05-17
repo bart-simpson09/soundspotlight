@@ -21,6 +21,26 @@ class ReviewRepository extends Repository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getPendingReviews(): array
+    {
+        $stmt = $this->database->connect()->prepare("
+        SELECT reviews.*, 
+               users.firstname AS authorfirstname,
+               users.lastname AS authorlastname,
+               albums.albumtitle AS albumname,
+               authors.name AS albumauthorname
+        FROM reviews
+        INNER JOIN users ON reviews.authorid = users.id
+        INNER JOIN albums ON reviews.albumid = albums.id
+        INNER JOIN authors ON albums.authorid = authors.id
+        WHERE reviews.status = 'Pending'
+    ");
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
     public function addAlbumReview($userId, $albumId, $creationDate, $rate, $content): bool
     {
         try {
@@ -96,6 +116,20 @@ class ReviewRepository extends Repository
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function changeReviewStatus($reviewId, $status)
+    {
+        //var_dump($reviewId, $status);
+        $stmt = $this->database->connect()->prepare('
+            UPDATE reviews
+            SET status = :status
+            WHERE id = :reviewId
+        ');
+        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+        $stmt->bindParam(':reviewId', $reviewId, PDO::PARAM_INT);
+        $stmt->execute();
+        return true;
     }
 
 }

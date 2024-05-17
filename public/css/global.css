@@ -208,10 +208,8 @@ body {
 .shortAlbumDescription {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
     overflow: hidden;
     align-self: stretch;
-    text-overflow: ellipsis;
 }
 
 #uploadedCoverPreview {
@@ -229,6 +227,10 @@ body {
 
 #manageUsers i {
     color: var(--color-teal-100);
+}
+
+#userNameSection {
+    min-height: 24px;
 }
 
 /* MODAL */

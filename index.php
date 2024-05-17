@@ -13,6 +13,7 @@ Router::get('albumDetails', 'AlbumDetailsController');
 Router::get('topAlbums', 'TopAlbumsController');
 Router::get('yourFavorites', 'YourFavoritesController');
 Router::get('myProfile', 'MyProfileController');
+Router::get('adminConsole', 'AdminConsoleController');
 
 Router::post('login', 'SecurityController');
 Router::post('logout', 'SecurityController');
@@ -21,5 +22,8 @@ Router::post('addAlbum', 'AddAlbumController');
 Router::post('changePhoto', 'MyProfileController');
 Router::post('addReview', 'AlbumDetailsController');
 Router::post('toggleFavorite', 'YourFavoritesController');
+Router::post('changeReviewStatus', 'AdminConsoleController');
+Router::post('changeAlbumStatus', 'AdminConsoleController');
+Router::post('manageUser', 'AdminConsoleController');
 
 Router::run($path);

@@ -32,9 +32,8 @@
             <a href="dashboard">Home</a>
             <a href="topAlbums">Top albums</a>
             <a class="active" href="yourFavorites">Your favorites</a>
-            <a href="myProfile">My profile</a>
             <?php if ($isAdmin == "admin"): ?>
-                <a href="">Admin console</a>
+                <a href="adminConsole">Admin console</a>
             <?php endif; ?>
         </div>
         <div class="userSide flexRow columnGap24">
@@ -44,11 +43,11 @@
             </button>
             <span class="menuDivider"></span>
             <form class="userInfo flexRow columnGap16" action="logout" method="POST">
-                <div class="profile flexRow columnGap8">
+                <a href="myProfile" class="profile flexRow columnGap8">
                     <img class="standardAvatar" src="/public/assets/imgs/avatars/<?= $avatar ?>"
                          alt="<?= $firstName . ' ' . $lastName . ' avatar' ?>">
                     <p class="fontMedium"><?= $firstName . ' ' . $lastName ?></p>
-                </div>
+                </a>
                 <button class="flexRow" type="submit">
                     <i class="iconoir-log-out" style="font-size: 24px; color: #70758F;"></i>
                 </button>
@@ -70,47 +69,51 @@
 
     </div>
     <div class="albumsList">
-        <?php foreach ($favoriteAlbums as $album): ?>
-            <div class="albumItemContainer">
-                <a href="/albumDetails/<?= $album['id'] ?>" class="albumItem flexColumn rowGap24">
-                    <div class="albumItemCoverArea">
-                        <img class="albumItemCover" src="/public/assets/imgs/covers/<?= $album['cover'] ?>"
-                             alt="<?= $album['name'] ?>-Album-Cover">
-                    </div>
-                    <div class="albumItemContent flexColumn rowGap24">
-                        <div class="flexColumn rowGap4">
-                            <h3><?= $album['albumtitle'] ?></h3>
-                            <p><?= $album['authorname'] ?></p>
+        <?php if (empty($favoriteAlbums)): ?>
+            <p>No favorite albums found.</p>
+        <?php else: ?>
+            <?php foreach ($favoriteAlbums as $album): ?>
+                <div class="albumItemContainer">
+                    <a href="/albumDetails/<?= $album['id'] ?>" class="albumItem flexColumn rowGap24">
+                        <div class="albumItemCoverArea">
+                            <img class="albumItemCover" src="/public/assets/imgs/covers/<?= $album['cover'] ?>"
+                                 alt="<?= $album['name'] ?>-Album-Cover">
                         </div>
-                        <div class="flexColumn rowGap8">
-                            <div class="flexRow columnGap8">
-                                <p class="albumItemDetailLabel">Release date</p>
-                                <p class="albumItemDetailText"><?= $album['releasedate'] ?></p>
+                        <div class="albumItemContent flexColumn rowGap24">
+                            <div class="flexColumn rowGap4">
+                                <h3><?= $album['albumtitle'] ?></h3>
+                                <p><?= $album['authorname'] ?></p>
                             </div>
-                            <div class="flexRow columnGap8">
-                                <p class="albumItemDetailLabel">Rate</p>
-                                <p class="albumItemDetailText"><?= $album['averagerate'] != 0 ? $album['averagerate'] . "/5" : '-' ?></p>
-                            </div>
-                            <div class="flexRow columnGap8">
-                                <p class="albumItemDetailLabel">Category</p>
-                                <p class="albumItemDetailText"><?= $album['categoryname'] ?></p>
-                            </div>
-                            <div class="flexRow columnGap8">
-                                <p class="albumItemDetailLabel">Language</p>
-                                <p class="albumItemDetailText"><?= $album['languagename'] ?></p>
+                            <div class="flexColumn rowGap8">
+                                <div class="flexRow columnGap8">
+                                    <p class="albumItemDetailLabel">Release date</p>
+                                    <p class="albumItemDetailText"><?= $album['releasedate'] ?></p>
+                                </div>
+                                <div class="flexRow columnGap8">
+                                    <p class="albumItemDetailLabel">Rate</p>
+                                    <p class="albumItemDetailText"><?= $album['averagerate'] != 0 ? $album['averagerate'] . "/5" : '-' ?></p>
+                                </div>
+                                <div class="flexRow columnGap8">
+                                    <p class="albumItemDetailLabel">Category</p>
+                                    <p class="albumItemDetailText"><?= $album['categoryname'] ?></p>
+                                </div>
+                                <div class="flexRow columnGap8">
+                                    <p class="albumItemDetailLabel">Language</p>
+                                    <p class="albumItemDetailText"><?= $album['languagename'] ?></p>
+                                </div>
                             </div>
                         </div>
+                    </a>
+                    <div class="favouriteButtonDefault flexCenter favoriteButton"
+                         onclick="toggleFavorite(<?= $album['id'] ?>, this)">
+                        <?php
+                        $heartClass = $album['isfavorite'] ? 'iconoir-heart-solid' : 'iconoir-heart';
+                        ?>
+                        <i class="<?= $heartClass ?>"></i>
                     </div>
-                </a>
-                <div class="favouriteButtonDefault flexCenter favoriteButton"
-                     onclick="toggleFavorite(<?= $album['id'] ?>, this)">
-                    <?php
-                    $heartClass = $album['isfavorite'] ? 'iconoir-heart-solid' : 'iconoir-heart';
-                    ?>
-                    <i class="<?= $heartClass ?>"></i>
                 </div>
-            </div>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </div>
 </div>
 </body>

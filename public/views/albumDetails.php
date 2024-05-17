@@ -33,7 +33,6 @@
             <a href="../dashboard">Home</a>
             <a href="../topAlbums">Top albums</a>
             <a href="../yourFavorites">Your favorites</a>
-            <a href="../myProfile">My profile</a>
             <?php if ($isAdmin == "admin"): ?>
                 <a href="../adminConsole">Admin console</a>
             <?php endif; ?>
@@ -45,11 +44,11 @@
             </button>
             <span class="menuDivider"></span>
             <form class="userInfo flexRow columnGap16" action="../logout" method="POST">
-                <div class="profile flexRow columnGap8">
+                <a href="myProfile" class="profile flexRow columnGap8">
                     <img class="standardAvatar" src="/public/assets/imgs/avatars/<?= $avatar ?>"
                          alt="<?= $firstName . ' ' . $lastName . ' avatar' ?>">
                     <p class="fontMedium"><?= $firstName . ' ' . $lastName ?></p>
-                </div>
+                </a>
                 <button class="flexRow" type="submit">
                     <i class="iconoir-log-out" style="font-size: 24px; color: #70758F;"></i>
                 </button>
@@ -181,21 +180,21 @@
 
 <template id="reviewTemplate">
     <div class="albumDetailsOpinionItem flexRow columnGap16">
-        <img class="standardAvatar" src="/public/assets/imgs/avatars/<?= $review['authoravatar'] ?>"
+        <img class="standardAvatar" src="/public/assets/imgs/avatars"
              alt="">
         <div class="flexColumn rowGap8 opinionContent">
             <div class="flexRow opinionHeader">
                 <div class="opinionBasicInfo flexRow columnGap8">
-                    <p class="opinionAuthor"><?= $review['authorfirstname'] . " " . $review['authorlastname'] ?></p>
+                    <p class="opinionAuthor">Opinion Author</p>
                     <span class="opinionItemDivider"></span>
-                    <p id="creationDate"><?= $review['createddate'] ?></p>
+                    <p id="creationDate">Creation date</p>
                 </div>
                 <div class="flexRow columnGap8 opinionRate">
-                    <?= $review['rate'] . "/5" ?>
+                    4/5
                     <i class="iconoir-star-solid"></i>
                 </div>
             </div>
-            <p class="opinionDescription"><?= $review['content'] ?></p>
+            <p class="opinionDescription">Opinion Content</p>
         </div>
     </div>
 </template>

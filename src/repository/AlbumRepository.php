@@ -26,6 +26,27 @@ class AlbumRepository extends Repository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getPendingAlbums()
+    {
+        $stmt = $this->database->connect()->prepare("
+        SELECT albums.*, 
+               authors.name AS authorname,
+               categories.name AS categoryname,
+               languages.name AS languagename,
+               users.firstname AS userfirstname,
+               users.lastname AS userlastname
+        FROM albums
+        INNER JOIN authors ON albums.authorid = authors.id
+        INNER JOIN categories ON albums.categoryid = categories.id
+        INNER JOIN languages ON albums.languageid = languages.id
+        INNER JOIN users ON albums.addedby = users.id
+        WHERE albums.status = 'Pending'
+    ");
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
     public function getTopAlbums($userId): array
     {
@@ -194,6 +215,19 @@ class AlbumRepository extends Repository
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function changeAlbumStatus($albumId, $status)
+    {
+        $stmt = $this->database->connect()->prepare('
+            UPDATE albums
+            SET status = :status
+            WHERE id = :albumId
+        ');
+        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+        $stmt->bindParam(':albumId', $albumId, PDO::PARAM_INT);
+        $stmt->execute();
+        return true;
     }
 
 }
