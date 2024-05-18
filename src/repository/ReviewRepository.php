@@ -43,7 +43,7 @@ class ReviewRepository extends Repository
     }
 
 
-    public function addAlbumReview(Review $newReview)
+    public function addAlbumReview(Review $newReview): bool
     {
         try {
             // Add review to DB
@@ -79,18 +79,6 @@ class ReviewRepository extends Repository
         }
     }
 
-    private function isAdmin($userId)
-    {
-        $stmt = $this->database->connect()->prepare('
-        SELECT role FROM users WHERE id = :userid;
-    ');
-        $stmt->bindValue(':userid', $userId);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        return $result && $result['role'] === 'admin';
-    }
-
     public function getReviewsAddedByUser($userId): array
     {
         $stmt = $this->database->connect()->prepare('
@@ -120,7 +108,6 @@ class ReviewRepository extends Repository
         $stmt->bindParam(':status', $status, PDO::PARAM_STR);
         $stmt->bindParam(':reviewId', $reviewId, PDO::PARAM_INT);
         $stmt->execute();
-        return true;
     }
 
 }

@@ -228,7 +228,6 @@ class AlbumRepository extends Repository
         $stmt->bindParam(':status', $status, PDO::PARAM_STR);
         $stmt->bindParam(':albumId', $albumId, PDO::PARAM_INT);
         $stmt->execute();
-        return true;
     }
 
 }
