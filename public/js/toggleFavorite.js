@@ -9,75 +9,64 @@ function toggleFavorite(albumId, element) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-    }).then(response => response.json())
+    })
+        .then(response => response.json())
         .then(data => {
-            const heartIcon = element.querySelector('i');
-            if (data.isfavorite) {
-                heartIcon.classList.remove('iconoir-heart-solid');
-                heartIcon.classList.add('iconoir-heart');
-            } else {
-                heartIcon.classList.remove('iconoir-heart');
-                heartIcon.classList.add('iconoir-heart-solid');
-            }
+            updateHeartIcon(element, data.isfavorite);
 
-            const url = window.location.href;
-            const parts = url.split('/');
-            const currentView = parts[parts.length - 1];
-
-            if (currentView === "yourFavorites") {
-                const albumsContainer = document.querySelector(".albumsList");
-                albumsContainer.innerHTML = "";
-                loadAlbums(data.favoriteAlbums);
+            if (isCurrentViewFavorites()) {
+                refreshFavoriteAlbums(data.favoriteAlbums);
             }
         })
+        .catch(error => {
+            console.error('Error toggling favorite:', error);
+        });
+}
+
+function updateHeartIcon(element, isFavorite) {
+    const heartIcon = element.querySelector('i');
+    heartIcon.classList.toggle('iconoir-heart-solid', !isFavorite);
+    heartIcon.classList.toggle('iconoir-heart', isFavorite);
+}
+
+function isCurrentViewFavorites() {
+    const currentView = window.location.href.split('/').pop();
+    return currentView === "yourFavorites";
+}
+
+function refreshFavoriteAlbums(albums) {
+    const albumsContainer = document.querySelector(".albumsList");
+    albumsContainer.innerHTML = "";
+    loadAlbums(albums);
 }
 
 function loadAlbums(albums) {
-    albums.forEach(album => {
-        createAlbum(album);
-    });
+    albums.forEach(album => createAlbum(album));
 }
 
 function createAlbum(album) {
     const template = document.querySelector("#albumTemplate");
-
     const clone = template.content.cloneNode(true);
 
+    setupFavoriteButton(clone, album);
+    setupAlbumDetails(clone, album);
+
+    document.querySelector(".albumsList").appendChild(clone);
+}
+
+function setupFavoriteButton(clone, album) {
     const favoriteButton = clone.querySelector("#favoriteButton");
-    if (album.isfavorite) {
-        favoriteButton.innerHTML = '<i class="iconoir-heart-solid"></i>';
-    } else {
-        favoriteButton.innerHTML = '<i class="iconoir-heart"></i>';
-    }
+    favoriteButton.innerHTML = `<i class="${album.isfavorite ? 'iconoir-heart-solid' : 'iconoir-heart'}"></i>`;
+    favoriteButton.setAttribute("onclick", `toggleFavorite(${album.id}, this)`);
+}
 
-    const id = clone.querySelector("a");
-    id.href = `/albumDetails/${album.id}`;
-
-    const cover = clone.querySelector("img");
-    cover.src = `/public/assets/imgs/covers/${album.cover}`;
-
-    const title = clone.querySelector("#albumTitle");
-    title.innerHTML = album.albumtitle;
-
-    const author = clone.querySelector("#albumAuthor");
-    author.innerHTML = album.authorname;
-
-    const releaseDate = clone.querySelector("#albumReleaseDate");
-    releaseDate.innerHTML = album.releasedate;
-
-    const rate = clone.querySelector("#albumRate");
-    if (album.averagerate != 0) {
-        rate.innerHTML = album.averagerate + "/5";
-    } else {
-        rate.innerHTML = "-";
-    }
-
-    const category = clone.querySelector("#albumCategory");
-    category.innerHTML = album.categoryname;
-
-    const language = clone.querySelector("#albumLanguage");
-    language.innerHTML = album.languagename;
-
-    const albumsContainer = document.querySelector(".albumsList");
-    albumsContainer.appendChild(clone);
+function setupAlbumDetails(clone, album) {
+    clone.querySelector("a").href = `/albumDetails/${album.id}`;
+    clone.querySelector("img").src = `/public/assets/imgs/covers/${album.cover}`;
+    clone.querySelector("#albumTitle").textContent = `${album.albumtitle} ID: ${album.id}`;
+    clone.querySelector("#albumAuthor").textContent = album.authorname;
+    clone.querySelector("#albumReleaseDate").textContent = album.releasedate;
+    clone.querySelector("#albumRate").textContent = album.averagerate ? `${album.averagerate}/5` : '-';
+    clone.querySelector("#albumCategory").textContent = album.categoryname;
+    clone.querySelector("#albumLanguage").textContent = album.languagename;
 }
