@@ -1,14 +1,16 @@
+// Cache DOM elements
 const albumTitle = document.querySelector("#albumTitle");
 const artistName = document.querySelector("#artistName");
 const category = document.querySelector("#category");
 const language = document.querySelector("#language");
-
 const searchButton = document.querySelector("#searchButton");
-
 const albumsContainer = document.querySelector(".albumsList");
 
+// Add event listener for search button
+searchButton.addEventListener("click", handleSearch);
 
-searchButton.addEventListener("click", function (event) {
+// Handle search event
+function handleSearch(event) {
     event.preventDefault();
 
     const data = {
@@ -18,37 +20,38 @@ searchButton.addEventListener("click", function (event) {
         language: language.value
     };
 
+    fetchAlbums(data);
+}
+
+// Fetch albums based on search criteria
+function fetchAlbums(data) {
     fetch("/searchAlbum", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-    }).then(function (response) {
-        return response.json();
-    }).then(function (albums) {
-        albumsContainer.innerHTML = "";
-        loadAlbums(albums);
     })
-})
-
-function loadAlbums(albums) {
-    albums.forEach(album => {
-        createAlbum(album);
-    });
+        .then(response => response.json())
+        .then(albums => {
+            albumsContainer.innerHTML = "";
+            loadAlbums(albums);
+        });
 }
 
+// Load albums into the container
+function loadAlbums(albums) {
+    albums.forEach(album => createAlbum(album));
+}
+
+// Create album element
 function createAlbum(album) {
     const template = document.querySelector("#albumTemplate");
-
     const clone = template.content.cloneNode(true);
 
     const favoriteButton = clone.querySelector("#favoriteButton");
-    if (album.isfavorite) {
-        favoriteButton.innerHTML = '<i class="iconoir-heart-solid"></i>';
-    } else {
-        favoriteButton.innerHTML = '<i class="iconoir-heart"></i>';
-    }
+    favoriteButton.innerHTML = album.isfavorite ? '<i class="iconoir-heart-solid"></i>' : '<i class="iconoir-heart"></i>';
+    favoriteButton.setAttribute("onclick", `toggleFavorite(${album.id}, this)`);
 
     const id = clone.querySelector("a");
     id.href = `/albumDetails/${album.id}`;
@@ -66,11 +69,7 @@ function createAlbum(album) {
     releaseDate.innerHTML = album.releasedate;
 
     const rate = clone.querySelector("#albumRate");
-    if (album.averagerate != 0) {
-        rate.innerHTML = album.averagerate + "/5";
-    } else {
-        rate.innerHTML = "-";
-    }
+    rate.innerHTML = album.averagerate != 0 ? `${album.averagerate}/5` : "-";
 
     const category = clone.querySelector("#albumCategory");
     category.innerHTML = album.categoryname;
