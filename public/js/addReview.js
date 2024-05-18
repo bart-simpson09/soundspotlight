@@ -1,135 +1,110 @@
 const reviewsContainer = document.querySelector(".reviewsList");
 
 function openModal(modalID, albumId) {
-    let modal = document.getElementById(modalID);
-    let closeButton = document.getElementById("addReviewClose");
-    let stars = [...modal.querySelectorAll(".stars i")];
-
+    const modal = document.getElementById(modalID);
+    const closeButton = document.getElementById("addReviewClose");
+    const stars = [...modal.querySelectorAll(".stars i")];
     const reviewContent = document.querySelector("#reviewContent");
-    let reviewRate = 0;
-
     const addReviewButton = document.querySelector("#addReviewButton");
+
+    let reviewRate = 0;
 
     const newReviewHandler = function (event) {
         event.preventDefault();
-
-        console.log(reviewContent.value)
-        console.log(reviewRate)
-
-        if (reviewContent.value !== "" && reviewRate !== 0) {
-            const data = {
-                reviewContent: reviewContent.value,
-                reviewRate: reviewRate,
-                albumId: albumId
-            };
-
-            fetch("/addReview", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            }).then(function (response) {
-                return response.json();
-            }).then(function (reviews) {
-                if (reviews) {
-                    modal.style.display = "none";
-                    reviewContent.value = "";
-                    stars.map((star, index) => {
-                        for (let i = 0; i < stars.length; ++i) {
-                            stars[i].className = "ratingStar iconoir-star";
-                        }
-                    })
-                    reviewsContainer.innerHTML = "";
-                    loadReviews(reviews);
-                    launchToast("Opinion added! Now our team must review it.");
-                } else {
-                    alert("Error occurred while adding a review!");
-                }
-            })
+        if (validateReviewForm(reviewContent.value, reviewRate)) {
+            submitReview(reviewContent.value, reviewRate, albumId, modal, stars);
         } else {
             alert("Fill all required fields!");
         }
     };
 
-    addReviewButton.removeEventListener("click", addReviewButton._handler);
-    addReviewButton.addEventListener("click", newReviewHandler);
-    addReviewButton._handler = newReviewHandler;
-
+    setupModalEventListeners(modal, closeButton, addReviewButton, stars, newReviewHandler, () => reviewRate, (rate) => reviewRate = rate);
     modal.style.display = "flex";
+}
 
-    closeButton.onclick = function () {
-        modal.style.display = "none"
-    }
+function validateReviewForm(content, rate) {
+    return content !== "" && rate !== 0;
+}
 
-    window.onclick = function (event) {
+function submitReview(content, rate, albumId, modal, stars) {
+    const data = {reviewContent: content, reviewRate: rate, albumId: albumId};
+
+    fetch("/addReview", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then(response => response.json())
+        .then(reviews => {
+            if (reviews) {
+                resetModal(modal, reviewContent, stars);
+                reviewsContainer.innerHTML = "";
+                loadReviews(reviews);
+                launchToast("Opinion added! Now our team must review it.");
+            } else {
+                alert("Error occurred while adding a review!");
+            }
+        });
+}
+
+function setupModalEventListeners(modal, closeButton, addReviewButton, stars, handler, getReviewRate, setReviewRate) {
+    addReviewButton.removeEventListener("click", addReviewButton._handler);
+    addReviewButton.addEventListener("click", handler);
+    addReviewButton._handler = handler;
+
+    closeButton.onclick = () => modal.style.display = "none";
+
+    window.onclick = event => {
         if (event.target === modal) {
             modal.style.display = "none";
         }
-    }
+    };
 
-    stars.map((star, index) => {
+    stars.forEach((star, index) => {
         star.onclick = () => {
-            for (let i = 0; i < stars.length; ++i) {
-                if (i <= index) {
-                    stars[i].className = "ratingStar iconoir-star-solid";
-                } else {
-                    stars[i].className = "ratingStar iconoir-star";
-                }
-            }
-            reviewRate = index + 1;
+            updateStarRating(stars, index + 1);
+            setReviewRate(index + 1); // Aktualizacja zmiennej reviewRate
         };
     });
 }
 
-function loadReviews(reviews) {
-    reviews.forEach(review => {
-        createReview(review);
+function resetModal(modal, content, stars) {
+    modal.style.display = "none";
+    content.value = "";
+    stars.forEach(star => star.className = "ratingStar iconoir-star");
+}
+
+function updateStarRating(stars, rating) {
+    stars.forEach((star, index) => {
+        star.className = index < rating ? "ratingStar iconoir-star-solid" : "ratingStar iconoir-star";
     });
+}
+
+function loadReviews(reviews) {
+    reviews.forEach(review => createReview(review));
 }
 
 function createReview(review) {
     const template = document.querySelector("#reviewTemplate");
-
     const clone = template.content.cloneNode(true);
 
-    const userAvatar = clone.querySelector("img");
-    if (userAvatar) {
-        userAvatar.src = `/public/assets/imgs/avatars/${review.authoravatar}`;
-    } else {
-        console.error("User avatar element not found");
-    }
-
-    const userName = clone.querySelector(".opinionAuthor");
-    if (userName) {
-        userName.innerHTML = review.authorfirstname + " " + review.authorlastname;
-    } else {
-        console.error("User name element not found");
-    }
-
-    const creationDate = clone.querySelector("#creationDate");
-    if (creationDate) {
-        creationDate.innerHTML = review.createddate;
-    } else {
-        console.error("Creation date element not found");
-    }
-
-    const rate = clone.querySelector(".opinionRate");
-    if (rate) {
-        rate.innerHTML = review.rate + "/5";
-        rate.innerHTML += `<i class="iconoir-star-solid"></i>`;
-    } else {
-        console.error("Rate element not found");
-    }
-
-    const opinionDescription = clone.querySelector(".opinionDescription");
-    if (opinionDescription) {
-        opinionDescription.innerHTML = review.content;
-    } else {
-        console.error("Opinion description element not found");
-    }
+    setReviewElement(clone, "img", `/public/assets/imgs/avatars/${review.authoravatar}`, "src");
+    setReviewElement(clone, ".opinionAuthor", `${review.authorfirstname} ${review.authorlastname}`, "innerHTML");
+    setReviewElement(clone, "#creationDate", review.createddate, "innerHTML");
+    setReviewElement(clone, ".opinionRate", `${review.rate}/5 <i class="iconoir-star-solid"></i>`, "innerHTML");
+    setReviewElement(clone, ".opinionDescription", review.content, "innerHTML");
 
     reviewsContainer.appendChild(clone);
+}
+
+function setReviewElement(clone, selector, value, attribute) {
+    const element = clone.querySelector(selector);
+    if (element) {
+        element[attribute] = value;
+    } else {
+        console.error(`${selector} element not found`);
+    }
 }
 
 function launchToast(description) {
@@ -154,11 +129,11 @@ function launchToast(description) {
 
     toast.appendChild(toastIconArea);
     toast.appendChild(toastDescription);
-    
+
     document.body.appendChild(toast);
 
     toast.className = "show";
-    setTimeout(function () {
+    setTimeout(() => {
         toast.className = toast.className.replace("show", "");
         document.body.removeChild(toast);
     }, 5000);
