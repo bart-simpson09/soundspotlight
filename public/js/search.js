@@ -69,7 +69,7 @@ function createAlbum(album) {
     releaseDate.innerHTML = album.releasedate;
 
     const rate = clone.querySelector("#albumRate");
-    rate.innerHTML = album.averagerate != 0 ? `${album.averagerate}/5` : "-";
+    rate.innerHTML = album.averagerate !== 0 ? `${album.averagerate}/5` : "-";
 
     const category = clone.querySelector("#albumCategory");
     category.innerHTML = album.categoryname;
