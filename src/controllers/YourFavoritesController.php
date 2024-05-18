@@ -31,13 +31,12 @@ class YourFavoritesController extends AppController
         $userId = $userSession->__get("userId");
         $userEmail = $userSession->__get("userEmail");
 
+        if ($userId === null) {
+            $this->redirectToLogin(); // Przeniesienie logiki przekierowania do oddzielnej metody
+        }
+
         $user = $this->userRepository->getUser($userEmail);
         $favoriteAlbums = $this->favoriteRepository->getUserFavoriteAlbums($userId);
-
-        if ($userId == null) {
-            $url = "http://$_SERVER[HTTP_HOST]";
-            header("Location: $url/login");
-        }
 
         print $this->render('/yourFavorites', [
             'firstName' => $user->getFirstName(),
@@ -47,6 +46,13 @@ class YourFavoritesController extends AppController
             'favoriteAlbums' => $favoriteAlbums,
             'categories' => $this->categoryRepository->getCategories(),
             'languages' => $this->languageRepository->getLanguages()]);
+    }
+
+    private function redirectToLogin()
+    {
+        $url = "http://{$_SERVER['HTTP_HOST']}/login";
+        header("Location: $url");
+        exit();
     }
 
     public function toggleFavorite()
