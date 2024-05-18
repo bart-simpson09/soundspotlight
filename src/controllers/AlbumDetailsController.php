@@ -63,6 +63,10 @@ class AlbumDetailsController extends AppController
     {
         $userSession = SessionManager::getInstance();
         $userId = $userSession->__get("userId");
+        $userEmail = $userSession->__get("userEmail");
+
+        $user = $this->userRepository->getUser($userEmail);
+        $userRole = $user->getRole();
 
         $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
 
@@ -73,7 +77,13 @@ class AlbumDetailsController extends AppController
             header('Content-Type: application/json');
             http_response_code(200);
 
-            $addReview = new Review(null, (int)$userId, $decoded['albumId'], date('Y-m-d H:i:s'), $decoded['reviewRate'], $decoded['reviewContent'], null);
+            if ($userRole === "admin") {
+                $status = "Approved";
+            } else {
+                $status = "Pending";
+            }
+
+            $addReview = new Review(null, (int)$userId, $decoded['albumId'], date('Y-m-d H:i:s'), $decoded['reviewRate'], $decoded['reviewContent'], $status);
             $this->reviewRepository->addAlbumReview($addReview);
 
             echo json_encode($this->reviewRepository->getAlbumReviews($decoded['albumId']));

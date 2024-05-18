@@ -47,23 +47,13 @@ class ReviewRepository extends Repository
     {
         try {
             // Add review to DB
-            if ($this->isAdmin($newReview->getAuthorId())) {
-                $stmt = $this->database->connect()->prepare('
+            $stmt = $this->database->connect()->prepare('
             INSERT INTO reviews (authorid, albumid, createddate, rate, content, status) 
             VALUES (?, ?, ?, ?, ?, ?)
         ');
-                $stmt->execute([
-                    $newReview->getAuthorId(), $newReview->getAlbumId(), $newReview->getCreateDate(), $newReview->getRate(), $newReview->getContent(), 'Approved'
-                ]);
-            } else {
-                $stmt = $this->database->connect()->prepare('
-            INSERT INTO reviews (authorid, albumid, createddate, rate, content) 
-            VALUES (?, ?, ?, ?, ?)
-        ');
-                $stmt->execute([
-                    $newReview->getAuthorId(), $newReview->getAlbumId(), $newReview->getCreateDate(), $newReview->getRate(), $newReview->getContent()
-                ]);
-            }
+            $stmt->execute([
+                $newReview->getAuthorId(), $newReview->getAlbumId(), $newReview->getCreateDate(), $newReview->getRate(), $newReview->getContent(), $newReview->getStatus()
+            ]);
 
             // Calculate the new avg rate for the album
             $stmt = $this->database->connect()->prepare('

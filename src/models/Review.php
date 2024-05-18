@@ -10,7 +10,7 @@ class Review
     private $content;
     private $status;
 
-    public function __construct(?int $id, int $authorId, int $albumId, string $createDate, int $rate, string $content, ?string $status)
+    public function __construct(?int $id, int $authorId, int $albumId, string $createDate, int $rate, string $content, string $status)
     {
         $this->id = $id;
         $this->authorId = $authorId;
