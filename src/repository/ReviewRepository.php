@@ -14,6 +14,7 @@ class ReviewRepository extends Repository
         FROM reviews
         INNER JOIN users ON reviews.authorid = users.id
         WHERE reviews.albumid = :albumid AND reviews.status = 'Approved'
+        ORDER BY createddate DESC 
     ");
         $stmt->bindParam(':albumid', $albumId, PDO::PARAM_INT);
         $stmt->execute();
