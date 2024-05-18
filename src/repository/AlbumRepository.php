@@ -55,7 +55,7 @@ class AlbumRepository extends Repository
         SELECT albums.*, 
                authors.name AS authorname,
                categories.name AS categoryname,
-               languages.name AS languagname,
+               languages.name AS languagename,
                (CASE WHEN favorites.albumid IS NULL THEN FALSE ELSE TRUE END) AS isfavorite
         FROM albums
         INNER JOIN authors ON albums.authorid = authors.id
