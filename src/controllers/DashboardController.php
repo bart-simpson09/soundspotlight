@@ -17,8 +17,6 @@ class DashboardController extends AppController
     private $categoryRepository;
     private $languageRepository;
 
-    //private $favoriteRepository;
-
     public function __construct()
     {
         parent::__construct();
@@ -26,7 +24,6 @@ class DashboardController extends AppController
         $this->albumRepository = new AlbumRepository();
         $this->categoryRepository = new CategoryRepository();
         $this->languageRepository = new LanguageRepository();
-        //$this->favoriteRepository = new FavoriteRepository();
     }
 
     public function dashboard()
@@ -37,7 +34,6 @@ class DashboardController extends AppController
 
         $user = $this->userRepository->getUser($userEmail);
         $allAlbums = $this->albumRepository->getAllAlbums($userId);
-        //$userFavorites = $this->favoriteRepository->getUserFavoriteAlbums($userId);
 
 
         if ($userId == null) {

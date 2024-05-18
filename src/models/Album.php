@@ -13,11 +13,9 @@ class Album
     private $cover;
     private $releaseDate;
     private $uploadDate;
-    private $approveDate;
-    private $declineDate;
     private $addedBy;
 
-    public function __construct(?int $id, string $albumTitle, int $authorId, int $languageId, int $categoryId, int $numberOfSongs, string $description, ?float $averageRate, string $cover, string $releaseDate, string $uploadDate, ?string $approveDate, ?string $declineDate, int $addedBy)
+    public function __construct(?int $id, string $albumTitle, int $authorId, int $languageId, int $categoryId, int $numberOfSongs, string $description, ?float $averageRate, string $cover, string $releaseDate, string $uploadDate, int $addedBy)
     {
         $this->id = $id;
         $this->albumTitle = $albumTitle;
@@ -30,8 +28,6 @@ class Album
         $this->cover = $cover;
         $this->releaseDate = $releaseDate;
         $this->uploadDate = $uploadDate;
-        $this->approveDate = $approveDate;
-        $this->declineDate = $declineDate;
         $this->addedBy = $addedBy;
     }
 
@@ -45,17 +41,17 @@ class Album
         return $this->albumTitle;
     }
 
-    public function getAuthorId(): string
+    public function getAuthorId(): int
     {
         return $this->authorId;
     }
 
-    public function getCategoryId(): string
+    public function getCategoryId(): int
     {
         return $this->categoryId;
     }
 
-    public function getLanguageId(): string
+    public function getLanguageId(): int
     {
         return $this->categoryId;
     }
@@ -68,6 +64,26 @@ class Album
     public function getAverageRate(): ?float
     {
         return $this->averageRate;
+    }
+
+    public function getAddedBy(): int
+    {
+        return $this->addedBy;
+    }
+
+    public function getNumberOfSongs(): int
+    {
+        return $this->numberOfSongs;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function getUploadDate(): string
+    {
+        return $this->uploadDate;
     }
 
 }

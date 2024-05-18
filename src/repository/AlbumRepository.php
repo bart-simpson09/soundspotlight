@@ -19,6 +19,7 @@ class AlbumRepository extends Repository
         INNER JOIN languages ON albums.languageid = languages.id
         LEFT JOIN favorites ON albums.id = favorites.albumid AND favorites.userid = :userid
         WHERE albums.status = 'Approved'
+        ORDER BY albums.uploaddate DESC
     ");
         $stmt->bindParam(':userid', $userId, PDO::PARAM_INT);
         $stmt->execute();
@@ -129,9 +130,9 @@ class AlbumRepository extends Repository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function addAlbum($albumTitle, $authorId, $languageId, $categoryId, $numberOfSongs, $description, $cover, $releaseDate, $uploadDate, $addedBy)
+    public function addAlbum(Album $newAlbum)
     {
-        if ($this->isAdmin($addedBy)) {
+        if ($this->isAdmin($newAlbum->getAddedBy())) {
             $stmt = $this->database->connect()->prepare('
             INSERT INTO albums (albumtitle, authorid, languageid, categoryid, numberofsongs, description, cover, releasedate, uploaddate, addedby, status)
             VALUES (:albumtitle, :authorid, :languageid, :categoryid, :numberofsongs, :description, :cover, :releasedate, :uploaddate, :addedby, :status);
@@ -143,16 +144,16 @@ class AlbumRepository extends Repository
             VALUES (:albumtitle, :authorid, :languageid, :categoryid, :numberofsongs, :description, :cover, :releasedate, :uploaddate, :addedby);
         ');
         }
-        $stmt->bindValue(':albumtitle', $albumTitle);
-        $stmt->bindValue(':authorid', $authorId);
-        $stmt->bindValue(':languageid', $languageId);
-        $stmt->bindValue(':categoryid', $categoryId);
-        $stmt->bindValue(':numberofsongs', $numberOfSongs);
-        $stmt->bindValue(':description', $description);
-        $stmt->bindValue(':cover', $cover);
-        $stmt->bindValue(':releasedate', $releaseDate);
-        $stmt->bindValue(':uploaddate', $uploadDate);
-        $stmt->bindValue(':addedby', $addedBy);
+        $stmt->bindValue(':albumtitle', $newAlbum->getAlbumTitle());
+        $stmt->bindValue(':authorid', $newAlbum->getAuthorid());
+        $stmt->bindValue(':languageid', $newAlbum->getLanguageid());
+        $stmt->bindValue(':categoryid', $newAlbum->getCategoryid());
+        $stmt->bindValue(':numberofsongs', $newAlbum->getNumberOfSongs());
+        $stmt->bindValue(':description', $newAlbum->getDescription());
+        $stmt->bindValue(':cover', $newAlbum->getCover());
+        $stmt->bindValue(':releasedate', $newAlbum->getReleaseDate());
+        $stmt->bindValue(':uploaddate', $newAlbum->getUploadDate());
+        $stmt->bindValue(':addedby', $newAlbum->getAddedby());
         $stmt->execute();
     }
 

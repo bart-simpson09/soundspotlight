@@ -74,7 +74,8 @@ class AddAlbumController extends AppController
                     $authorId = $newAuthor->getAuthorId();
                 }
 
-                $this->albumRepository->addAlbum($albumTitle, $authorId, $language, $category, $songsNumber, $description, $albumCover['name'], $releaseDate, date("Y-m-d"), $userId);
+                $addAlbum = new Album(null, $albumTitle, $authorId, $language, $category, $songsNumber, $description, null, $albumCover['name'], $releaseDate, date('Y-m-d H:i:s'), $userId);
+                $this->albumRepository->addAlbum($addAlbum);
 
                 $url = "http://$_SERVER[HTTP_HOST]";
                 header("Location: $url/dashboard");
@@ -101,7 +102,7 @@ class AddAlbumController extends AppController
     {
         $userSession = SessionManager::getInstance();
         $userId = $userSession->__get("userId");
-        
+
         $allAlbums = $this->albumRepository->getAllAlbums($userId);
         foreach ($allAlbums as $album) {
             if ($album['albumtitle'] == $albumTitle) {
