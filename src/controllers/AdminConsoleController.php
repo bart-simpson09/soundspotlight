@@ -6,7 +6,6 @@ require_once __DIR__ . '/../repository/UserRepository.php';
 
 class AdminConsoleController extends AppController
 {
-
     private $userRepository;
     private $albumsRepository;
     private $reviewsRepository;
@@ -25,26 +24,35 @@ class AdminConsoleController extends AppController
         $userId = $userSession->__get("userId");
         $userEmail = $userSession->__get("userEmail");
 
-        $user = $this->userRepository->getUser($userEmail);
-
-        if ($userId == null) {
-            $url = "http://$_SERVER[HTTP_HOST]";
-            header("Location: $url/login");
+        if ($userId === null) {
+            $this->redirectToLogin();
         }
 
-        $pendingReviews = $this->reviewsRepository->getPendingReviews();
-        $pendingAlbums = $this->albumsRepository->getPendingAlbums();
-        $allUsers = $this->userRepository->getAllUsers();
+        $user = $this->userRepository->getUser($userEmail);
+        $data = $this->prepareData($user, $userId);
 
-        print $this->render('/adminConsole', [
+        print $this->render('/adminConsole', $data);
+    }
+
+    private function redirectToLogin()
+    {
+        $url = "http://{$_SERVER['HTTP_HOST']}/login";
+        header("Location: $url");
+        exit;
+    }
+
+    private function prepareData($user, $userId): array
+    {
+        return [
             'firstName' => $user->getFirstName(),
             'lastName' => $user->getLastName(),
             'avatar' => $user->getAvatar(),
             'isAdmin' => $user->getRole(),
-            'pendingReviews' => $pendingReviews,
-            'pendingAlbums' => $pendingAlbums,
-            'allUsers' => $allUsers,
-            'loggedUserId' => $userId]);
+            'pendingReviews' => $this->reviewsRepository->getPendingReviews(),
+            'pendingAlbums' => $this->albumsRepository->getPendingAlbums(),
+            'allUsers' => $this->userRepository->getAllUsers(),
+            'loggedUserId' => $userId
+        ];
     }
 
     public function changeReviewStatus()
@@ -58,15 +66,18 @@ class AdminConsoleController extends AppController
             header('Content-Type: application/json');
             http_response_code(200);
 
-            if ($decoded['decision'] == "Approve") {
-                $this->reviewsRepository->changeReviewStatus((int)$decoded['reviewId'], "Approved");
-            }
-
-            if ($decoded['decision'] == "Decline") {
-                $this->reviewsRepository->changeReviewStatus((int)$decoded['reviewId'], "Declined");
-            }
+            $this->processReviewStatusChange($decoded);
 
             echo json_encode($this->reviewsRepository->getPendingReviews());
+        }
+    }
+
+    private function processReviewStatusChange(array $decoded)
+    {
+        if ($decoded['decision'] == "Approve") {
+            $this->reviewsRepository->changeReviewStatus((int)$decoded['reviewId'], "Approved");
+        } elseif ($decoded['decision'] == "Decline") {
+            $this->reviewsRepository->changeReviewStatus((int)$decoded['reviewId'], "Declined");
         }
     }
 
@@ -81,15 +92,18 @@ class AdminConsoleController extends AppController
             header('Content-Type: application/json');
             http_response_code(200);
 
-            if ($decoded['decision'] == "Approve") {
-                $this->albumsRepository->changeAlbumStatus((int)$decoded['albumId'], "Approved");
-            }
-
-            if ($decoded['decision'] == "Decline") {
-                $this->albumsRepository->changeAlbumStatus((int)$decoded['albumId'], "Declined");
-            }
+            $this->processAlbumStatusChange($decoded);
 
             echo json_encode($this->albumsRepository->getPendingAlbums());
+        }
+    }
+
+    private function processAlbumStatusChange(array $decoded)
+    {
+        if ($decoded['decision'] == "Approve") {
+            $this->albumsRepository->changeAlbumStatus((int)$decoded['albumId'], "Approved");
+        } elseif ($decoded['decision'] == "Decline") {
+            $this->albumsRepository->changeAlbumStatus((int)$decoded['albumId'], "Declined");
         }
     }
 
@@ -104,19 +118,20 @@ class AdminConsoleController extends AppController
             header('Content-Type: application/json');
             http_response_code(200);
 
-            if ($decoded['decision'] == "removeAdmin") {
-                $this->userRepository->changeUserRole((int)$decoded['userId'], "removeAdmin");
-            }
-
-            if ($decoded['decision'] == "addAdmin") {
-                $this->userRepository->changeUserRole((int)$decoded['userId'], "addAdmin");
-            }
-
-            if ($decoded['decision'] == "deleteUser") {
-                $this->userRepository->deleteUser((int)$decoded['userId']);
-            }
+            $this->processUserManagement($decoded);
 
             echo json_encode($this->userRepository->getAllUsers());
+        }
+    }
+
+    private function processUserManagement(array $decoded)
+    {
+        if ($decoded['decision'] == "removeAdmin") {
+            $this->userRepository->changeUserRole((int)$decoded['userId'], "removeAdmin");
+        } elseif ($decoded['decision'] == "addAdmin") {
+            $this->userRepository->changeUserRole((int)$decoded['userId'], "addAdmin");
+        } elseif ($decoded['decision'] == "deleteUser") {
+            $this->userRepository->deleteUser((int)$decoded['userId']);
         }
     }
 }
