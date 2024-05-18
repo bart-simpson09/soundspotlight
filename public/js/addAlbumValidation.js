@@ -1,83 +1,86 @@
-const photoInput = document.getElementById("photoInput");
-const titleInput = document.getElementById("albumTitle");
-const authorInput = document.getElementById("authorName");
-const languageInput = document.getElementById("language");
-const categoryInput = document.getElementById("category");
-const releaseDateInput = document.getElementById("releaseDate");
-const songsNumberInput = document.getElementById("songsNumber");
-const descriptionInput = document.getElementById("description");
+// Selecting input elements
+const inputs = {
+    photo: document.getElementById("photoInput"),
+    title: document.getElementById("albumTitle"),
+    author: document.getElementById("authorName"),
+    language: document.getElementById("language"),
+    category: document.getElementById("category"),
+    releaseDate: document.getElementById("releaseDate"),
+    songsNumber: document.getElementById("songsNumber"),
+    description: document.getElementById("description")
+};
+
 const photoPreview = document.getElementById("uploadedCoverPreview");
 const submitButton = document.getElementById("submitButton");
+const fileSizeLimit = 1024 * 1024; // 1 Megabyte in bytes
 
-submitButton.addEventListener('click', () => {
-    validateForm();
-})
+// Event Listeners
+submitButton.addEventListener('click', validateForm);
+
+Object.values(inputs).forEach(input => {
+    input.addEventListener("blur", checkIfEmpty);
+});
+
+inputs.photo.addEventListener("change", handlePhotoChange);
+
+// Event Handler Functions
+function handlePhotoChange(event) {
+    if (!checkFileSize(event)) {
+        previewUploadedCover();
+    }
+}
 
 function checkIfEmpty(event) {
     const input = event.target;
+    toggleErrorClass(input, input.value.trim() === "");
+}
 
-    if (input.value.trim() === "") {
+function validateForm() {
+
+    Object.values(inputs).forEach(input => {
+        toggleErrorClass(input, input.value.trim() === "");
+    });
+
+    toggleBorderColor(photoPreview, inputs.photo.value.trim() === "");
+}
+
+function checkFileSize(event) {
+    const file = event.target.files[0];
+    if (file && file.size > fileSizeLimit) {
+        alert("File size is too large! Please choose a file under 1 MB.");
+        inputs.photo.value = "";
+        resetPhotoPreview();
+        return true;
+    }
+    return false;
+}
+
+function previewUploadedCover() {
+    const file = inputs.photo.files[0];
+    if (file) {
+        const fileReader = new FileReader();
+        fileReader.onload = function (event) {
+            photoPreview.setAttribute('src', event.target.result);
+            toggleBorderColor(photoPreview, false);
+        }
+        fileReader.readAsDataURL(file);
+    }
+}
+
+// Helper Functions
+function toggleErrorClass(input, isError) {
+    if (isError) {
         input.classList.add("inputError");
     } else {
         input.classList.remove("inputError");
     }
 }
 
-function validateForm() {
-    const inputs = [photoInput, titleInput, authorInput, languageInput, categoryInput, releaseDateInput, songsNumberInput, descriptionInput];
-    const allFilled = inputs.every(input => input.value.trim() !== "");
-
-    if (!allFilled) {
-        inputs.forEach(input => {
-            if (input.value.trim() === "") {
-                input.classList.add('inputError');
-            }
-        });
-    }
-
-    if (photoInput.value.trim() === "") {
-        photoPreview.style.borderColor = 'var(--color-red-100)';
-    } else {
-        photoPreview.style.borderColor = 'var(--color-grey-30)';
-    }
+function toggleBorderColor(element, isError) {
+    element.style.borderColor = isError ? 'var(--color-red-100)' : 'var(--color-grey-30)';
 }
 
-function checkFileSize(event) {
-    const file = event.target.files[0]; // Access the first selected file
-    const fileSizeLimit = 1024 * 1024; // 1 Megabyte in bytes
-
-    if (file && file.size > fileSizeLimit) {
-        alert("File size is too large! Please choose a file under 1 MB.");
-        photoInput.value = ""; // Clear the input value
-        document.getElementById('uploadedCoverPreview').setAttribute('src', '/public/assets/imgs/covers/default-cover.png');
-        return true;
-    }
-
-    return false;
+function resetPhotoPreview() {
+    photoPreview.setAttribute('src', '/public/assets/imgs/covers/default-cover.png');
+    toggleBorderColor(photoPreview, true);
 }
-
-const uploadCoverInput = document.querySelector("#photoInput");
-const previewUploadedCover = () => {
-    const file = uploadCoverInput.files[0]; // Access the first selected file
-    if (file) {
-        const fileReader = new FileReader();
-        const preview = document.getElementById('uploadedCoverPreview');
-        fileReader.onload = function (event) {
-            preview.setAttribute('src', event.target.result);
-            preview.style.borderColor = 'var(--color-grey-30)';
-        }
-        fileReader.readAsDataURL(file); // Pass the actual file object
-    }
-}
-
-photoInput.addEventListener("change", checkFileSize);
-
-uploadCoverInput.addEventListener("change", (event) => {
-    if (!checkFileSize(event)) {
-        previewUploadedCover();
-    }
-});
-
-[photoInput, titleInput, authorInput, languageInput, categoryInput, releaseDateInput, songsNumberInput, descriptionInput].forEach(input => {
-    input.addEventListener("blur", checkIfEmpty);
-});
