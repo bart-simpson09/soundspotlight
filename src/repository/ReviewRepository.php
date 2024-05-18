@@ -112,7 +112,6 @@ class ReviewRepository extends Repository
 
     public function changeReviewStatus($reviewId, $status)
     {
-        //var_dump($reviewId, $status);
         $stmt = $this->database->connect()->prepare('
             UPDATE reviews
             SET status = :status
