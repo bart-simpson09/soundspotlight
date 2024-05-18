@@ -81,7 +81,6 @@ const createUser = (user, loggedUserId) => {
     setTextContent(clone, "#userEmail", user.email);
 
     const userNameSection = clone.querySelector("#userNameSection");
-    userNameSection.innerHTML = `${user.firstname} ${user.lastname}`;
     if (user.role === "admin") {
         userNameSection.innerHTML += ` <i class="iconoir-user-crown"></i>`;
     }
