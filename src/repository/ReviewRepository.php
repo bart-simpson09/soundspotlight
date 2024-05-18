@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Repository.php';
+require_once __DIR__ . '/../models/Review.php';
 
 class ReviewRepository extends Repository
 {
@@ -42,17 +43,17 @@ class ReviewRepository extends Repository
     }
 
 
-    public function addAlbumReview($userId, $albumId, $creationDate, $rate, $content): bool
+    public function addAlbumReview(Review $newReview)
     {
         try {
             // Add review to DB
-            if ($this->isAdmin($userId)) {
+            if ($this->isAdmin($newReview->getAuthorId())) {
                 $stmt = $this->database->connect()->prepare('
             INSERT INTO reviews (authorid, albumid, createddate, rate, content, status) 
             VALUES (?, ?, ?, ?, ?, ?)
         ');
                 $stmt->execute([
-                    $userId, $albumId, $creationDate, $rate, $content, 'Approved'
+                    $newReview->getAuthorId(), $newReview->getAlbumId(), $newReview->getCreateDate(), $newReview->getRate(), $newReview->getContent(), 'Approved'
                 ]);
             } else {
                 $stmt = $this->database->connect()->prepare('
@@ -60,7 +61,7 @@ class ReviewRepository extends Repository
             VALUES (?, ?, ?, ?, ?)
         ');
                 $stmt->execute([
-                    $userId, $albumId, $creationDate, $rate, $content
+                    $newReview->getAuthorId(), $newReview->getAlbumId(), $newReview->getCreateDate(), $newReview->getRate(), $newReview->getContent()
                 ]);
             }
 
@@ -70,7 +71,7 @@ class ReviewRepository extends Repository
             FROM reviews
             WHERE albumid = ?
         ');
-            $stmt->execute([$albumId]);
+            $stmt->execute([$newReview->getAlbumId()]);
             $avgRate = $stmt->fetchColumn();
             $avgRate = round($avgRate, 1);
 
@@ -80,7 +81,7 @@ class ReviewRepository extends Repository
             SET averagerate = ?
             WHERE id = ?
         ');
-            $stmt->execute([$avgRate, $albumId]);
+            $stmt->execute([$avgRate, $newReview->getAlbumId()]);
 
             return true;
         } catch (PDOException $e) {
