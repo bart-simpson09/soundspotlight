@@ -11,7 +11,6 @@ require_once __DIR__ . '/../repository/ReviewRepository.php';
 
 class AlbumDetailsController extends AppController
 {
-
     private $userRepository;
     private $albumRepository;
     private $reviewRepository;
@@ -27,27 +26,23 @@ class AlbumDetailsController extends AppController
     public function albumDetails($albumId)
     {
         if (!$albumId) {
-            $url = "http://$_SERVER[HTTP_HOST]";
-            header("Location: $url/dashboard");
+            $this->redirectToDashboard();
         }
 
         $userSession = SessionManager::getInstance();
         $userId = $userSession->__get("userId");
         $userEmail = $userSession->__get("userEmail");
 
-        $user = $this->userRepository->getUser($userEmail);
-
-        if ($userId == null) {
-            $url = "http://$_SERVER[HTTP_HOST]";
-            header("Location: $url/login");
+        if ($userId === null) {
+            $this->redirectToLogin();
         }
 
+        $user = $this->userRepository->getUser($userEmail);
         $album = $this->albumRepository->getAlbumById($albumId, $userId);
         $reviews = $this->reviewRepository->getAlbumReviews($albumId);
 
         if (!$album) {
-            $url = "http://$_SERVER[HTTP_HOST]";
-            header("Location: $url/dashboard");
+            $this->redirectToDashboard();
         }
 
         print $this->render('/albumDetails', [
@@ -56,7 +51,22 @@ class AlbumDetailsController extends AppController
             'avatar' => $user->getAvatar(),
             'isAdmin' => $user->getRole(),
             'album' => $album,
-            'reviews' => $reviews]);
+            'reviews' => $reviews
+        ]);
+    }
+
+    private function redirectToDashboard()
+    {
+        $url = "http://{$_SERVER['HTTP_HOST']}/dashboard";
+        header("Location: $url");
+        exit;
+    }
+
+    private function redirectToLogin()
+    {
+        $url = "http://{$_SERVER['HTTP_HOST']}/login";
+        header("Location: $url");
+        exit;
     }
 
     public function addReview()
@@ -77,11 +87,7 @@ class AlbumDetailsController extends AppController
             header('Content-Type: application/json');
             http_response_code(200);
 
-            if ($userRole === "admin") {
-                $status = "Approved";
-            } else {
-                $status = "Pending";
-            }
+            $status = $userRole === "admin" ? "Approved" : "Pending";
 
             $addReview = new Review(null, (int)$userId, $decoded['albumId'], date('Y-m-d H:i:s'), $decoded['reviewRate'], $decoded['reviewContent'], $status);
             $this->reviewRepository->addAlbumReview($addReview);

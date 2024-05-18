@@ -63,7 +63,7 @@ function setupFavoriteButton(clone, album) {
 function setupAlbumDetails(clone, album) {
     clone.querySelector("a").href = `/albumDetails/${album.id}`;
     clone.querySelector("img").src = `/public/assets/imgs/covers/${album.cover}`;
-    clone.querySelector("#albumTitle").textContent = `${album.albumtitle} ID: ${album.id}`;
+    clone.querySelector("#albumTitle").textContent = `${album.albumtitle}`;
     clone.querySelector("#albumAuthor").textContent = album.authorname;
     clone.querySelector("#albumReleaseDate").textContent = album.releasedate;
     clone.querySelector("#albumRate").textContent = album.averagerate ? `${album.averagerate}/5` : '-';
