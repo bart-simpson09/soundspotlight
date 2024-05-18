@@ -10,16 +10,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css"/>
 
-    <link rel="stylesheet" type="text/css" href="public/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="public/css/fonts.css">
-    <link rel="stylesheet" type="text/css" href="public/css/colors.css">
-    <link rel="stylesheet" type="text/css" href="public/css/flex.css">
-    <link rel="stylesheet" type="text/css" href="public/css/global.css">
-    <link rel="stylesheet" type="text/css" href="public/css/components.css">
-    <link rel="stylesheet" type="text/css" href="public/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/flex.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/global.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/components.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/responsive.css">
 
-    <script src="public/js/scripts.js" defer></script>
-    <script src="public/js/adminScripts.js" defer></script>
+    <script src="/public/js/navigation.js" defer></script>
+    <script src="/public/js/adminScripts.js" defer></script>
+    <script src="/public/js/tabs.js" defer></script>
 
     <title>Admin console</title>
 </head>

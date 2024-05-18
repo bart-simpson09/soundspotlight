@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="/public/css/components.css">
     <link rel="stylesheet" type="text/css" href="/public/css/responsive.css">
 
-    <script src="/public/js/scripts.js" defer></script>
+    <script src="/public/js/navigation.js" defer></script>
     <script src="/public/js/addAlbumValidation.js" defer></script>
 
     <title>Add album</title>

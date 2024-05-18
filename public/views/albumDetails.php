@@ -18,9 +18,10 @@
     <link rel="stylesheet" type="text/css" href="/public/css/components.css">
     <link rel="stylesheet" type="text/css" href="/public/css/responsive.css">
 
-    <script src="/public/js/scripts.js" defer></script>
+    <script src="/public/js/navigation.js" defer></script>
     <script src="/public/js/addReview.js" defer></script>
     <script src="/public/js/toggleFavorite.js" defer></script>
+    <script src="/public/js/albumDetails.js" defer></script>
 
     <title>Album details</title>
 </head>
