@@ -121,6 +121,7 @@ class AlbumRepository extends Repository
 
     public function addAlbum(Album $newAlbum)
     {
+        error_log($newAlbum->getLanguageId());
         if ($this->isAdmin($newAlbum->getAddedBy())) {
             $stmt = $this->database->connect()->prepare('
             INSERT INTO albums (albumtitle, authorid, languageid, categoryid, numberofsongs, description, cover, releasedate, uploaddate, addedby, status)

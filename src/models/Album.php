@@ -53,7 +53,7 @@ class Album
 
     public function getLanguageId(): int
     {
-        return $this->categoryId;
+        return $this->languageId;
     }
 
     public function getReleaseDate(): string
