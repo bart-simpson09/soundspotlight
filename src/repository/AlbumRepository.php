@@ -30,18 +30,7 @@ class AlbumRepository extends Repository
     public function getPendingAlbums()
     {
         $stmt = $this->database->connect()->prepare("
-        SELECT albums.*, 
-               authors.name AS authorname,
-               categories.name AS categoryname,
-               languages.name AS languagename,
-               users.firstname AS userfirstname,
-               users.lastname AS userlastname
-        FROM albums
-        INNER JOIN authors ON albums.authorid = authors.id
-        INNER JOIN categories ON albums.categoryid = categories.id
-        INNER JOIN languages ON albums.languageid = languages.id
-        INNER JOIN users ON albums.addedby = users.id
-        WHERE albums.status = 'Pending'
+        SELECT * FROM pending_albums;
     ");
         $stmt->execute();
 

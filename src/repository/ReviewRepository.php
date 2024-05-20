@@ -26,16 +26,7 @@ class ReviewRepository extends Repository
     public function getPendingReviews(): array
     {
         $stmt = $this->database->connect()->prepare("
-        SELECT reviews.*, 
-               users.firstname AS authorfirstname,
-               users.lastname AS authorlastname,
-               albums.albumtitle AS albumname,
-               authors.name AS albumauthorname
-        FROM reviews
-        INNER JOIN users ON reviews.authorid = users.id
-        INNER JOIN albums ON reviews.albumid = albums.id
-        INNER JOIN authors ON albums.authorid = authors.id
-        WHERE reviews.status = 'Pending'
+        SELECT * FROM pending_reviews;
     ");
         $stmt->execute();
 
