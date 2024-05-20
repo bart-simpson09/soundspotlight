@@ -198,7 +198,7 @@ class AlbumRepository extends Repository
         INNER JOIN categories ON albums.categoryid = categories.id
         INNER JOIN languages ON albums.languageid = languages.id
         WHERE albums.addedby = :userid
-        ORDER BY albums.status DESC
+        ORDER BY albums.status
     ');
 
         $stmt->bindValue(':userid', $userId, PDO::PARAM_INT);
