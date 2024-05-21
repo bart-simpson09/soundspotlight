@@ -84,6 +84,12 @@
             <div id="pendingReviews" class="tabContent flexColumn rowGap16">
                 <?php if (!empty($pendingReviews)): ?>
                     <?php foreach ($pendingReviews as $pendingReview): ?>
+                        <?php
+                        if ($pendingReview['authorid'] === null) {
+                            $pendingReview['authorfirstname'] = 'Deactivated';
+                            $pendingReview['authorlastname'] = 'user';
+                        }
+                        ?>
                         <div class="yourProfileItem flexColumn rowGap16">
                             <div class="flexRow yourProfileItemHeader">
                                 <div class="flexColumn rowGap4">
@@ -121,6 +127,12 @@
             <div id="pendingAlbums" class="tabContent flexColumn rowGap16">
                 <?php if (!empty($pendingAlbums)): ?>
                     <?php foreach ($pendingAlbums as $pendingAlbum): ?>
+                        <?php
+                        if ($pendingAlbum['addedby'] === null) {
+                            $pendingAlbum['userfirstname'] = 'Deactivated';
+                            $pendingAlbum['userlastname'] = 'user';
+                        }
+                        ?>
                         <div class="yourProfileItem flexRow columnGap16">
                             <img src="/public/assets/imgs/covers/<?= $pendingAlbum['cover'] ?>" class="albumSmallCover"
                                  alt="">

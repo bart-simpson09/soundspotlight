@@ -126,6 +126,13 @@
         <div class="flexColumn rowGap16 reviewsList">
             <?php if (!empty($reviews)): ?>
                 <?php foreach ($reviews as $review): ?>
+                    <?php
+                    if ($review['authorid'] === null) {
+                        $review['authoravatar'] = 'deactivated-user.png';
+                        $review['authorfirstname'] = 'Deactivated';
+                        $review['authorlastname'] = 'user';
+                    }
+                    ?>
                     <div class="albumDetailsOpinionItem flexRow columnGap16">
                         <img class="standardAvatar" src="/public/assets/imgs/avatars/<?= $review['authoravatar'] ?>"
                              alt="">

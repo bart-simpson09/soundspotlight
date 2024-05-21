@@ -8,14 +8,21 @@ class ReviewRepository extends Repository
     public function getAlbumReviews($albumId): array
     {
         $stmt = $this->database->connect()->prepare("
-        SELECT reviews.*, 
-               users.firstname AS authorfirstname,
-               users.lastname AS authorlastname,
-               users.avatar AS authoravatar
-        FROM reviews
-        INNER JOIN users ON reviews.authorid = users.id
-        WHERE reviews.albumid = :albumid AND reviews.status = 'Approved'
-        ORDER BY createddate DESC 
+        SELECT 
+    reviews.*, 
+    COALESCE(users.firstname, NULL) AS authorfirstname,
+    COALESCE(users.lastname, NULL) AS authorlastname,
+    COALESCE(users.avatar, NULL) AS authoravatar
+FROM 
+    reviews
+LEFT JOIN 
+    users ON reviews.authorid = users.id
+WHERE 
+    reviews.albumid = :albumid 
+    AND reviews.status = 'Approved'
+ORDER BY 
+    reviews.createddate DESC;
+
     ");
         $stmt->bindParam(':albumid', $albumId, PDO::PARAM_INT);
         $stmt->execute();
