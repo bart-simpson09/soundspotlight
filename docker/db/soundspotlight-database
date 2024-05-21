@@ -1,0 +1,745 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.2 (Debian 16.2-1.pgdg120+2)
+-- Dumped by pg_dump version 16.2
+
+-- Started on 2024-05-21 19:20:10 UTC
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 222 (class 1259 OID 16433)
+-- Name: albums; Type: TABLE; Schema: public; Owner: docker
+--
+
+CREATE TABLE public.albums (
+    id integer NOT NULL,
+    albumtitle character varying NOT NULL,
+    authorid integer NOT NULL,
+    languageid integer NOT NULL,
+    categoryid integer NOT NULL,
+    numberofsongs integer NOT NULL,
+    description text NOT NULL,
+    averagerate double precision DEFAULT 0,
+    cover character varying NOT NULL,
+    releasedate date NOT NULL,
+    uploaddate timestamp without time zone NOT NULL,
+    addedby integer,
+    status character varying DEFAULT 'Pending'::character varying NOT NULL
+);
+
+
+ALTER TABLE public.albums OWNER TO docker;
+
+--
+-- TOC entry 221 (class 1259 OID 16432)
+-- Name: albums_id_seq; Type: SEQUENCE; Schema: public; Owner: docker
+--
+
+CREATE SEQUENCE public.albums_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.albums_id_seq OWNER TO docker;
+
+--
+-- TOC entry 3439 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: albums_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: docker
+--
+
+ALTER SEQUENCE public.albums_id_seq OWNED BY public.albums.id;
+
+
+--
+-- TOC entry 224 (class 1259 OID 16444)
+-- Name: authors; Type: TABLE; Schema: public; Owner: docker
+--
+
+CREATE TABLE public.authors (
+    id integer NOT NULL,
+    name character varying NOT NULL
+);
+
+
+ALTER TABLE public.authors OWNER TO docker;
+
+--
+-- TOC entry 223 (class 1259 OID 16443)
+-- Name: authors_id_seq; Type: SEQUENCE; Schema: public; Owner: docker
+--
+
+CREATE SEQUENCE public.authors_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.authors_id_seq OWNER TO docker;
+
+--
+-- TOC entry 3440 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: authors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: docker
+--
+
+ALTER SEQUENCE public.authors_id_seq OWNED BY public.authors.id;
+
+
+--
+-- TOC entry 220 (class 1259 OID 16426)
+-- Name: categories; Type: TABLE; Schema: public; Owner: docker
+--
+
+CREATE TABLE public.categories (
+    id integer NOT NULL,
+    name character varying NOT NULL
+);
+
+
+ALTER TABLE public.categories OWNER TO docker;
+
+--
+-- TOC entry 219 (class 1259 OID 16425)
+-- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: docker
+--
+
+CREATE SEQUENCE public.categories_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.categories_id_seq OWNER TO docker;
+
+--
+-- TOC entry 3441 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: docker
+--
+
+ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
+
+
+--
+-- TOC entry 226 (class 1259 OID 16460)
+-- Name: favorites; Type: TABLE; Schema: public; Owner: docker
+--
+
+CREATE TABLE public.favorites (
+    id integer NOT NULL,
+    userid integer NOT NULL,
+    albumid integer NOT NULL
+);
+
+
+ALTER TABLE public.favorites OWNER TO docker;
+
+--
+-- TOC entry 225 (class 1259 OID 16459)
+-- Name: favorite_id_seq; Type: SEQUENCE; Schema: public; Owner: docker
+--
+
+CREATE SEQUENCE public.favorite_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.favorite_id_seq OWNER TO docker;
+
+--
+-- TOC entry 3442 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: favorite_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: docker
+--
+
+ALTER SEQUENCE public.favorite_id_seq OWNED BY public.favorites.id;
+
+
+--
+-- TOC entry 218 (class 1259 OID 16417)
+-- Name: languages; Type: TABLE; Schema: public; Owner: docker
+--
+
+CREATE TABLE public.languages (
+    id integer NOT NULL,
+    name character varying NOT NULL
+);
+
+
+ALTER TABLE public.languages OWNER TO docker;
+
+--
+-- TOC entry 217 (class 1259 OID 16416)
+-- Name: languages_id_seq; Type: SEQUENCE; Schema: public; Owner: docker
+--
+
+CREATE SEQUENCE public.languages_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.languages_id_seq OWNER TO docker;
+
+--
+-- TOC entry 3443 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: languages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: docker
+--
+
+ALTER SEQUENCE public.languages_id_seq OWNED BY public.languages.id;
+
+
+--
+-- TOC entry 216 (class 1259 OID 16390)
+-- Name: users; Type: TABLE; Schema: public; Owner: docker
+--
+
+CREATE TABLE public.users (
+    id integer NOT NULL,
+    email character varying(100) NOT NULL,
+    password character varying(100) NOT NULL,
+    firstname character varying(100) NOT NULL,
+    lastname character varying(100) NOT NULL,
+    avatar character varying(250) DEFAULT 'default-avatar.png'::character varying,
+    role character varying(100) DEFAULT 'user'::character varying NOT NULL
+);
+
+
+ALTER TABLE public.users OWNER TO docker;
+
+--
+-- TOC entry 229 (class 1259 OID 16496)
+-- Name: pending_albums; Type: VIEW; Schema: public; Owner: docker
+--
+
+CREATE VIEW public.pending_albums AS
+ SELECT albums.id,
+    albums.albumtitle,
+    albums.authorid,
+    albums.languageid,
+    albums.categoryid,
+    albums.numberofsongs,
+    albums.description,
+    albums.averagerate,
+    albums.cover,
+    albums.releasedate,
+    albums.uploaddate,
+    albums.addedby,
+    albums.status,
+    authors.name AS authorname,
+    categories.name AS categoryname,
+    languages.name AS languagename,
+    COALESCE(users.firstname, NULL::character varying(100)) AS userfirstname,
+    COALESCE(users.lastname, NULL::character varying(100)) AS userlastname
+   FROM ((((public.albums
+     LEFT JOIN public.users ON ((albums.addedby = users.id)))
+     JOIN public.authors ON ((albums.authorid = authors.id)))
+     JOIN public.categories ON ((albums.categoryid = categories.id)))
+     JOIN public.languages ON ((albums.languageid = languages.id)))
+  WHERE ((albums.status)::text = 'Pending'::text);
+
+
+ALTER VIEW public.pending_albums OWNER TO docker;
+
+--
+-- TOC entry 228 (class 1259 OID 16468)
+-- Name: reviews; Type: TABLE; Schema: public; Owner: docker
+--
+
+CREATE TABLE public.reviews (
+    id integer NOT NULL,
+    authorid integer,
+    albumid integer NOT NULL,
+    createddate timestamp without time zone NOT NULL,
+    rate integer NOT NULL,
+    content text NOT NULL,
+    status character varying DEFAULT 'Pending'::character varying
+);
+
+
+ALTER TABLE public.reviews OWNER TO docker;
+
+--
+-- TOC entry 230 (class 1259 OID 16501)
+-- Name: pending_reviews; Type: VIEW; Schema: public; Owner: docker
+--
+
+CREATE VIEW public.pending_reviews AS
+ SELECT reviews.id,
+    reviews.authorid,
+    reviews.albumid,
+    reviews.createddate,
+    reviews.rate,
+    reviews.content,
+    reviews.status,
+    COALESCE(users.firstname, NULL::character varying(100)) AS authorfirstname,
+    COALESCE(users.lastname, NULL::character varying(100)) AS authorlastname,
+    albums.albumtitle AS albumname,
+    authors.name AS albumauthorname
+   FROM (((public.reviews
+     LEFT JOIN public.users ON ((reviews.authorid = users.id)))
+     JOIN public.albums ON ((reviews.albumid = albums.id)))
+     JOIN public.authors ON ((albums.authorid = authors.id)))
+  WHERE ((reviews.status)::text = 'Pending'::text);
+
+
+ALTER VIEW public.pending_reviews OWNER TO docker;
+
+--
+-- TOC entry 227 (class 1259 OID 16467)
+-- Name: reviews_id_seq; Type: SEQUENCE; Schema: public; Owner: docker
+--
+
+CREATE SEQUENCE public.reviews_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.reviews_id_seq OWNER TO docker;
+
+--
+-- TOC entry 3444 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: reviews_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: docker
+--
+
+ALTER SEQUENCE public.reviews_id_seq OWNED BY public.reviews.id;
+
+
+--
+-- TOC entry 215 (class 1259 OID 16389)
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: docker
+--
+
+CREATE SEQUENCE public.users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.users_id_seq OWNER TO docker;
+
+--
+-- TOC entry 3445 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: docker
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- TOC entry 3246 (class 2604 OID 16436)
+-- Name: albums id; Type: DEFAULT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.albums ALTER COLUMN id SET DEFAULT nextval('public.albums_id_seq'::regclass);
+
+
+--
+-- TOC entry 3249 (class 2604 OID 16447)
+-- Name: authors id; Type: DEFAULT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.authors ALTER COLUMN id SET DEFAULT nextval('public.authors_id_seq'::regclass);
+
+
+--
+-- TOC entry 3245 (class 2604 OID 16429)
+-- Name: categories id; Type: DEFAULT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.categories ALTER COLUMN id SET DEFAULT nextval('public.categories_id_seq'::regclass);
+
+
+--
+-- TOC entry 3250 (class 2604 OID 16463)
+-- Name: favorites id; Type: DEFAULT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.favorites ALTER COLUMN id SET DEFAULT nextval('public.favorite_id_seq'::regclass);
+
+
+--
+-- TOC entry 3244 (class 2604 OID 16420)
+-- Name: languages id; Type: DEFAULT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.languages ALTER COLUMN id SET DEFAULT nextval('public.languages_id_seq'::regclass);
+
+
+--
+-- TOC entry 3251 (class 2604 OID 16471)
+-- Name: reviews id; Type: DEFAULT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.reviews ALTER COLUMN id SET DEFAULT nextval('public.reviews_id_seq'::regclass);
+
+
+--
+-- TOC entry 3241 (class 2604 OID 16393)
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- TOC entry 3427 (class 0 OID 16433)
+-- Dependencies: 222
+-- Data for Name: albums; Type: TABLE DATA; Schema: public; Owner: docker
+--
+
+INSERT INTO public.albums VALUES (3, 'Back in Black', 3, 1, 2, 10, 'Back in Black by AC/DC is a legendary rock album that has become a cornerstone of the genre. Featuring iconic tracks like "Hells Bells," "You Shook Me All Night Long," and the title track "Back in Black," the album is known for its powerful riffs, driving rhythms, and memorable lyrics. It is one of the best-selling albums of all time and a testament to AC/DC''s enduring influence on rock music.', 4, 'Back in Black.jpeg', '1980-07-25', '2024-05-20 19:05:20', 1, 'Approved');
+INSERT INTO public.albums VALUES (1, 'Future Nostalgia', 1, 2, 1, 11, 'Future Nostalgia by Dua Lipa is a groundbreaking pop album that blends retro disco vibes with modern pop sensibilities. Known for its danceable beats and catchy melodies, the album features hits like "Don''t Start Now," "Physical," and "Levitating." Dua Lipa''s powerful vocals and confident delivery, combined with high-quality production, make this album a standout in the pop genre. It has received critical acclaim and numerous awards, cementing Dua Lipa''s place as a pop icon.', 4, 'Future Nostalgia.jpeg', '2020-03-27', '2024-05-20 18:57:54', 1, 'Approved');
+INSERT INTO public.albums VALUES (5, 'To Pimp a Butterfly', 5, 3, 3, 16, 'To Pimp a Butterfly by Kendrick Lamar is a critically acclaimed hip-hop album that blends jazz, funk, and spoken word elements. With profound lyrics addressing themes of race, identity, and personal struggle, the album features standout tracks like "Alright," "King Kunta," and "The Blacker the Berry." Kendrick''s lyrical prowess and innovative production make this album a powerful statement on contemporary social issues.', 3.5, 'To Pimp a Butterfly.jpeg', '2015-03-15', '2024-05-20 19:09:32', 1, 'Approved');
+INSERT INTO public.albums VALUES (2, '1989', 2, 1, 1, 13, '1989 by Taylor Swift marked a significant shift in her career from country to pop music. The album features chart-topping singles such as "Shake It Off," "Blank Space," and "Style." Known for its polished production and catchy hooks, 1989 explores themes of love, heartbreak, and personal growth. Taylor''s songwriting prowess and ability to craft memorable pop anthems have made 1989 one of the most influential pop albums of the decade.', 4.5, '1989.png', '2014-10-27', '2024-05-20 18:59:48', 1, 'Approved');
+INSERT INTO public.albums VALUES (4, 'Nevermind', 4, 2, 2, 12, 'Nevermind by Nirvana is a seminal rock album that defined the grunge era of the early 1990s. With hits like "Smells Like Teen Spirit," "Come as You Are," and "Lithium," the album combines raw emotion, powerful lyrics, and Kurt Cobain''s distinctive voice. Nevermind brought alternative rock into the mainstream and remains a pivotal album in the history of rock music.', 3.5, 'Nevermind.jpeg', '1991-09-24', '2024-05-20 19:06:28', 1, 'Approved');
+INSERT INTO public.albums VALUES (7, 'Random Access Memories', 7, 4, 4, 13, 'Random Access Memories by Daft Punk is a critically acclaimed EDM album that pays homage to the disco and funk music of the 1970s and 1980s. Featuring hits like "Get Lucky" and "Instant Crush," the album combines live instrumentation with electronic production. Daft Punk''s innovative approach and high-quality production have made Random Access Memories a standout in the EDM genre.', 3, 'Random Access Memories.png', '2013-05-17', '2024-05-20 19:14:53', 1, 'Approved');
+INSERT INTO public.albums VALUES (10, 'Symphony No. 9', 10, 6, 5, 4, 'Beethoven''s Symphony No. 9 is one of the most celebrated works in classical music. Known for its final movement, the "Ode to Joy," the symphony is a powerful expression of human spirit and unity. Beethoven''s innovative use of choral elements and his ability to convey profound emotions through music have made this symphony a timeless masterpiece.', 0, 'Beethoven- Symphony No. 9.jpeg', '1824-11-27', '2024-05-20 19:35:42', 2, 'Pending');
+INSERT INTO public.albums VALUES (6, 'The College Dropout', 6, 3, 3, 21, 'The College Dropout by Kanye West is a groundbreaking hip-hop album that showcases Kanye''s talent as a producer and lyricist. With hits like "Jesus Walks," "Through the Wire," and "All Falls Down," the album explores themes of self-determination, social issues, and personal ambition. Kanye''s unique style and innovative approach to hip-hop have made The College Dropout a classic in the genre.', 2.5, 'The College Dropout.jpeg', '2004-02-10', '2024-05-20 19:13:03', 1, 'Approved');
+INSERT INTO public.albums VALUES (9, 'The Four Seasons', 9, 6, 5, 4, 'The Four Seasons by Antonio Vivaldi is a set of four violin concertos that represent the seasons of the year. Each concerto captures the essence of its respective season through vivid musical imagery. Vivaldi''s masterful composition and expressive melodies have made The Four Seasons one of the most popular and enduring works in the classical music repertoire.', 2.5, 'The Four Seasons.jpeg', '1725-05-21', '2024-05-20 19:33:10', 1, 'Approved');
+INSERT INTO public.albums VALUES (8, 'Scary Monsters', 8, 5, 4, 9, 'Scary Monsters and Nice Sprites by Skrillex is a groundbreaking EDM album that helped popularize the dubstep genre. With its aggressive beats, heavy bass drops, and intricate sound design, the album features tracks like "Scary Monsters and Nice Sprites" and "Kill EVERYBODY." Skrillex''s unique style and innovative production have made this album a cornerstone of modern electronic music.', 0, 'Scary Monsters and Nice Sprites.jpg', '2010-10-22', '2024-05-20 19:17:07', 2, 'Pending');
+INSERT INTO public.albums VALUES (14, 'wwgwg', 14, 5, 4, 5, 'rrhgrtthrhrh', 0, '2nd image.jpg', '2024-05-02', '2024-05-21 18:15:12', NULL, 'Pending');
+
+
+--
+-- TOC entry 3429 (class 0 OID 16444)
+-- Dependencies: 224
+-- Data for Name: authors; Type: TABLE DATA; Schema: public; Owner: docker
+--
+
+INSERT INTO public.authors VALUES (1, 'Dua Lipa');
+INSERT INTO public.authors VALUES (2, 'Taylor Swift');
+INSERT INTO public.authors VALUES (3, 'AC/DC');
+INSERT INTO public.authors VALUES (4, 'Nirvana');
+INSERT INTO public.authors VALUES (5, 'Kendrick Lamar');
+INSERT INTO public.authors VALUES (6, 'Kanye West');
+INSERT INTO public.authors VALUES (7, 'Daft Punk');
+INSERT INTO public.authors VALUES (8, 'Skrillex');
+INSERT INTO public.authors VALUES (9, 'Antonio Vivaldi');
+INSERT INTO public.authors VALUES (10, 'Ludwig van Beethoven');
+INSERT INTO public.authors VALUES (11, 'Andrzej');
+INSERT INTO public.authors VALUES (12, 'grgeg');
+INSERT INTO public.authors VALUES (13, 'ferger');
+INSERT INTO public.authors VALUES (14, 'wgregrg');
+
+
+--
+-- TOC entry 3425 (class 0 OID 16426)
+-- Dependencies: 220
+-- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: docker
+--
+
+INSERT INTO public.categories VALUES (1, 'Pop');
+INSERT INTO public.categories VALUES (2, 'Rock');
+INSERT INTO public.categories VALUES (3, 'Hip-Hop');
+INSERT INTO public.categories VALUES (4, 'EDM');
+INSERT INTO public.categories VALUES (5, 'Classic');
+
+
+--
+-- TOC entry 3431 (class 0 OID 16460)
+-- Dependencies: 226
+-- Data for Name: favorites; Type: TABLE DATA; Schema: public; Owner: docker
+--
+
+INSERT INTO public.favorites VALUES (4, 1, 5);
+INSERT INTO public.favorites VALUES (5, 1, 6);
+INSERT INTO public.favorites VALUES (6, 1, 1);
+
+
+--
+-- TOC entry 3423 (class 0 OID 16417)
+-- Dependencies: 218
+-- Data for Name: languages; Type: TABLE DATA; Schema: public; Owner: docker
+--
+
+INSERT INTO public.languages VALUES (1, 'Polish');
+INSERT INTO public.languages VALUES (2, 'English');
+INSERT INTO public.languages VALUES (3, 'German');
+INSERT INTO public.languages VALUES (4, 'French');
+INSERT INTO public.languages VALUES (5, 'Spanish');
+INSERT INTO public.languages VALUES (6, 'Instrumental');
+
+
+--
+-- TOC entry 3433 (class 0 OID 16468)
+-- Dependencies: 228
+-- Data for Name: reviews; Type: TABLE DATA; Schema: public; Owner: docker
+--
+
+INSERT INTO public.reviews VALUES (1, 1, 1, '2024-05-20 19:45:02', 5, 'Dua Lipa''s ''Future Nostalgia'' is a perfect blend of past and present, delivering a fresh take on disco-pop. Every track is a hit.', 'Approved');
+INSERT INTO public.reviews VALUES (3, 1, 2, '2024-05-20 19:45:50', 5, 'Taylor Swift''s ''1989'' is a pop masterpiece with infectious hooks and relatable lyrics. Each song tells a compelling story.', 'Approved');
+INSERT INTO public.reviews VALUES (6, 1, 3, '2024-05-20 19:46:27', 3, 'While undeniably influential, the album can feel formulaic at times. Still, its impact on rock music is undeniable.', 'Approved');
+INSERT INTO public.reviews VALUES (8, 1, 4, '2024-05-20 19:46:58', 3, 'A groundbreaking album, though some tracks blend together. The standout hits make it a must-listen.', 'Approved');
+INSERT INTO public.reviews VALUES (10, 1, 5, '2024-05-20 19:47:22', 2, 'An important album with deep lyrics, though its experimental nature might not appeal to all hip-hop fans.', 'Approved');
+INSERT INTO public.reviews VALUES (14, 1, 7, '2024-05-20 19:48:24', 2, 'A beautifully produced album, though some tracks feel a bit too retro. Overall, it''s a fantastic listen.', 'Approved');
+INSERT INTO public.reviews VALUES (16, 1, 9, '2024-05-20 19:48:57', 2, 'A stunning work of classical music, though some movements are more captivating than others. Overall, it''s a brilliant piece.', 'Approved');
+INSERT INTO public.reviews VALUES (5, 2, 3, '2024-05-20 19:46:20', 5, 'An absolute classic! ''Back in Black'' is rock ''n'' roll at its finest. Every track is a powerhouse." - Grade.', 'Pending');
+INSERT INTO public.reviews VALUES (11, 2, 6, '2024-05-20 19:47:43', 4, 'Kanye West''s ''The College Dropout'' is a seminal hip-hop album, full of innovative beats and thought-provoking lyrics.', 'Pending');
+INSERT INTO public.reviews VALUES (12, 2, 6, '2024-05-20 19:47:52', 1, 'A brilliant debut with standout tracks, though some songs feel overly long. Kanye''s creativity shines throughout.', 'Pending');
+INSERT INTO public.reviews VALUES (4, 2, 2, '2024-05-20 19:46:01', 4, 'A great album overall, but some tracks lack the depth found in her earlier work. Still, it''s a fun and enjoyable listen.', 'Approved');
+INSERT INTO public.reviews VALUES (2, 2, 1, '2024-05-20 19:45:26', 3, 'While the album has some standout tracks, a few songs feel repetitive. However, Dua''s vocal performance is consistently strong.', 'Approved');
+INSERT INTO public.reviews VALUES (7, 2, 4, '2024-05-20 19:46:50', 4, 'Nirvana''s ''Nevermind'' is a raw, emotional ride that changed the face of rock music forever. Cobain''s voice is haunting and unforgettable.', 'Approved');
+INSERT INTO public.reviews VALUES (15, 2, 9, '2024-05-20 19:48:47', 3, 'The Four Seasons'' is a timeless masterpiece, beautifully capturing the essence of each season through music.', 'Approved');
+INSERT INTO public.reviews VALUES (13, 2, 7, '2024-05-20 19:48:18', 4, 'Daft Punk''s ''Random Access Memories'' is a lush, nostalgic journey through sound. ''Get Lucky'' is a timeless hit.', 'Approved');
+INSERT INTO public.reviews VALUES (9, NULL, 5, '2024-05-20 19:47:14', 5, 'Kendrick Lamar''s ''To Pimp a Butterfly'' is a masterpiece of modern hip-hop, combining sharp social commentary with innovative music.', 'Pending');
+
+
+--
+-- TOC entry 3421 (class 0 OID 16390)
+-- Dependencies: 216
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: docker
+--
+
+INSERT INTO public.users VALUES (1, 'sajdak@example.com', '$2y$10$zPgvTPUlAvB.sreHsSkzhOifTnp5T2NE9CVHrupDJtQkVfSCfghLi', 'Mateusz', 'Sajdak', 'bart-simpson.jpeg', 'admin');
+INSERT INTO public.users VALUES (2, 'marry@example.com', '$2y$10$bvd.IJEPgMXOzwBKYc/sPeJYmWDpdiOmXfya4vDVm5XzRk1rHjEoK', 'Marry', 'Smith', 'default-avatar.png', 'user');
+
+
+--
+-- TOC entry 3446 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: albums_id_seq; Type: SEQUENCE SET; Schema: public; Owner: docker
+--
+
+SELECT pg_catalog.setval('public.albums_id_seq', 14, true);
+
+
+--
+-- TOC entry 3447 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: authors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: docker
+--
+
+SELECT pg_catalog.setval('public.authors_id_seq', 14, true);
+
+
+--
+-- TOC entry 3448 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: docker
+--
+
+SELECT pg_catalog.setval('public.categories_id_seq', 5, true);
+
+
+--
+-- TOC entry 3449 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: favorite_id_seq; Type: SEQUENCE SET; Schema: public; Owner: docker
+--
+
+SELECT pg_catalog.setval('public.favorite_id_seq', 9, true);
+
+
+--
+-- TOC entry 3450 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: languages_id_seq; Type: SEQUENCE SET; Schema: public; Owner: docker
+--
+
+SELECT pg_catalog.setval('public.languages_id_seq', 6, true);
+
+
+--
+-- TOC entry 3451 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: reviews_id_seq; Type: SEQUENCE SET; Schema: public; Owner: docker
+--
+
+SELECT pg_catalog.setval('public.reviews_id_seq', 18, true);
+
+
+--
+-- TOC entry 3452 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: docker
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 5, true);
+
+
+--
+-- TOC entry 3260 (class 2606 OID 16440)
+-- Name: albums albums_pk; Type: CONSTRAINT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.albums
+    ADD CONSTRAINT albums_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3262 (class 2606 OID 16451)
+-- Name: authors authors_pk; Type: CONSTRAINT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.authors
+    ADD CONSTRAINT authors_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3258 (class 2606 OID 16442)
+-- Name: categories categories_pk; Type: CONSTRAINT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.categories
+    ADD CONSTRAINT categories_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3264 (class 2606 OID 16465)
+-- Name: favorites favorite_pk; Type: CONSTRAINT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.favorites
+    ADD CONSTRAINT favorite_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3256 (class 2606 OID 16424)
+-- Name: languages languages_pk; Type: CONSTRAINT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.languages
+    ADD CONSTRAINT languages_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3266 (class 2606 OID 16475)
+-- Name: reviews reviews_pk; Type: CONSTRAINT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.reviews
+    ADD CONSTRAINT reviews_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3254 (class 2606 OID 16398)
+-- Name: users users_pk; Type: CONSTRAINT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3267 (class 2606 OID 16575)
+-- Name: albums albums_authors_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.albums
+    ADD CONSTRAINT albums_authors_id_fk FOREIGN KEY (authorid) REFERENCES public.authors(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 3268 (class 2606 OID 16585)
+-- Name: albums albums_categories_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.albums
+    ADD CONSTRAINT albums_categories_id_fk FOREIGN KEY (categoryid) REFERENCES public.categories(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 3269 (class 2606 OID 16580)
+-- Name: albums albums_languages_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.albums
+    ADD CONSTRAINT albums_languages_id_fk FOREIGN KEY (languageid) REFERENCES public.languages(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 3270 (class 2606 OID 16535)
+-- Name: albums albums_users_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.albums
+    ADD CONSTRAINT albums_users_id_fk FOREIGN KEY (addedby) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- TOC entry 3271 (class 2606 OID 16560)
+-- Name: favorites favorites_albums_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.favorites
+    ADD CONSTRAINT favorites_albums_id_fk FOREIGN KEY (albumid) REFERENCES public.albums(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3272 (class 2606 OID 16555)
+-- Name: favorites favorites_users_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.favorites
+    ADD CONSTRAINT favorites_users_id_fk FOREIGN KEY (userid) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3273 (class 2606 OID 16591)
+-- Name: reviews reviews_albums_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.reviews
+    ADD CONSTRAINT reviews_albums_id_fk FOREIGN KEY (albumid) REFERENCES public.albums(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3274 (class 2606 OID 16565)
+-- Name: reviews reviews_users_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: docker
+--
+
+ALTER TABLE ONLY public.reviews
+    ADD CONSTRAINT reviews_users_id_fk FOREIGN KEY (authorid) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+-- Completed on 2024-05-21 19:20:10 UTC
+
+--
+-- PostgreSQL database dump complete
+--
+
