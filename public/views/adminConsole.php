@@ -86,7 +86,7 @@
                     <?php foreach ($pendingReviews as $pendingReview): ?>
                         <?php
                         if ($pendingReview['authorid'] === null) {
-                            $pendingReview['authorfirstname'] = 'Deactivated';
+                            $pendingReview['authorfirstname'] = 'Deleted';
                             $pendingReview['authorlastname'] = 'user';
                         }
                         ?>
@@ -129,7 +129,7 @@
                     <?php foreach ($pendingAlbums as $pendingAlbum): ?>
                         <?php
                         if ($pendingAlbum['addedby'] === null) {
-                            $pendingAlbum['userfirstname'] = 'Deactivated';
+                            $pendingAlbum['userfirstname'] = 'Deleted';
                             $pendingAlbum['userlastname'] = 'user';
                         }
                         ?>

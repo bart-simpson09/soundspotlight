@@ -129,7 +129,7 @@
                     <?php
                     if ($review['authorid'] === null) {
                         $review['authoravatar'] = 'deactivated-user.png';
-                        $review['authorfirstname'] = 'Deactivated';
+                        $review['authorfirstname'] = 'Deleted';
                         $review['authorlastname'] = 'user';
                     }
                     ?>
