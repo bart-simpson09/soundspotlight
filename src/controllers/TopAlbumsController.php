@@ -10,7 +10,6 @@ require_once __DIR__ . '/../repository/LanguageRepository.php';
 
 class TopAlbumsController extends AppController
 {
-
     private $userRepository;
     private $albumRepository;
     private $categoryRepository;
@@ -31,13 +30,12 @@ class TopAlbumsController extends AppController
         $userId = $userSession->__get("userId");
         $userEmail = $userSession->__get("userEmail");
 
+        if ($userId === null) {
+            $this->redirectToLogin();
+        }
+
         $user = $this->userRepository->getUser($userEmail);
         $topAlbums = $this->albumRepository->getTopAlbums($userId);
-
-        if ($userId == null) {
-            $url = "http://$_SERVER[HTTP_HOST]";
-            header("Location: $url/login");
-        }
 
         print $this->render('/topAlbums', [
             'firstName' => $user->getFirstName(),
@@ -46,6 +44,14 @@ class TopAlbumsController extends AppController
             'isAdmin' => $user->getRole(),
             'allAlbums' => $topAlbums,
             'categories' => $this->categoryRepository->getCategories(),
-            'languages' => $this->languageRepository->getLanguages()]);
+            'languages' => $this->languageRepository->getLanguages()
+        ]);
+    }
+
+    private function redirectToLogin()
+    {
+        $url = "http://{$_SERVER['HTTP_HOST']}/login";
+        header("Location: $url");
+        exit();
     }
 }

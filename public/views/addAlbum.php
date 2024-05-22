@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="/public/css/components.css">
     <link rel="stylesheet" type="text/css" href="/public/css/responsive.css">
 
-    <script src="/public/js/scripts.js" defer></script>
+    <script src="/public/js/navigation.js" defer></script>
     <script src="/public/js/addAlbumValidation.js" defer></script>
 
     <title>Add album</title>
@@ -66,7 +66,7 @@
     <h1>Add new album</h1>
     <form id="addAlbumForm" action="addAlbum" class="flexColumn rowGap32" method="POST" enctype="multipart/form-data">
         <div class="flexRow columnGap24">
-            <img id="uploadedCoverPreview" class="myProfileAvatar" src="/public/assets/imgs/covers/default-cover.png"
+            <img id="uploadedCoverPreview" class="myProfileAvatar" src="/public/assets/default-cover.png"
                  alt="">
             <input type="file" id="photoInput" name="albumCover" accept="image/png, image/jpeg" required>
         </div>

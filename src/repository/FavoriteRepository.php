@@ -63,5 +63,4 @@ class FavoriteRepository extends Repository
         $stmt->execute();
     }
 
-
 }

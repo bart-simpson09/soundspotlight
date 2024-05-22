@@ -19,6 +19,7 @@ class AlbumRepository extends Repository
         INNER JOIN languages ON albums.languageid = languages.id
         LEFT JOIN favorites ON albums.id = favorites.albumid AND favorites.userid = :userid
         WHERE albums.status = 'Approved'
+        ORDER BY albums.uploaddate DESC
     ");
         $stmt->bindParam(':userid', $userId, PDO::PARAM_INT);
         $stmt->execute();
@@ -29,18 +30,7 @@ class AlbumRepository extends Repository
     public function getPendingAlbums()
     {
         $stmt = $this->database->connect()->prepare("
-        SELECT albums.*, 
-               authors.name AS authorname,
-               categories.name AS categoryname,
-               languages.name AS languagename,
-               users.firstname AS userfirstname,
-               users.lastname AS userlastname
-        FROM albums
-        INNER JOIN authors ON albums.authorid = authors.id
-        INNER JOIN categories ON albums.categoryid = categories.id
-        INNER JOIN languages ON albums.languageid = languages.id
-        INNER JOIN users ON albums.addedby = users.id
-        WHERE albums.status = 'Pending'
+        SELECT * FROM pending_albums;
     ");
         $stmt->execute();
 
@@ -54,7 +44,7 @@ class AlbumRepository extends Repository
         SELECT albums.*, 
                authors.name AS authorname,
                categories.name AS categoryname,
-               languages.name AS languagname,
+               languages.name AS languagename,
                (CASE WHEN favorites.albumid IS NULL THEN FALSE ELSE TRUE END) AS isfavorite
         FROM albums
         INNER JOIN authors ON albums.authorid = authors.id
@@ -129,9 +119,10 @@ class AlbumRepository extends Repository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function addAlbum($albumTitle, $authorId, $languageId, $categoryId, $numberOfSongs, $description, $cover, $releaseDate, $uploadDate, $addedBy)
+    public function addAlbum(Album $newAlbum)
     {
-        if ($this->isAdmin($addedBy)) {
+        error_log($newAlbum->getLanguageId());
+        if ($this->isAdmin($newAlbum->getAddedBy())) {
             $stmt = $this->database->connect()->prepare('
             INSERT INTO albums (albumtitle, authorid, languageid, categoryid, numberofsongs, description, cover, releasedate, uploaddate, addedby, status)
             VALUES (:albumtitle, :authorid, :languageid, :categoryid, :numberofsongs, :description, :cover, :releasedate, :uploaddate, :addedby, :status);
@@ -143,16 +134,16 @@ class AlbumRepository extends Repository
             VALUES (:albumtitle, :authorid, :languageid, :categoryid, :numberofsongs, :description, :cover, :releasedate, :uploaddate, :addedby);
         ');
         }
-        $stmt->bindValue(':albumtitle', $albumTitle);
-        $stmt->bindValue(':authorid', $authorId);
-        $stmt->bindValue(':languageid', $languageId);
-        $stmt->bindValue(':categoryid', $categoryId);
-        $stmt->bindValue(':numberofsongs', $numberOfSongs);
-        $stmt->bindValue(':description', $description);
-        $stmt->bindValue(':cover', $cover);
-        $stmt->bindValue(':releasedate', $releaseDate);
-        $stmt->bindValue(':uploaddate', $uploadDate);
-        $stmt->bindValue(':addedby', $addedBy);
+        $stmt->bindValue(':albumtitle', $newAlbum->getAlbumTitle());
+        $stmt->bindValue(':authorid', $newAlbum->getAuthorid());
+        $stmt->bindValue(':languageid', $newAlbum->getLanguageid());
+        $stmt->bindValue(':categoryid', $newAlbum->getCategoryid());
+        $stmt->bindValue(':numberofsongs', $newAlbum->getNumberOfSongs());
+        $stmt->bindValue(':description', $newAlbum->getDescription());
+        $stmt->bindValue(':cover', $newAlbum->getCover());
+        $stmt->bindValue(':releasedate', $newAlbum->getReleaseDate());
+        $stmt->bindValue(':uploaddate', $newAlbum->getUploadDate());
+        $stmt->bindValue(':addedby', $newAlbum->getAddedby());
         $stmt->execute();
     }
 
@@ -208,7 +199,7 @@ class AlbumRepository extends Repository
         INNER JOIN categories ON albums.categoryid = categories.id
         INNER JOIN languages ON albums.languageid = languages.id
         WHERE albums.addedby = :userid
-        ORDER BY albums.status DESC
+        ORDER BY albums.status
     ');
 
         $stmt->bindValue(':userid', $userId, PDO::PARAM_INT);
@@ -227,7 +218,6 @@ class AlbumRepository extends Repository
         $stmt->bindParam(':status', $status, PDO::PARAM_STR);
         $stmt->bindParam(':albumId', $albumId, PDO::PARAM_INT);
         $stmt->execute();
-        return true;
     }
 
 }

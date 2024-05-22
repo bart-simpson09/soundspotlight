@@ -4,12 +4,12 @@ const form = document.getElementById("changeUserPhotoForm");
 photoInput.addEventListener("change", checkFileSize);
 
 function checkFileSize(event) {
-    const file = event.target.files[0]; // Access the first selected file
-    const fileSizeLimit = 1024 * 1024; // 1 Megabyte in bytes
+    const file = event.target.files[0];
+    const fileSizeLimit = 1024 * 1024;
 
     if (file && file.size > fileSizeLimit) {
         alert("File size is too large! Please choose a file under 1 MB.");
-        photoInput.value = ""; // Clear the input value
+        photoInput.value = "";
     } else {
         form.submit();
     }

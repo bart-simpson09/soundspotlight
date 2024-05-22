@@ -18,9 +18,10 @@
     <link rel="stylesheet" type="text/css" href="/public/css/components.css">
     <link rel="stylesheet" type="text/css" href="/public/css/responsive.css">
 
-    <script src="/public/js/scripts.js" defer></script>
+    <script src="/public/js/navigation.js" defer></script>
     <script src="/public/js/addReview.js" defer></script>
     <script src="/public/js/toggleFavorite.js" defer></script>
+    <script src="/public/js/albumDetails.js" defer></script>
 
     <title>Album details</title>
 </head>
@@ -122,9 +123,16 @@
             <button class="buttonPrimary" onclick="openModal('addReviewModal', <?= $album['id'] ?>)">Add your review
             </button>
         </div>
-        <?php if (!empty($reviews)): ?>
-            <div class="flexColumn rowGap16 reviewsList">
+        <div class="flexColumn rowGap16 reviewsList">
+            <?php if (!empty($reviews)): ?>
                 <?php foreach ($reviews as $review): ?>
+                    <?php
+                    if ($review['authorid'] === null) {
+                        $review['authoravatar'] = 'deactivated-user.png';
+                        $review['authorfirstname'] = 'Deleted';
+                        $review['authorlastname'] = 'user';
+                    }
+                    ?>
                     <div class="albumDetailsOpinionItem flexRow columnGap16">
                         <img class="standardAvatar" src="/public/assets/imgs/avatars/<?= $review['authoravatar'] ?>"
                              alt="">
@@ -144,9 +152,9 @@
                         </div>
                     </div>
                 <?php endforeach; ?>
-            </div>
-        <?php else: ?>
+            <?php else: ?>
             <p>This album doesn't have any opinions yet. Let's add your review!</p>
+        </div>
         <?php endif; ?>
     </div>
 </div>
